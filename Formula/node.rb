@@ -1,20 +1,14 @@
 class Node < Formula
   desc "Platform built on the V8 JavaScript runtime to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v5.10.1/node-v5.10.1.tar.xz"
-  sha256 "9eecd853cdd06ebee24a1bb8d753cd20af5a19297c5d3a3b1680fe36b47d5cbe"
+  url "https://nodejs.org/dist/v6.0.0/node-v6.0.0.tar.xz"
+  sha256 "f0e5bdc3cf4af85b8a24bdbebed81e1a9f7fda91cab8a9475737940aa90da617"
   head "https://github.com/nodejs/node.git"
 
   bottle do
-    sha256 "13c3eb788984ef77a838f1ad0617fd2ab6e9532025c16fa1e4a972951ab1d1c1" => :el_capitan
-    sha256 "d80a3285ab25ce6af3a2f84644e2fa6d42f5cb8523dd2b7393a2cda998b7978e" => :yosemite
-    sha256 "e2dc939c5a81829eed7becd17477b6a11a50f53a052bfbb22b545de9e32868c1" => :mavericks
-  end
-
-  devel do
-    url "https://nodejs.org/download/rc/v6.0.0-rc.1/node-v6.0.0-rc.1.tar.xz"
-    sha256 "d2ee873aa40e23c4fecd34aa6b8f6ac3091e2a8a2a016923ccd3d89eb108979f"
-    version "6.0.0-rc.1"
+    sha256 "9582d31b4bd6b5defeaf520889a50efd832883a452c4d5b494547cbf320a8644" => :el_capitan
+    sha256 "b9e7fb027e820c52871563a9d5352ff9de2f1274097b2e7d95b3868ee4e1fa5b" => :yosemite
+    sha256 "a536c807cd217ebaef55013c0e339fa0111b0fbbe05a093cf73c979a973b29db" => :mavericks
   end
 
   option "with-debug", "Build with debugger hooks"
@@ -42,8 +36,8 @@ class Node < Formula
   # We will accept *important* npm patch releases when necessary.
   # https://github.com/Homebrew/homebrew/pull/46098#issuecomment-157802319
   resource "npm" do
-    url "https://registry.npmjs.org/npm/-/npm-3.8.3.tgz"
-    sha256 "0ff5109e80732aa74d648882c1f5ef86ce6ef7123c0c95fa18845e8a262a13d4"
+    url "https://registry.npmjs.org/npm/-/npm-3.8.6.tgz"
+    sha256 "29bc9d6f6123c9281914b298e863f683fd98ac2762632a55458308bb88b005e8"
   end
 
   resource "icu4c" do
@@ -62,7 +56,7 @@ class Node < Formula
     else
       args << "--with-intl=small-icu"
     end
-    args << "--tag=rc.1" << "--release-urlbase=https://nodejs.org/download/rc/" if build.devel?
+    args << "--tag=head" if build.head?
 
     resource("icu4c").stage buildpath/"deps/icu"
 
@@ -164,11 +158,12 @@ class Node < Formula
     if build.with? "npm"
       # make sure npm can find node
       ENV.prepend_path "PATH", opt_bin
+      ENV.delete "NVM_NODEJS_ORG_MIRROR"
       assert_equal which("node"), opt_bin/"node"
       assert (HOMEBREW_PREFIX/"bin/npm").exist?, "npm must exist"
       assert (HOMEBREW_PREFIX/"bin/npm").executable?, "npm must be executable"
       system "#{HOMEBREW_PREFIX}/bin/npm", "--verbose", "install", "npm@latest"
-      system "#{HOMEBREW_PREFIX}/bin/npm", "--verbose", "install", "bignum"
+      system "#{HOMEBREW_PREFIX}/bin/npm", "--verbose", "install", "bignum" unless build.head?
     end
   end
 end
