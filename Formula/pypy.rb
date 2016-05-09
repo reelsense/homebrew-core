@@ -2,13 +2,14 @@ class Pypy < Formula
   desc "Highly performant implementation of Python 2 in Python"
   homepage "http://pypy.org/"
   url "https://bitbucket.org/pypy/pypy/downloads/pypy-5.1.1-src.tar.bz2"
-  sha256 "99aff0c710c46903b821c7c436f9cb9de16bd7370d923f99cc7c28a66be6c5b2"
+  sha256 "ca3d943d7fbd78bb957ee9e5833ada4bb8506ac99a41b7628790e286a65ed2be"
+  revision 1
 
   bottle do
     cellar :any
-    sha256 "7e080885f3b98d748d0a7d2a3bde9d1a2cd457a003ab094297a8fbdcd36490ea" => :el_capitan
-    sha256 "a935a210160c7c7c7f6be305dd7707caae2d458f73d02ee0e4ba8ba57c31be6f" => :yosemite
-    sha256 "c3b20bfcdafbeb41bbb3a8ffd7b25cd7bdff2ab0fbd4a74fa01d8099b4d99a5e" => :mavericks
+    sha256 "234bd837c703a9fdbd4ef614e16e8ff0033dc35829a1a33ab714b170dc642b08" => :el_capitan
+    sha256 "f2fcbe7e9e469380d61670b594ab5ca0ed5f158812d427c38934850650fd7b99" => :yosemite
+    sha256 "83bb790e7d6eace2d0fb184ff1ad7503a5e74c7d81b3b43a21a70473bdc0bc04" => :mavericks
   end
 
   option "without-bootstrap", "Translate Pypy with system Python instead of " \
@@ -64,11 +65,11 @@ class Pypy < Formula
       package_args = %w[--archive-name pypy --targetdir . --nostrip]
       package_args << "--without-gdbm" if build.without? "gdbm"
       system python, "package.py", *package_args
-      system *%W[tar -C #{libexec} --strip-components 1 -xzf pypy.tar.bz2]
+      system(*%W[tar -C #{libexec} --strip-components 1 -xzf pypy.tar.bz2])
     end
 
     (libexec/"lib").install libexec/"bin/libpypy-c.dylib"
-    system *%W[install_name_tool -change @rpath/libpypy-c.dylib #{libexec}/lib/libpypy-c.dylib #{libexec}/bin/pypy]
+    system(*%W[install_name_tool -change @rpath/libpypy-c.dylib #{libexec}/lib/libpypy-c.dylib #{libexec}/bin/pypy])
 
     # The PyPy binary install instructions suggest installing somewhere
     # (like /opt) and symlinking in binaries as needed. Specifically,
