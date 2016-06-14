@@ -3,16 +3,23 @@ require "language/go"
 class Telegraf < Formula
   desc "Server-level metric gathering agent for InfluxDB"
   homepage "https://influxdata.com"
-  url "https://github.com/influxdata/telegraf/archive/0.12.1.tar.gz"
-  sha256 "af323e4557698965f675dadf99ef46dd51662a21b704f776ad773040b48b7cd3"
-
-  head "https://github.com/influxdata/telegraf.git"
+  url "https://github.com/influxdata/telegraf/archive/0.13.1.tar.gz"
+  sha256 "96d67c203eb3820d3cde5bd89c87521ad7a404a495db9f250084f767c26d8990"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "73520bc1211e6d64a3cb3d181020193bc99e4b528ddf4d029a13748835a625b1" => :el_capitan
-    sha256 "c4ae42d582056bb059905688ddb17d054c75d2c77e532b234e200821161bb28a" => :yosemite
-    sha256 "07d1cc79f23ca8cd29d4e68f0c59d390116d9c74569907b12de4c70916456450" => :mavericks
+    sha256 "ff7f3f1f8f4cbdf708eada5ab3ef1e0eb0d594a22690777cb224fe71d6c608d3" => :el_capitan
+    sha256 "8199d5fcfda82dbf3671280c6e3bf5d34a20701fb30d656fb46790a6c9eaf1d1" => :yosemite
+    sha256 "c95fbde1b93a8c93176d562b797a71941dd4c677cb9ca5d3514615b67ee43a75" => :mavericks
+  end
+
+  head do
+    url "https://github.com/influxdata/telegraf.git"
+
+    go_resource "github.com/hashicorp/consul" do
+      url "https://github.com/hashicorp/consul.git",
+      :revision => "ebf7ea1d759184c02a5bb5263a7c52d29838ffc3"
+    end
   end
 
   depends_on "go" => :build
@@ -107,6 +114,11 @@ class Telegraf < Formula
     :revision => "1fca743146605a172a266e1654e01e5cd5669bee"
   end
 
+  go_resource "github.com/gobwas/glob" do
+    url "https://github.com/gobwas/glob.git",
+    :revision => "d877f6352135181470c40c73ebb81aefa22115fa"
+  end
+
   go_resource "github.com/golang/protobuf" do
     url "https://github.com/golang/protobuf.git",
     :revision => "552c7b9542c194800fd493123b3798ef0a832032"
@@ -137,6 +149,11 @@ class Telegraf < Formula
     :revision => "e80d13ce29ede4452c43dea11e79b9bc8a15b478"
   end
 
+  go_resource "github.com/hpcloud/tail" do
+    url "https://github.com/hpcloud/tail.git",
+    :revision => "b2940955ab8b26e19d43a43c4da0475dd81bdb56"
+  end
+
   go_resource "github.com/influxdata/config" do
     url "https://github.com/influxdata/config.git",
     :revision => "b79f6829346b8d6e78ba73544b1e1038f1f1c9da"
@@ -144,7 +161,7 @@ class Telegraf < Formula
 
   go_resource "github.com/influxdata/influxdb" do
     url "https://github.com/influxdata/influxdb.git",
-    :revision => "e3fef5593c21644f2b43af55d6e17e70910b0e48"
+    :revision => "e094138084855d444195b252314dfee9eae34cab"
   end
 
   go_resource "github.com/influxdata/toml" do
@@ -224,7 +241,7 @@ class Telegraf < Formula
 
   go_resource "github.com/shirou/gopsutil" do
     url "https://github.com/shirou/gopsutil.git",
-    :revision => "1f32ce1bb380845be7f5d174ac641a2c592c0c42"
+    :revision => "83c6e72cbdef6e8ada934549abf700ff0ba96776"
   end
 
   go_resource "github.com/soniah/gosnmp" do

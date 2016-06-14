@@ -4,16 +4,16 @@ class Imagemagick < Formula
   # Please always keep the Homebrew mirror as the primary URL as the
   # ImageMagick site removes tarballs regularly which means we get issues
   # unnecessarily and older versions of the formula are broken.
-  url "https://dl.bintray.com/homebrew/mirror/ImageMagick-6.9.3-10.tar.xz"
-  mirror "https://www.imagemagick.org/download/ImageMagick-6.9.3-10.tar.xz"
-  sha256 "e33f021c879f31703f9e620f578ccf7d221a34941589da4bbe967b16a814336a"
+  url "https://dl.bintray.com/homebrew/mirror/imagemagick-6.9.4-9.tar.xz"
+  mirror "https://www.imagemagick.org/download/ImageMagick-6.9.4-9.tar.xz"
+  sha256 "02351498fadf3202a54713e9374017f5018dc97828435ce23f576465a3a1454b"
 
   head "http://git.imagemagick.org/repos/ImageMagick.git"
 
   bottle do
-    sha256 "b9f7648d832b6b6423ad06d9e67473557d57770d6e7e83c08231f112df0f5b96" => :el_capitan
-    sha256 "86c1be2adc41d305ae9bd59dd148b10db53c48a887b6ac13144bd198838622af" => :yosemite
-    sha256 "8ad6eb53ee5c8ef6b1863fd7083b2780aac6dc5037549139dc852ea59c4bafea" => :mavericks
+    sha256 "80fa3b1f464f0181e9e41ba9b1764a10e3aba05c26aa6fa41706acd7c7e000b0" => :el_capitan
+    sha256 "debbc5303f5ab1440c2ca90819e9f258bca08999ef5e1196fdd0c64d98301b60" => :yosemite
+    sha256 "ff1a58ccb49958dc60c7a71763c2704f753e1a4e44311d3579153877bb985e08" => :mavericks
   end
 
   deprecated_option "enable-hdri" => "with-hdri"
@@ -22,7 +22,7 @@ class Imagemagick < Formula
   option "with-hdri", "Compile with HDRI support"
   option "with-jp2", "Compile with Jpeg2000 support"
   option "with-openmp", "Compile with OpenMP support"
-  option "with-perl", "enable build/install of PerlMagick"
+  option "with-perl", "Compile with PerlMagick"
   option "with-quantum-depth-8", "Compile with a quantum depth of 8 bit"
   option "with-quantum-depth-16", "Compile with a quantum depth of 16 bit"
   option "with-quantum-depth-32", "Compile with a quantum depth of 32 bit"
@@ -51,18 +51,11 @@ class Imagemagick < Formula
   depends_on "homebrew/versions/openjpeg21" if build.with? "jp2"
   depends_on "fftw" => :optional
   depends_on "pango" => :optional
+  depends_on :perl => ["5.5", :optional]
 
   needs :openmp if build.with? "openmp"
 
   skip_clean :la
-
-  # Disables vulnerable coders: https://medium.com/@rhuber/imagemagick-is-on-fire-cve-2016-3714-379faf762247#.2tjfb3iks
-  # Next release will probably have a patch for the coders themselves,
-  # allowing us to remove this workaround.
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/patches/2e4d1d1c2b13cca6292ab534b8a68cb2ac334c6c/imagemagick/disable-coders.diff"
-    sha256 "8824d64bd62b75c2cff4c54bc0afc874f3e1b1a11b8916daadafe799600b6f6a"
-  end
 
   def install
     args = %W[

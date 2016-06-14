@@ -1,25 +1,29 @@
 class Expat < Formula
   desc "XML 1.0 parser"
-  homepage "http://www.libexpat.org"
-  url "https://downloads.sourceforge.net/project/expat/expat/2.1.0/expat-2.1.0.tar.gz"
-  mirror "https://fossies.org/linux/www/expat-2.1.0.tar.gz"
-  sha256 "823705472f816df21c8f6aa026dd162b280806838bb55b3432b0fb1fcca7eb86"
+  homepage "http://expat.sourceforge.net"
+  url "https://downloads.sourceforge.net/project/expat/expat/2.1.1/expat-2.1.1.tar.bz2"
+  mirror "https://fossies.org/linux/www/expat-2.1.1.tar.bz2"
+  sha256 "aff584e5a2f759dcfc6d48671e9529f6afe1e30b0cd6a4cec200cbe3f793de67"
   revision 1
 
   head ":pserver:anonymous:@expat.cvs.sourceforge.net:/cvsroot/expat", :using => :cvs
 
   bottle do
     cellar :any
-    revision 1
-    sha256 "c866592f74d84d50d2465120deac0309ea2a192dbc647785553cce5d42c445e6" => :el_capitan
-    sha256 "159b1125406c697ec737f7ba548c2f43cde630e6c78ad02cb3071786f8799d6b" => :yosemite
-    sha256 "bfea179a87f894127f9a7454ef9bf31800b29f7579ec06cbed34aae02517f8f6" => :mavericks
-    sha256 "760375f5814e2b1b3c1f2f2c8b31b0ed37fdc5022b4ca484dc6b8f106d14a72a" => :mountain_lion
+    sha256 "19c2504bb9cec6d2ef25bc8e2d9b1e682da3e7caf00a32cc367c11b94b8e7428" => :el_capitan
+    sha256 "592e8edab162c718262f6dae55854ad34583cf0a58f9a7af762a83916d2986fc" => :yosemite
+    sha256 "473d07e8ec8e2a17bec5bc3ed9b65e53508423f9e282f1fa56d90d81fe754bcd" => :mavericks
   end
 
   keg_only :provided_by_osx, "OS X includes Expat 1.5."
 
   option :universal
+
+  # http://seclists.org/oss-sec/2016/q2/360
+  patch do
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/1c9ee45548b75/expat/CVE-2016-0718-v2-2-1.patch"
+    sha256 "575f8d45835b917da833106ee4cb92efd98c5c1284f6f437aaf65bbc63edd767"
+  end
 
   def install
     ENV.universal_binary if build.universal?
@@ -63,7 +67,7 @@ class Expat < Formula
         return result;
       }
     EOS
-    system ENV.cc, "test.c", "-lexpat", "-o", "test"
+    system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lexpat", "-o", "test"
     assert_equal "tag:str|data:Hello, world!|", shell_output("./test")
   end
 end

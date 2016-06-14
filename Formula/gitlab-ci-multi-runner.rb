@@ -4,16 +4,16 @@ class GitlabCiMultiRunner < Formula
   desc "The official GitLab CI runner written in Go"
   homepage "https://gitlab.com/gitlab-org/gitlab-ci-multi-runner"
   url "https://gitlab.com/gitlab-org/gitlab-ci-multi-runner.git",
-    :tag => "v1.1.2",
-    :revision => "78b3f826a6124dc20bb94f1c2d9b0c0bac26fef7"
+    :tag => "v1.2.0",
+    :revision => "3a4fcd46356db83f45e89d2a8d770f034e7b9cf5"
 
   head "https://gitlab.com/gitlab-org/gitlab-ci-multi-runner.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "2228e48d75a29e42c456c1e713d458dd505a7a7da4d25cc7562015c944c85db5" => :el_capitan
-    sha256 "3bd6f3c56818f661bde23e205d63145b0b849b554cd1b911ff669bf63c4a7783" => :yosemite
-    sha256 "3976549259af43182ecf76cd1b532b140b5c404fb8f40ac01ffeb2b494f1184f" => :mavericks
+    sha256 "43dbf190c070824bfd28a33581bff844d3c849e9bc1b9f4ce441b730bba167e6" => :el_capitan
+    sha256 "a15b4523e09ea39335259ae5ba78707657b1ceb0fb8ccf2127a95f7c3f84e3b5" => :yosemite
+    sha256 "2721650c192b20a3b02b7f32ba586f2bc35d895b05c69a2b492cfa335e0b1b39" => :mavericks
   end
 
   depends_on "go" => :build
@@ -26,9 +26,9 @@ class GitlabCiMultiRunner < Formula
   end
 
   resource "prebuilt.tar.gz" do
-    url "https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v1.1.0/docker/prebuilt.tar.gz",
+    url "https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v1.2.0/docker/prebuilt.tar.gz",
       :using => :nounzip
-    sha256 "f6fcac012eee0fa9d6419f8d045110898dcff6f516b396b9e14bfffa2ccaceb4"
+    sha256 "f7b669d5120ffdccb97b66470a3297a98acf8b8e9d621ddc000a8fba84f272ce"
   end
 
   def install
@@ -62,7 +62,7 @@ class GitlabCiMultiRunner < Formula
   end
 
   test do
-    assert_match "gitlab-ci-multi-runner version #{version}", shell_output("#{bin}/gitlab-ci-multi-runner --version")
-    assert_match "gitlab-runner version #{version}", shell_output("#{bin}/gitlab-runner --version")
+    assert_match "Version:      #{version}", shell_output("#{bin}/gitlab-ci-multi-runner --version")
+    assert_match "Version:      #{version}", shell_output("#{bin}/gitlab-runner --version")
   end
 end
