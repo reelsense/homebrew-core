@@ -1,15 +1,15 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://www.kernel.org/pub/software/scm/git/git-2.9.0.tar.xz"
-  sha256 "f41fa97949948fbf49af94a43d779e072a5452c6b5039d86ffa41ebab747b409"
+  url "https://www.kernel.org/pub/software/scm/git/git-2.9.1.tar.xz"
+  sha256 "e8fe60bc72c1c979feb43740b3c74fea7f8ffbe7712b71cd9734ddb9c89282a2"
 
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
-    sha256 "6b230fa505e98f2947134271fee52d5fcd16eaff49d9dc0fd9ef933f568b92db" => :el_capitan
-    sha256 "076146d0cefd7643c02446a279da627cf290702472e7cd9d3756d6a38cf3c13c" => :yosemite
-    sha256 "396bb11465e7d13141bfa9c67f41a81628259060761df820193763b9e973fc61" => :mavericks
+    sha256 "43cc3a1342c3e2237852ddaa4d1f3ecee4320a8c50eb0c7a82a0b1d2ce00b034" => :el_capitan
+    sha256 "33200f93ba549831a81bdb6ef3e3ad0b7919f50ea5bf1ccc3f4406cc4f0570ab" => :yosemite
+    sha256 "9da21d7d16e9c89f3d61e4cdd83a6dad2d8b75a1adf124f126c3bcdced219aa2" => :mavericks
   end
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
@@ -32,17 +32,17 @@ class Git < Formula
   end
 
   resource "html" do
-    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.9.0.tar.xz"
-    sha256 "664dc1aa20966a91cf6b90d282bb5f93b4e4c831a32a0791f43218389ce3b955"
+    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.9.1.tar.xz"
+    sha256 "67421138a9319cc72b0ec8295c2428daf25449eb4f76f727e0464990370afea1"
   end
 
   resource "man" do
-    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.9.0.tar.xz"
-    sha256 "dc85c1afa923fd709d651a49d0a720d50a3c248cb16c6c09517cceae88fe8445"
+    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.9.1.tar.xz"
+    sha256 "17bd0ac02f6923e509238be066a0dd79081c420ba94ee5cecb79ef829c6631ed"
   end
 
   def install
-    # If these things are installed, tell Git build system to not use them
+    # If these things are installed, tell Git build system not to use them
     ENV["NO_FINK"] = "1"
     ENV["NO_DARWIN_PORTS"] = "1"
     ENV["V"] = "1" # build verbosely
@@ -59,7 +59,7 @@ class Git < Formula
 
     if build.with? "brewed-svn"
       ENV["PERLLIB_EXTRA"] = %W[
-        #{Formula["subversion"].opt_prefix}/lib/perl5/site_perl
+        #{Formula["subversion"].opt_lib}/perl5/site_perl
         #{Formula["subversion"].opt_prefix}/Library/Perl/#{perl_version}/darwin-thread-multi-2level
       ].join(":")
     elsif MacOS.version >= :mavericks
@@ -132,12 +132,12 @@ class Git < Formula
     end
 
     elisp.install Dir["contrib/emacs/*.el"]
-    (share+"git-core").install "contrib"
+    (share/"git-core").install "contrib"
 
     # We could build the manpages ourselves, but the build process depends
     # on many other packages, and is somewhat crazy, this way is easier.
     man.install resource("man")
-    (share+"doc/git-doc").install resource("html")
+    (share/"doc/git-doc").install resource("html")
 
     # Make html docs world-readable
     chmod 0644, Dir["#{share}/doc/git-doc/**/*.{html,txt}"]
@@ -157,8 +157,10 @@ class Git < Formula
   end
 
   test do
-    HOMEBREW_REPOSITORY.cd do
-      assert_equal "bin/brew", `#{bin}/git ls-files -- bin`.strip
-    end
+    system bin/"git", "init"
+    %w[haunted house].each { |f| touch testpath/f }
+    system bin/"git", "add", "haunted", "house"
+    system bin/"git", "commit", "-a", "-m", "Initial Commit"
+    assert_equal "haunted\nhouse", shell_output("#{bin}/git ls-files").strip
   end
 end

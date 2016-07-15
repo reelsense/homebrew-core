@@ -10,6 +10,15 @@ class Mariadb < Formula
     sha256 "fa09ca1ec1a6557099eafe2b0955a78ec4841a795194400b321914f84aab99fe" => :mavericks
   end
 
+  devel do
+    url "http://ftp.osuosl.org/pub/mariadb/mariadb-10.2.1/source/mariadb-10.2.1.tar.gz"
+    sha256 "90b7a17f3372c92c12dff084b37fcca8c4cf8106f4dcabd35fadc8efbaa348a2"
+
+    # upstream fix for compilation error
+    # https://jira.mariadb.org/browse/MDEV-10322
+    patch :DATA
+  end
+
   option :universal
   option "with-test", "Keep test when installing"
   option "with-bench", "Keep benchmark app when installing"
@@ -103,18 +112,17 @@ class Mariadb < Formula
     system "make", "install"
 
     # Fix my.cnf to point to #{etc} instead of /etc
-    (etc+"my.cnf.d").mkpath
-    inreplace "#{etc}/my.cnf" do |s|
-      s.gsub!("!includedir /etc/my.cnf.d", "!includedir #{etc}/my.cnf.d")
-    end
+    (etc/"my.cnf.d").mkpath
+    inreplace "#{etc}/my.cnf", "!includedir /etc/my.cnf.d",
+                               "!includedir #{etc}/my.cnf.d"
     touch etc/"my.cnf.d/.homebrew_dont_prune_me"
 
     # Don't create databases inside of the prefix!
     # See: https://github.com/Homebrew/homebrew/issues/4975
-    rm_rf prefix+"data"
+    rm_rf prefix/"data"
 
-    (prefix+"mysql-test").rmtree if build.without? "test" # save 121MB!
-    (prefix+"sql-bench").rmtree if build.without? "bench"
+    (prefix/"mysql-test").rmtree if build.without? "test" # save 121MB!
+    (prefix/"sql-bench").rmtree if build.without? "bench"
 
     # Link the setup script into bin
     bin.install_symlink prefix/"scripts/mysql_install_db"
@@ -138,15 +146,14 @@ class Mariadb < Formula
       wsrep_sst_xtrabackup
       wsrep_sst_xtrabackup-v2
     ].each do |f|
-      inreplace "#{bin}/#{f}" do |s|
-        s.gsub!("$(dirname $0)/wsrep_sst_common", "#{libexec}/wsrep_sst_common")
-      end
+      inreplace "#{bin}/#{f}", "$(dirname $0)/wsrep_sst_common",
+                               "#{libexec}/wsrep_sst_common"
     end
   end
 
   def post_install
     # Make sure the var/mysql directory exists
-    (var+"mysql").mkpath
+    (var/"mysql").mkpath
     unless File.exist? "#{var}/mysql/mysql/user.frm"
       ENV["TMPDIR"] = nil
       system "#{bin}/mysql_install_db", "--verbose", "--user=#{ENV["USER"]}",
@@ -191,11 +198,25 @@ class Mariadb < Formula
 
   test do
     if build.with? "test"
-      (prefix+"mysql-test").cd do
+      (prefix/"mysql-test").cd do
         system "./mysql-test-run.pl", "status"
       end
     else
-      system "mysqld", "--version"
+      system bin/"mysqld", "--version"
     end
   end
 end
+__END__
+diff --git a/storage/connect/jdbconn.cpp b/storage/connect/jdbconn.cpp
+index 9b47927..7c0582d 100644
+--- a/storage/connect/jdbconn.cpp
++++ b/storage/connect/jdbconn.cpp
+@@ -270,7 +270,7 @@ PQRYRES JDBCColumns(PGLOBAL g, char *db, char *table, char *colpat,
+ 		return NULL;
+
+ 	// Colpat cannot be null or empty for some drivers
+-	cap->Pat = (colpat && *colpat) ? colpat : "%";
++	cap->Pat = (colpat && *colpat) ? colpat : PlugDup(g, "%");
+
+ 	/************************************************************************/
+ 	/*  Now get the results into blocks.                                    */

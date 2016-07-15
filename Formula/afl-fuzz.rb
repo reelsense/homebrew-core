@@ -1,13 +1,13 @@
 class AflFuzz < Formula
   desc "American fuzzy lop: Security-oriented fuzzer"
   homepage "http://lcamtuf.coredump.cx/afl/"
-  url "http://lcamtuf.coredump.cx/afl/releases/afl-2.15b.tgz"
-  sha256 "427f4ed0393deea3b4520cfb0c8418acb21d6a048b24c30f50e65fc8a693c212"
+  url "http://lcamtuf.coredump.cx/afl/releases/afl-2.19b.tgz"
+  sha256 "be12df9920c9cf68c412fb06ef5c7153f4b17e450b0195535a69663e749d8af2"
 
   bottle do
-    sha256 "8ef4b6a2d22a799a7246809a95a0d96d2e72ae351ec314ffe013e927f62baf54" => :el_capitan
-    sha256 "fa384ad29a36b4ce2000b1f108664cd3d172129aceaa87cf0dc4776f52dfc5ba" => :yosemite
-    sha256 "13dd38e0466c873cc74be36c8e47374169a0abf06e55346dbcf24ef4fe833e0e" => :mavericks
+    sha256 "fcdc6cf59b19b7b90b81d78f0a9032cd4d2caad4e9e9045e5b66d8f17fc27284" => :el_capitan
+    sha256 "f884a698413b111893375cd7ada63f27165edb99e2f7da2ec28265c4eb17319d" => :yosemite
+    sha256 "96635d60db215892a1005eebeb48a3fa7c3aece9da7928898d4face24a220844" => :mavericks
   end
 
   def install

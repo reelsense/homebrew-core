@@ -1,22 +1,27 @@
 class Cmake < Formula
   desc "Cross-platform make"
   homepage "https://www.cmake.org/"
-  url "https://cmake.org/files/v3.5/cmake-3.5.2.tar.gz"
-  sha256 "92d8410d3d981bb881dfff2aed466da55a58d34c7390d50449aa59b32bb5e62a"
+  revision 1
 
   head "https://cmake.org/cmake.git"
 
-  bottle do
-    cellar :any_skip_relocation
-    revision 1
-    sha256 "addda85812b6af991011cb6c5e640a2fe25e6b60415931e1c5a76ce2675c2988" => :el_capitan
-    sha256 "4888f6163be1b5e4affaa5ebe4b118d64b1b81bbc92cea884803bf098d9e9cc0" => :yosemite
-    sha256 "b1f3d72e7ee352da96a577638b3abda8aa9f894b5ecf91350667f89821bf7304" => :mavericks
+  stable do
+    url "https://cmake.org/files/v3.6/cmake-3.6.0.tar.gz"
+    sha256 "fd05ed40cc40ef9ef99fac7b0ece2e0b871858a82feade48546f5d2940147670"
+
+    # This patch fixes an incompatibility with hdf5
+    # See https://gitlab.kitware.com/cmake/cmake/issues/16190
+    patch do
+      url "https://gitlab.kitware.com/cmake/cmake/merge_requests/34.patch"
+      sha256 "6d47140ebb65c045d9eee2c363aa22e53973a54b9bcdc11ef7b622c97419999f"
+    end
   end
 
-  devel do
-    url "https://cmake.org/files/v3.6/cmake-3.6.0-rc2.tar.gz"
-    sha256 "0c3f7abb258e2d0a1e01583d024f0b2d6bb8e9f7515e44bcfc9b81a83b81255f"
+  bottle do
+    cellar :any_skip_relocation
+    sha256 "2c8974f149405a62d1a2bfd4485b7b92f3acb6f48beb811fe230c8d2a1b700b0" => :el_capitan
+    sha256 "d8c83599b942ca895d4a16caea33ca5317dfa073570de22e25fc8dbcf4596dd4" => :yosemite
+    sha256 "d2a94d6ef92d762b377011b29d6b28f8da77e20eead1a896c6f61bcc1c06898a" => :mavericks
   end
 
   option "without-docs", "Don't build man pages"

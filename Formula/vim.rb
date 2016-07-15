@@ -1,17 +1,16 @@
 class Vim < Formula
   desc "Vi \"workalike\" with many additional features"
   homepage "http://www.vim.org/"
-  bottle do
-    sha256 "b882eaa25b5252c87c2c7c038e668efbffc44a26eb9ed5ff8e37507943f9b92b" => :el_capitan
-    sha256 "88ca73c3808971a9a775fd0d2fc23899838113d9ec4ecbb2d353862d9c2c5d3d" => :yosemite
-    sha256 "698175237e57805bbe77e71eaddc5892800aeb8d3d003e3651400f6db0436aff" => :mavericks
-  end
-
   # *** Vim should be updated no more than once every 7 days ***
-  url "https://github.com/vim/vim/archive/v7.4.1941.tar.gz"
-  sha256 "1dfe9c180e9fb0db4d91831ee8f2d8c6f24f536dab1b86fa0b05928b48336547"
-
+  url "https://github.com/vim/vim/archive/v7.4.2033.tar.gz"
+  sha256 "76e6521d8062b9fa14ed0344cece5ce53611060727d0f00cee8eea3dd027de54"
   head "https://github.com/vim/vim.git"
+
+  bottle do
+    sha256 "2874eebdf8b80b169b4c161d4be16d88da781a5ad8287b142749ae48f7433975" => :el_capitan
+    sha256 "bc7b96b30a956d085e0919777b6d103537d17d72d580cb2056d027e4b677ea22" => :yosemite
+    sha256 "5e530531f76d37f9361fa57d898b7077b181e8aa611f016199c3a74b69a7d6e3" => :mavericks
+  end
 
   deprecated_option "disable-nls" => "without-nls"
   deprecated_option "override-system-vi" => "with-override-system-vi"
@@ -20,13 +19,13 @@ class Vim < Formula
   option "without-nls", "Build vim without National Language Support (translated messages, keymaps)"
   option "with-client-server", "Enable client/server mode"
 
-  LANGUAGES_OPTIONAL = %w[lua mzscheme python3 tcl]
-  LANGUAGES_DEFAULT  = %w[perl python ruby]
+  LANGUAGES_OPTIONAL = %w[lua mzscheme python3 tcl].freeze
+  LANGUAGES_DEFAULT  = %w[perl python ruby].freeze
 
   if MacOS.version >= :mavericks
     option "with-custom-python", "Build with a custom Python 2 instead of the Homebrew version."
-    option "with-custom-ruby", "Build with a custom Ruby instead of the system version."
-    option "with-custom-perl", "Build with a custom Perl instead of the system version."
+    option "with-custom-ruby", "Build with a custom Ruby instead of the Homebrew version."
+    option "with-custom-perl", "Build with a custom Perl instead of the Homebrew version."
   end
 
   option "with-python3", "Build vim with python3 instead of python[2] support"

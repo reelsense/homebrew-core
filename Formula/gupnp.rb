@@ -1,13 +1,13 @@
 class Gupnp < Formula
   desc "Framework for creating UPnP devices and control points"
   homepage "https://wiki.gnome.org/Projects/GUPnP"
-  url "https://download.gnome.org/sources/gupnp/0.20/gupnp-0.20.17.tar.xz"
-  sha256 "c9e415db749e75d82b17de341e6430ebce2a7ce457640c039cfcb03b498a8fd2"
+  url "https://download.gnome.org/sources/gupnp/0.20/gupnp-0.20.18.tar.xz"
+  sha256 "c5e0e11061f8d0ff9c8dccc196f39c45a49c0153c9a72abf6290ab34d1cbb021"
 
   bottle do
-    sha256 "29fa2086eb1e5b2cc6429726e8c483f9a76ce248dffa8ada8c94ac821ad5c2a5" => :el_capitan
-    sha256 "c68b27c1706f5e55c679bd306be25a533ba8824944458a0b08ce6d4cb62a3289" => :yosemite
-    sha256 "b3b52e8cb6b858ba903cc393a10e8663f79b8d80105d71abc3fe3483057dc18a" => :mavericks
+    sha256 "d001100930682f16f02be41260e241eb36293917cd04e2ebf51ebdf17565e8f3" => :el_capitan
+    sha256 "b4cfe76606af6c4742552451854828bf4878af685c76c7702b5fa7cf92a67c38" => :yosemite
+    sha256 "79e1a069bf64d7281e09bd21b3ffee1155aab0760e733d18d0f15a6c5fd94e8c" => :mavericks
   end
 
   head do

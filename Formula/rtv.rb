@@ -1,65 +1,66 @@
 class Rtv < Formula
   desc "Command-line Reddit client"
   homepage "https://github.com/michael-lazar/rtv"
-  url "https://github.com/michael-lazar/rtv/archive/v1.9.0.tar.gz"
-  sha256 "6d14e3995840a3e427761824250688c4bcba76c31fdf17ffe96e41ddf427aed3"
+  url "https://github.com/michael-lazar/rtv/archive/v1.10.0.tar.gz"
+  sha256 "2f54e0383a65b8d771f4e4b23064126695ce23bbacee7f215393eb54f0fc453c"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "4e9aed84273914ba52344a09e922dc7b3b7986b55f79b12387cff70b7e332801" => :el_capitan
-    sha256 "2071eec517dbb6d1c059a51f3af7b7cd3472e22ea1aeb59b7197c836e94abedf" => :yosemite
-    sha256 "17ae3ea2795b224f27de0978367fec660fe2471fc760a4039078e93a2db2b84e" => :mavericks
+    sha256 "fe80af63d07695ee56ccbd68e065d98d3bec1c4891c25cea08f8315e7344dadd" => :el_capitan
+    sha256 "cfb8ba46ded388336e617be0eaf278035acb62785be0fa978b80b5055244f412" => :yosemite
+    sha256 "326f66e20d187674400db04f63b3d958d5280be25dda9e752f146634b8b35d67" => :mavericks
   end
 
   depends_on :python3
 
   resource "decorator" do
-    url "https://pypi.python.org/packages/source/d/decorator/decorator-4.0.6.tar.gz"
-    sha256 "1c6254597777fd003da2e8fb503c3dbf3d9e8f8d55f054709c0e65be3467209c"
-  end
-
-  resource "update_checker" do
-    url "https://pypi.python.org/packages/source/u/update_checker/update_checker-0.11.tar.gz"
-    sha256 "681bc7c26cffd1564eb6f0f3170d975a31c2a9f2224a32f80fe954232b86f173"
-  end
-
-  resource "requests" do
-    url "https://pypi.python.org/packages/source/r/requests/requests-2.9.1.tar.gz"
-    sha256 "c577815dd00f1394203fc44eb979724b098f88264a9ef898ee45b8e5e9cf587f"
-  end
-
-  resource "praw" do
-    url "https://pypi.python.org/packages/source/p/praw/praw-3.3.0.zip"
-    sha256 "dbd92207ed7b790e6d1a0b5150cc506ebfd5c84cb2cee182c0394d1f14d1489f"
-  end
-
-  resource "six" do
-    url "https://pypi.python.org/packages/source/s/six/six-1.9.0.tar.gz"
-    sha256 "e24052411fc4fbd1f672635537c3fc2330d9481b18c0317695b46259512c91d5"
-  end
-
-  resource "tornado" do
-    url "https://pypi.python.org/packages/source/t/tornado/tornado-4.3.tar.gz"
-    sha256 "c9c2d32593d16eedf2cec1b6a41893626a2649b40b21ca9c4cac4243bde2efbf"
+    url "https://files.pythonhosted.org/packages/13/8a/4eed41e338e8dcc13ca41c94b142d4d20c0de684ee5065523fee406ce76f/decorator-4.0.10.tar.gz"
+    sha256 "9c6e98edcb33499881b86ede07d9968c81ab7c769e28e9af24075f0a5379f070"
   end
 
   resource "kitchen" do
-    url "https://pypi.python.org/packages/source/k/kitchen/kitchen-1.2.4.tar.gz"
+    url "https://files.pythonhosted.org/packages/d7/17/75c460f30b8f964bd5c1ce54e0280ea3ec8830a7c73a35d5036974245b2f/kitchen-1.2.4.tar.gz"
     sha256 "38f73d844532dba7b8cce170e6eb032fc07d0d04a07670e1af754bd4c91dfb3d"
   end
 
+  resource "praw" do
+    url "https://files.pythonhosted.org/packages/9b/90/2b41c0b374164a9b033093aea7c7f2b392c6333972f83156ab92a3bfbbc4/praw-3.5.0.zip"
+    sha256 "0aa3da06d731ed5aa8994f34e46fb36006d168d597ddee216671369917fe8dc3"
+  end
+
+  resource "requests" do
+    url "https://files.pythonhosted.org/packages/49/6f/183063f01aae1e025cf0130772b55848750a2f3a89bfa11b385b35d7329d/requests-2.10.0.tar.gz"
+    sha256 "63f1815788157130cee16a933b2ee184038e975f0017306d723ac326b5525b54"
+  end
+
+  resource "six" do
+    url "https://files.pythonhosted.org/packages/b3/b2/238e2590826bfdd113244a40d9d3eb26918bd798fc187e2360a8367068db/six-1.10.0.tar.gz"
+    sha256 "105f8d68616f8248e24bf0e9372ef04d3cc10104f1980f54d57b2ce73a5ad56a"
+  end
+
+  resource "tornado" do
+    url "https://files.pythonhosted.org/packages/21/29/e64c97013e97d42d93b3d5997234a6f17455f3744847a7c16289289f8fa6/tornado-4.3.tar.gz"
+    sha256 "c9c2d32593d16eedf2cec1b6a41893626a2649b40b21ca9c4cac4243bde2efbf"
+  end
+
+  resource "update_checker" do
+    url "https://files.pythonhosted.org/packages/ae/06/84e8872337ff2c94a417eef571ac727b1cf2c98355462f7ca239d9eba987/update_checker-0.11.tar.gz"
+    sha256 "681bc7c26cffd1564eb6f0f3170d975a31c2a9f2224a32f80fe954232b86f173"
+  end
+
   def install
-    ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python3.5/site-packages"
-    %w[update_checker decorator tornado praw six requests kitchen].each do |r|
-      resource(r).stage do
+    xy = Language::Python.major_minor_version "python3"
+    ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python#{xy}/site-packages"
+    resources.each do |r|
+      r.stage do
         system "python3", *Language::Python.setup_install_args(libexec/"vendor")
       end
     end
 
-    ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python3.5/site-packages"
+    ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python#{xy}/site-packages"
     system "python3", *Language::Python.setup_install_args(libexec)
 
-    bin.install Dir["#{libexec}/bin/*"]
+    bin.install Dir[libexec/"bin/*"]
     bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
   end
 

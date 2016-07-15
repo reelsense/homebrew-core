@@ -1,15 +1,15 @@
 class Libgcrypt < Formula
   desc "Cryptographic library based on the code from GnuPG"
   homepage "https://directory.fsf.org/wiki/Libgcrypt"
-  url "https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.7.1.tar.bz2"
-  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.7.1.tar.bz2"
-  sha256 "450d9cfcbf1611c64dbe3bd04b627b83379ef89f11406d94c8bba305e36d7a95"
+  url "https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.7.2.tar.bz2"
+  mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-1.7.2.tar.bz2"
+  sha256 "3d35df906d6eab354504c05d749a9b021944cb29ff5f65c8ef9c3dd5f7b6689f"
 
   bottle do
     cellar :any
-    sha256 "94b6b3a485de8058ead4f6d18bd383b3618f61918c5f9e34f617b019ad0f16d8" => :el_capitan
-    sha256 "86e5475d3adcca875723f6ff552759812d0a0565f66e1acdd957009b0d0ff300" => :yosemite
-    sha256 "80610d469a9165e1fcdd413c95e6b97a272e65dcf5c6d3a68afbd171b51e4246" => :mavericks
+    sha256 "89d45b34a2bc54348e74f4b2fb5f7ad099f911551556fffa8ec05766071bedbe" => :el_capitan
+    sha256 "6ed429748eab9be5e2843790c1bf4fa78de5e5973de36dfe75a8be89f3ea40a7" => :yosemite
+    sha256 "96a5b13ed6e8dd5fb4a53f51b08fd1e97c36d257ce2263242439852549a8d65b" => :mavericks
   end
 
   option :universal
@@ -38,12 +38,16 @@ class Libgcrypt < Formula
 
     # Parallel builds work, but only when run as separate steps
     system "make"
-    system "make", "install"
-    # Make check currently dies on El Capitan
-    # https://github.com/Homebrew/homebrew/issues/41599
+    # Slightly hideous hack to help `make check` work in
+    # normal place on >10.10 where SIP is enabled.
+    # https://github.com/Homebrew/homebrew-core/pull/3004
     # https://bugs.gnupg.org/gnupg/issue2056
-    # This check should be above make install again when fixed.
+    system "install_name_tool", "-change",
+                                lib/"libgcrypt.20.dylib",
+                                buildpath/"src/.libs/libgcrypt.20.dylib",
+                                buildpath/"tests/.libs/random"
     system "make", "check"
+    system "make", "install"
   end
 
   test do
