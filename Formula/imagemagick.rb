@@ -4,19 +4,16 @@ class Imagemagick < Formula
   # Please always keep the Homebrew mirror as the primary URL as the
   # ImageMagick site removes tarballs regularly which means we get issues
   # unnecessarily and older versions of the formula are broken.
-  url "https://dl.bintray.com/homebrew/mirror/imagemagick-6.9.5-3.tar.xz"
-  mirror "https://www.imagemagick.org/download/ImageMagick-6.9.5-3.tar.xz"
-  sha256 "6fec9f493bb7434b8c143eb3bba86f3892c68e0b6633ce7eeed970d47c5db4ec"
-
+  url "https://dl.bintray.com/homebrew/mirror/imagemagick-6.9.5-4.tar.xz"
+  mirror "https://www.imagemagick.org/download/ImageMagick-6.9.5-4.tar.xz"
+  sha256 "00549fb8588673bb510e9dc952d9937b2cd1186e9322f5265dd96803e592eed8"
   head "http://git.imagemagick.org/repos/ImageMagick.git"
 
   bottle do
-    sha256 "a278197bdc894283d3e015aa638082e607c09922e4b0bed5e64f193c8cd40b1c" => :el_capitan
-    sha256 "5e8b096ed56f5acb285405cf1782f22656916f093ecf62f904db412163b18681" => :yosemite
-    sha256 "ec9bbb8d2bfa7a01d4cbda33c2f7dbe4046edb84686bbb54f792bb963bcca8ca" => :mavericks
+    sha256 "a3accdcbcda8013b5e37ffeefc0886423a8bb2c18ff1099455407a4387e7379e" => :el_capitan
+    sha256 "3730960cf5ea75d1e7086205684f8f783242e2c69be369bb7c62a5b9875d75c2" => :yosemite
+    sha256 "dab3137f07a50544b6a740ea5ed6e50cb8fbfa2736a4199e4acaf2d5661ea051" => :mavericks
   end
-
-  deprecated_option "enable-hdri" => "with-hdri"
 
   option "with-fftw", "Compile with FFTW support"
   option "with-hdri", "Compile with HDRI support"
@@ -32,9 +29,11 @@ class Imagemagick < Formula
   option "without-threads", "Disable threads support"
   option "with-zero-configuration", "Disables depending on XML configuration files"
 
-  depends_on "xz"
-  depends_on "libtool" => :run
+  deprecated_option "enable-hdri" => "with-hdri"
+
   depends_on "pkg-config" => :build
+  depends_on "libtool" => :run
+  depends_on "xz"
 
   depends_on "jpeg" => :recommended
   depends_on "libpng" => :recommended
@@ -81,22 +80,11 @@ class Imagemagick < Formula
     else
       args << "--disable-openmp"
     end
-    args << "--disable-opencl" if build.without? "opencl"
-    args << "--without-gslib" if build.without? "ghostscript"
-    args << "--with-perl" << "--with-perl-options='PREFIX=#{prefix}'" if build.with? "perl"
-    args << "--with-gs-font-dir=#{HOMEBREW_PREFIX}/share/ghostscript/fonts" if build.without? "ghostscript"
-    args << "--without-magick-plus-plus" if build.without? "magick-plus-plus"
-    args << "--enable-hdri=yes" if build.with? "hdri"
-    args << "--enable-fftw=yes" if build.with? "fftw"
-    args << "--without-pango" if build.without? "pango"
-    args << "--without-threads" if build.without? "threads"
 
-    if build.with? "quantum-depth-32"
-      quantum_depth = 32
-    elsif build.with?("quantum-depth-16") || build.with?("perl")
-      quantum_depth = 16
-    elsif build.with? "quantum-depth-8"
-      quantum_depth = 8
+    if build.with? "webp"
+      args << "--with-webp=yes"
+    else
+      args << "--without-webp"
     end
 
     if build.with? "jp2"
@@ -105,13 +93,29 @@ class Imagemagick < Formula
       args << "--without-openjp2"
     end
 
-    args << "--with-quantum-depth=#{quantum_depth}" if quantum_depth
+    args << "--disable-opencl" if build.without? "opencl"
+    args << "--without-gslib" if build.without? "ghostscript"
+    args << "--with-perl" << "--with-perl-options='PREFIX=#{prefix}'" if build.with? "perl"
+    args << "--with-gs-font-dir=#{HOMEBREW_PREFIX}/share/ghostscript/fonts" if build.without? "ghostscript"
+    args << "--without-magick-plus-plus" if build.without? "magick-plus-plus"
+    args << "--enable-hdri=yes" if build.with? "hdri"
+    args << "--without-fftw" if build.without? "fftw"
+    args << "--without-pango" if build.without? "pango"
+    args << "--without-threads" if build.without? "threads"
     args << "--with-rsvg" if build.with? "librsvg"
     args << "--without-x" if build.without? "x11"
     args << "--with-fontconfig=yes" if build.with? "fontconfig"
     args << "--with-freetype=yes" if build.with? "freetype"
-    args << "--with-webp=yes" if build.with? "webp"
     args << "--enable-zero-configuration" if build.with? "zero-configuration"
+
+    if build.with? "quantum-depth-32"
+      quantum_depth = 32
+    elsif build.with?("quantum-depth-16") || build.with?("perl")
+      quantum_depth = 16
+    elsif build.with? "quantum-depth-8"
+      quantum_depth = 8
+    end
+    args << "--with-quantum-depth=#{quantum_depth}" if quantum_depth
 
     # versioned stuff in main tree is pointless for us
     inreplace "configure", "${PACKAGE_NAME}-${PACKAGE_VERSION}", "${PACKAGE_NAME}"
