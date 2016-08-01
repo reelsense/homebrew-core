@@ -39,7 +39,7 @@ class Minisign < Formula
 
     system "./keygen.sh"
     assert File.exist?("minisign.pub")
-    assert File.exist?("minisign.key")
+    assert File.exist?(".minisign/minisign.key")
 
     (testpath/"signing.sh").write <<-EOS.undent
       #!/usr/bin/expect -f
