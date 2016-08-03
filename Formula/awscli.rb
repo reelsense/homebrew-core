@@ -1,15 +1,17 @@
 # Make sure that you also bump botocore
 class Awscli < Formula
+  include Language::Python::Virtualenv
+
   desc "Official Amazon AWS command-line interface"
   homepage "https://aws.amazon.com/cli/"
-  url "https://files.pythonhosted.org/packages/fd/81/d417eb199627ad9d3db8ebf966835677d92a9a8308b588a6d2b17f6583f8/awscli-1.10.51.tar.gz"
-  sha256 "98690bcc6d6ecc10212ab7b838a45940b25c01e240409c3d03f172cb9dc9c7a6"
+  url "https://files.pythonhosted.org/packages/29/fd/39f8bfb6ae9e4e164cc3f9a9574b0c76bcaf19fce916ee36db4229c002f3/awscli-1.10.52.tar.gz"
+  sha256 "83e56e752c0f404eff4c715cdd0470198106bd636d01b389a9c504cdb0463aa7"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "242543ca4b990b079563c4f12f8640de0533ce3275668974f2865b1db218d04e" => :el_capitan
-    sha256 "d35ed97cc5d223559a1f6e58bda66292ca4a532971b3b45946114366dc715e68" => :yosemite
-    sha256 "5aab68a06da1f37f67072fbdbfe1414ad61f59fdb76679fdceeb0aeb09e4e449" => :mavericks
+    sha256 "6ecc29405552b5039d7bb4103b16429b9735f4108e2337003a59a9d599e0dfb6" => :el_capitan
+    sha256 "ee7c3f9254e16e2cefa0d002131926a505fd84ad4585f72166874b8abc6be981" => :yosemite
+    sha256 "228d1260cef46c70f7d50f6fda2b00dc5ebfcbad27eb13a779c1ba100f23df0a" => :mavericks
   end
 
   head do
@@ -33,8 +35,8 @@ class Awscli < Formula
   depends_on :python if MacOS.version <= :lion
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/85/d4/1700f65e544c9be35171dba3dd96f8a3ea115a633506cabfeccf7e3bf17b/botocore-1.4.41.tar.gz"
-    sha256 "da37c2b9c942ff280e47122e48e1e9af827c81191da919e9c434c69e455e6a30"
+    url "https://files.pythonhosted.org/packages/d1/75/5dfb472d6f70c1526aef47b03cd20f08dd0081b28ea6f7719cf605bcee15/botocore-1.4.42.tar.gz"
+    sha256 "01b17d9a7eea00972fb26568d7ba12a6eb39617a67a8d8aebbafb7d8dabb793e"
   end
 
   resource "colorama" do
@@ -83,24 +85,13 @@ class Awscli < Formula
   end
 
   def install
-    ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
-    resources.each do |r|
-      r.stage do
-        system "python", *Language::Python.setup_install_args(libexec/"vendor")
-      end
-    end
-
-    ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
-    system "python", *Language::Python.setup_install_args(libexec)
+    virtualenv_install_with_resources
 
     # Install zsh completion
     zsh_completion.install "bin/aws_zsh_completer.sh" => "_aws"
 
     # Install the examples
     pkgshare.install "awscli/examples"
-
-    bin.install Dir[libexec/"bin/*"]
-    bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
   end
 
   def caveats; <<-EOS.undent
