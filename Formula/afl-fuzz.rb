@@ -1,13 +1,13 @@
 class AflFuzz < Formula
   desc "American fuzzy lop: Security-oriented fuzzer"
   homepage "http://lcamtuf.coredump.cx/afl/"
-  url "http://lcamtuf.coredump.cx/afl/releases/afl-2.22b.tgz"
-  sha256 "9f5ef39927626fe107153ee0c886b0ac3cd16903d0261ca53f64e83e8404a18d"
+  url "http://lcamtuf.coredump.cx/afl/releases/afl-2.26b.tgz"
+  sha256 "504140f4f234ba12413ec446f31d2204228efa1b8b755b44e31283293489eff9"
 
   bottle do
-    sha256 "d4d3b71d4254158694361419d91602b1f85b3d36dde092607b54cf203fb14bd1" => :el_capitan
-    sha256 "8f12f72c2ce71f927302d16c591c4620c207c5987e600ff89ff83531a5d3f069" => :yosemite
-    sha256 "532e797a074ad32e96080e3e0bfe14e45250e94106355abe47763963c69ee19a" => :mavericks
+    sha256 "96b43d8f4361fcf21a79ca7d76ca22271ded74741a99eb7055a61a2ca4673400" => :el_capitan
+    sha256 "bc8120ce6d14fb0ad5fbdc20690c3adb530034e174798a235b4a69d599ca9770" => :yosemite
+    sha256 "6e4ccb5bbedb664b767abaa4158b1791f9f4792785c766f5f7beb01e4024b80b" => :mavericks
   end
 
   def install
@@ -15,7 +15,7 @@ class AflFuzz < Formula
     # behaving correctly!" in a nested login shell.
     # Reported to lcamtuf@coredump.cx 6th Apr 2016.
     inreplace "Makefile" do |s|
-      s.gsub! "all: test_x86 $(PROGS) afl-as test_build all_done", "all: test_x86 $(PROGS) afl-as all_done"
+      s.gsub! "all: test_x86 $(PROGS) afl-as libdislocator.so test_build all_done", "all: test_x86 $(PROGS) afl-as libdislocator.so all_done"
       s.gsub! "all_done: test_build", "all_done:"
     end
     system "make", "PREFIX=#{prefix}"
