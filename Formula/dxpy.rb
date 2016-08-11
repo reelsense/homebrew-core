@@ -1,14 +1,17 @@
 class Dxpy < Formula
+  include Language::Python::Virtualenv
+
   desc "DNAnexus toolkit utilities and platform API bindings for Python"
   homepage "https://github.com/dnanexus/dx-toolkit"
   url "https://files.pythonhosted.org/packages/04/16/1d1e1ff25d4f694f04f88417afbd72703d850aebe9f84fdbb8ed836089d7/dxpy-0.191.0.tar.gz"
   sha256 "b98a55fc766a9e7044f6f299d148c5dde3967f22669add915a1a1921e4006820"
+  revision 1
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "2818243b43a9bdc84305d521bf0080f228ed0a45193bc30cf9b6d2e72850371a" => :el_capitan
-    sha256 "39d453d9d285e0909c2b404922747f6185b4c8a5da9cb9eb17658e6de85e9edb" => :yosemite
-    sha256 "e40eb21ce083924a65670ce4aa07f0e177e4f20c0de8335aa1a127cc821e0427" => :mavericks
+    sha256 "08e04fb3cdca5a1d50229e76713fd6a7f384996ed1e30c97a5260118dbf75a91" => :el_capitan
+    sha256 "b5a5feb625e40d2bffca2a5be08bd4977a55129d7c9925129b50c51b782f5399" => :yosemite
+    sha256 "91a3634cb4366db887baf1e250bce3c978f9283a2a37593e676440a3a4791adf" => :mavericks
   end
 
   depends_on :python if MacOS.version <= :snow_leopard
@@ -71,20 +74,19 @@ class Dxpy < Formula
   end
 
   def install
-    # gnureadline build script uses -arch. The superenv process was removing the -arch flags which causes gnureadline to fail. See #44472.
+    # superenv removes -arch flags causing gnureadline to fail
+    # See Homebrew/legacy-homebrew#44472
     ENV.permit_arch_flags
-    ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
-    resources.each do |r|
-      r.stage do
-        system "python", *Language::Python.setup_install_args(libexec/"vendor")
-      end
-    end
 
-    ENV.prepend_create_path "PYTHONPATH", libexec/"lib/python2.7/site-packages"
-    system "python", *Language::Python.setup_install_args(libexec)
+    virtualenv_install_with_resources
 
-    bin.install Dir["#{libexec}/bin/*"]
-    bin.env_script_all_files(libexec/"bin", :PYTHONPATH => ENV["PYTHONPATH"])
+    # Fix collision between system readline and gnureadline resulting in
+    # "incompatible readline module detected (libedit), tab completion disabled"
+    # Reported 7 Aug 2016: https://github.com/dnanexus/dx-toolkit/issues/169
+    site_packages = libexec/"lib/python2.7/site-packages"
+    (site_packages/"homebrew-gnureadline-hack.pth").write <<-EOS.undent
+      import sys; import gnureadline; sys.modules["readline"] = gnureadline
+    EOS
   end
 
   test do

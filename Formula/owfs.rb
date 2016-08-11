@@ -4,24 +4,29 @@ class Owfs < Formula
   url "https://downloads.sourceforge.net/project/owfs/owfs/3.1p3/owfs-3.1p3.tar.gz"
   version "3.1p3"
   sha256 "81460ae8aab4a5cf2ff59bc416819baeacdeb1b753bc06fd09d6e47cef799be4"
+  revision 1
 
   bottle do
     cellar :any
-    sha256 "4bbba80e7555d4a7a92330c11d5a18807a8f38449f4dfde66181bb11aeefbaa0" => :el_capitan
-    sha256 "759834472aef709a5b85cd8090a10b328ccebf9faf5d93c42ac8a2f0f60ecae1" => :yosemite
-    sha256 "d7464e56d0d362d4dff9a301959a2f07a0618aab91ac89074805c42fa69b013a" => :mavericks
+    sha256 "bcd519417cad17e0827e8819a30088a7f321ddf6fab8aba019e9404273bd65ea" => :el_capitan
+    sha256 "6fd1ef8f6613ef629b68df76a40444899a3d1a58f66d9dcccfd2219b4f2b4837" => :yosemite
+    sha256 "06bf0308576ec7e5ba3b8843f87b6932fbc521b3f4f5d46264f4bd453bbe3cab" => :mavericks
   end
 
+  depends_on "pkg-config" => :build
+  depends_on "libftdi"
+  depends_on "libusb"
+
   def install
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
+    system "./configure", "--disable-dependency-tracking",
                           "--disable-swig",
-                          "--disable-owfs",
                           "--disable-owtcl",
                           "--disable-zero",
                           "--disable-owpython",
                           "--disable-owperl",
-                          "--disable-ftdi",
+                          "--disable-swig",
+                          "--enable-ftdi",
+                          "--enable-usb",
                           "--prefix=#{prefix}"
     system "make", "install"
   end
