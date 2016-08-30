@@ -1,15 +1,15 @@
 class Reposurgeon < Formula
   desc "Edit version-control repository history"
   homepage "http://www.catb.org/esr/reposurgeon/"
-  url "http://www.catb.org/~esr/reposurgeon/reposurgeon-3.37.tar.xz"
-  sha256 "563dfffd71baa45a70796260f7851c00f9b47960678e0c7e81b00edfc9935a91"
+  url "http://www.catb.org/~esr/reposurgeon/reposurgeon-3.38.tar.xz"
+  sha256 "d88f74244180143bf466e130d66f1fd3841d3fc97529393669b63425bf98c371"
   head "https://gitlab.com/esr/reposurgeon.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "8a307933a77b32ebf28fecf18257218a4d6123f91d0f467b87b55aa47d9088d3" => :el_capitan
-    sha256 "b2f4f51daf0b9a39fdc3be128e394bb6e3dcb40cef54cd99b8d6e2170d037a33" => :yosemite
-    sha256 "21220d00b6d6ccff9293e6c8517108f5efbc8abd428c188295c2b01a54bf3323" => :mavericks
+    sha256 "f2287d0961f070c2a700cb1783286ff7f2ac20a1ab5d5b0d761738a3d6a87185" => :el_capitan
+    sha256 "6c6851c40de98ce31db55f3ce6373900f2cd557b5de5e26f6dbe82ef35ca5e97" => :yosemite
+    sha256 "93b6da340630bba9e436a85230420e1e5c0b483d4d402f8a22efc2dbf4e8effb" => :mavericks
   end
 
   option "without-cython", "Build without cython (faster compile)"

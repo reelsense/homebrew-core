@@ -1,14 +1,14 @@
 class Zstd < Formula
   desc "Zstandard is a real-time compression algorithm"
   homepage "http://zstd.net/"
-  url "https://github.com/Cyan4973/zstd/archive/v0.8.0.tar.gz"
-  sha256 "297ef978fd956a503de6a303f7d58714de3300f602c7cf5e4b382a82f1483051"
+  url "https://github.com/Cyan4973/zstd/archive/v0.8.1.tar.gz"
+  sha256 "4632bee45988dd0fe3edf1e67bdf0a833895cbb1a7d1eb23ef0b7d753f8bffdd"
 
   bottle do
     cellar :any
-    sha256 "1d7490f2ea299369b5bfe29f2bf861fbfda00116da7bdcd137a3311df592040f" => :el_capitan
-    sha256 "4ab2477cb9a287fff393b89f7e7f5a9557ec6f12f6040c933ef0cd6db9a3a6f9" => :yosemite
-    sha256 "6e18b2d200e79de2a5bd62b68983540edc1937683b3333a1690f9019ea54a784" => :mavericks
+    sha256 "5f8e27fbef60609f6008c39acd16b2ef087bd377fb5d538a1f2706e14e3982d1" => :el_capitan
+    sha256 "ed0371ececafe64badbd77f43fd5a3bd55279cf79bfbcc0ade372a41c96f16cb" => :yosemite
+    sha256 "d6eb0f4f2e26883ba03681cd40d3c140afb9954e18541b44a220522df80a4604" => :mavericks
   end
 
   def install
