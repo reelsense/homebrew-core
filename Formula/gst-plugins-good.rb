@@ -1,6 +1,7 @@
 class GstPluginsGood < Formula
   desc "GStreamer plugins (well-supported, under the LGPL)"
   homepage "https://gstreamer.freedesktop.org/"
+  revision 1
 
   stable do
     url "https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-1.8.3.tar.xz"
@@ -14,9 +15,9 @@ class GstPluginsGood < Formula
   end
 
   bottle do
-    sha256 "dc7c5a95afec9579d3f52083a1c0f69bd8580762376fca494823168a70ccf975" => :el_capitan
-    sha256 "907528481b4134d32c35b090108c94555e364fe7bcdfe56c65e504cdea4bdaa0" => :yosemite
-    sha256 "637c886c5a565c107146e855453a069f11f6b30cfaa4f991f382ce594418b136" => :mavericks
+    sha256 "5e6bf6bbb342160ff6fdd31133b885a77574b201e5ffdcd69f4234e3ae493be5" => :el_capitan
+    sha256 "382137a757d26549d2a7da215e44fd71244a89e4a33b1c84c7f7182827d41b3c" => :yosemite
+    sha256 "91c6a4ef3a2801d1843e4170e39d40281cdf9c24c34363fee4fb8e3e4d8e8cea" => :mavericks
   end
 
   head do
@@ -38,12 +39,12 @@ class GstPluginsGood < Formula
   # Dependencies based on the intersection of
   # https://cgit.freedesktop.org/gstreamer/gst-plugins-good/tree/REQUIREMENTS
   # and Homebrew formulae.
+  depends_on "jpeg" => :recommended
   depends_on "orc" => :recommended
   depends_on "gdk-pixbuf" => :optional
   depends_on "aalib" => :optional
   depends_on "cairo" => :optional
   depends_on "flac" => [:optional, "with-libogg"]
-  depends_on "jpeg" => :optional
   depends_on "libcaca" => :optional
   depends_on "libdv" => :optional
   depends_on "libpng" => :optional
