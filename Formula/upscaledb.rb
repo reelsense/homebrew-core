@@ -3,13 +3,13 @@ class Upscaledb < Formula
   homepage "https://upscaledb.com/"
   url "http://files.upscaledb.com/dl/upscaledb-2.2.0.tar.gz"
   sha256 "7d0d1ace47847a0f95a9138637fcaaf78b897ef682053e405e2c0865ecfd253e"
-  revision 1
+  revision 2
 
   bottle do
     cellar :any
-    sha256 "d8322ce8813961401564433e3ed97cc72694070ed412671c211137786706163e" => :el_capitan
-    sha256 "329d234c158b8852ad313f64318d0d38a93f9ec327212cbbb051ac8ceb8ff692" => :yosemite
-    sha256 "19a22e621fc58be547b8fa3937f372155b8d4bd0c4ab7a3d9c5f6b8f1c302cfb" => :mavericks
+    sha256 "6dd8813ebdc8604f954ed673fd1bd25a3c2aa0eb007be6a9d8ca31a3f345f065" => :el_capitan
+    sha256 "eda7170e45f4f2b83ae0c561f679e7199b99810277857aea456c8eda4f1e771a" => :yosemite
+    sha256 "52a884c71fa0b87b01b112d4764f4b645be5691df0f3e57792eb40aa6be9d842" => :mavericks
   end
 
   head do
@@ -44,6 +44,12 @@ class Upscaledb < Formula
   end
 
   def install
+    # Fix collision with isset() in <sys/params.h>
+    # See https://github.com/Homebrew/homebrew-core/pull/4145
+    inreplace "./src/5upscaledb/upscaledb.cc",
+      "#  include \"2protobuf/protocol.h\"",
+      "#  include \"2protobuf/protocol.h\"\n#define isset(f, b)       (((f) & (b)) == (b))"
+
     system "./bootstrap.sh" if build.head?
 
     args = %W[
