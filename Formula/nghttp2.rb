@@ -1,13 +1,15 @@
 class Nghttp2 < Formula
   desc "HTTP/2 C Library"
   homepage "https://nghttp2.org/"
-  url "https://github.com/nghttp2/nghttp2/releases/download/v1.14.0/nghttp2-1.14.0.tar.xz"
-  sha256 "938f93a0b0c31fd70cd07c96506b8c4ad040ef98ad3f204bf77ec4476685942f"
+  url "https://github.com/nghttp2/nghttp2/releases/download/v1.14.1/nghttp2-1.14.1.tar.xz"
+  sha256 "2dfa665cd898b0b03ce304d9fc2e20c6c5facf56b212e4b2b1834ed6314c897e"
+  revision 1
 
   bottle do
-    sha256 "ef25123d329b9e745bc5ce472ed8eab255328d035a3c38b87cd1bbc7055c4088" => :el_capitan
-    sha256 "7899f904da64eadd1da64af32b85329677ffb86778419bcc86e8ec523163be3f" => :yosemite
-    sha256 "388982f7b72c64a0f8b5f319a6c2fd04310edff8c930dd77bbbc0a335acb8f00" => :mavericks
+    sha256 "539916c6a110c426e54283d3fb77145a44eaca47d7378e30be4f52cacd605783" => :sierra
+    sha256 "59af58be9c728a13934c7151346dd1ce131f50dfd57db98372243fbfd98e42e8" => :el_capitan
+    sha256 "c6fc508b055fb50292ee04533a32d60ab21dbd29aab31b73fe2fb90706c8b9bd" => :yosemite
+    sha256 "5124213882a883d18f92768d50a34a3a8abcbc1e523e9a4b4427ce906fbb134d" => :mavericks
   end
 
   head do
@@ -33,10 +35,11 @@ class Nghttp2 < Formula
   depends_on "jansson"
   depends_on "boost"
   depends_on "spdylay"
+  depends_on "jemalloc" => :recommended
 
   resource "Cython" do
-    url "https://pypi.python.org/packages/b1/51/bd5ef7dff3ae02a2c6047aa18d3d06df2fb8a40b00e938e7ea2f75544cac/Cython-0.24.tar.gz"
-    sha256 "6de44d8c482128efc12334641347a9c3e5098d807dd3c69e867fa8f84ec2a3f1"
+    url "https://pypi.python.org/packages/c6/fe/97319581905de40f1be7015a0ea1bd336a756f6249914b148a17eefa75dc/Cython-0.24.1.tar.gz"
+    sha256 "84808fda00508757928e1feadcf41c9f78e9a9b7167b6649ab0933b76f75e7b9"
   end
 
   # https://github.com/tatsuhiro-t/nghttp2/issues/125
@@ -53,12 +56,13 @@ class Nghttp2 < Formula
       --enable-app
       --with-boost=#{Formula["boost"].opt_prefix}
       --enable-asio-lib
+      --with-spdylay
+      --disable-python-bindings
     ]
 
     args << "--enable-examples" if build.with? "examples"
-    args << "--with-spdylay"
-    args << "--disable-python-bindings"
     args << "--with-xml-prefix=/usr" if MacOS.version > :lion
+    args << "--without-jemalloc" if build.without? "jemalloc"
 
     system "autoreconf", "-ivf" if build.head?
     system "./configure", *args

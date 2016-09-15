@@ -7,6 +7,7 @@ class Qemu < Formula
   head "git://git.qemu-project.org/qemu.git"
 
   bottle do
+    sha256 "f60b1708d38f92902dd6c864b79f64e2f635daa87012861f1ae9714c201b1b65" => :sierra
     sha256 "ee10bda4f0f8fd9e3fda7747e239b3a736bb409b683392b61936a6fd7484874d" => :el_capitan
     sha256 "2cba8f0c87c9e18fe4dcf1f7cce3ab6b386e94fbe4c966081f5353689b667ccb" => :yosemite
     sha256 "f58b50c5106fa15e8792410b14e0c7f675358cde30c2340fc2da86b64bb3e921" => :mavericks
@@ -49,14 +50,15 @@ class Qemu < Formula
       --disable-guest-agent
     ]
 
-    # Cocoa and SDL UIs cannot both be enabled at once.
-    if build.with? "sdl"
-      args << "--enable-sdl" << "--disable-cocoa"
+    # Cocoa and SDL/GTK+ UIs cannot both be enabled at once.
+    if build.with?("sdl") || build.with?("gtk+")
+      args << "--disable-cocoa"
     else
-      args << "--enable-cocoa" << "--disable-sdl"
+      args << "--enable-cocoa"
     end
 
     args << (build.with?("vde") ? "--enable-vde" : "--disable-vde")
+    args << (build.with?("sdl") ? "--enable-sdl" : "--disable-sdl")
     args << (build.with?("gtk+") ? "--enable-gtk" : "--disable-gtk")
     args << (build.with?("libssh2") ? "--enable-libssh2" : "--disable-libssh2")
 

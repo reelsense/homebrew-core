@@ -1,13 +1,14 @@
 class Mas < Formula
   desc "Mac App Store command-line interface"
   homepage "https://github.com/argon/mas"
-  url "https://github.com/argon/mas/archive/v1.2.0.tar.gz"
-  sha256 "79a30d2b8c053a33b69a255da3ad35a96a337f0b9dded5112e6e48cdadddf73a"
+  url "https://github.com/argon/mas/archive/v1.2.2.tar.gz"
+  sha256 "977ca87aa7fb95bb1b1d7434632780d49d4c27b73ce247fd7d3d1eaed69a7ca5"
   head "https://github.com/argon/mas.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "bf2b90e3f95ecc72899656d72b445a149c375695aca7a8416e5d86f25cf08109" => :el_capitan
+    sha256 "d5cbfee80a78079b561c15c2f651febdcafee8030c1afdb43a19b9089cb85134" => :sierra
+    sha256 "7c6d5cd11f167ae0a52a0970d68a342bc69924214575f81460849e28d034a412" => :el_capitan
   end
 
   depends_on :xcode => ["7.3", :build]
