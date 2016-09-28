@@ -1,8 +1,8 @@
 class Kobalt < Formula
   desc "Build system"
   homepage "http://beust.com/kobalt"
-  url "https://github.com/cbeust/kobalt/releases/download/0.900/kobalt-0.900.zip"
-  sha256 "14227d5d3bebe5a205ae364cbba53cf3c31c0960f8cc9bb9b873e85c05048f54"
+  url "https://github.com/cbeust/kobalt/releases/download/0.903/kobalt-0.903.zip"
+  sha256 "66cc58ea674196fe272fdc14db5617dde35cc1783fe749927bd651a80abfa9fc"
 
   bottle :unneeded
 

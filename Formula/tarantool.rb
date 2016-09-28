@@ -1,15 +1,17 @@
 class Tarantool < Formula
   desc "In-memory database and Lua application server."
   homepage "https://tarantool.org/"
-  url "https://tarantool.org/dist/1.6/tarantool-1.6.8.653.tar.gz"
-  version "1.6.8-653"
-  sha256 "1c7f210dfadb8660db6ddc4bb680cd167f37e93d3747d57989850eef7f17933e"
+  url "http://download.tarantool.org/tarantool/1.6/src/tarantool-1.6.8.772.tar.gz"
+  version "1.6.8-772"
+  sha256 "e07913d3416fcf855071e7b82eed0c5bcdb81a6e587fa2d900a9755ed5bb220c"
+  revision 1
+
   head "https://github.com/tarantool/tarantool.git", :branch => "1.7", :shallow => false
 
   bottle do
-    sha256 "47f9dbb5080b9fad24d8e4bc34d5c5e6decb386e7050aafceb47f1ba2162bfe0" => :el_capitan
-    sha256 "d442d7392b63449fe581e4722d46487db7a84a8ac281983230263a92246e76a5" => :yosemite
-    sha256 "0e2127a031d1e0993a1cde763d6ee5680d06f907d8e8d9529a5d22b42e0d2f17" => :mavericks
+    sha256 "e95710842bc9dff872bdfdf4bcd0d3439cca0bec3b5ebbdd98fd75d951286bb2" => :sierra
+    sha256 "71bb96e38e05e172932138181acf030143fc4e23972b715f29a783886053f74e" => :el_capitan
+    sha256 "dff1ae94c8d850560bce81f0358adbe705d0030e0b9461e6e4a2fbfd638b4827" => :yosemite
   end
 
   depends_on "cmake" => :build
@@ -18,6 +20,15 @@ class Tarantool < Formula
 
   def install
     args = std_cmake_args
+
+    # Fix "dyld: lazy symbol binding failed: Symbol not found: _clock_gettime"
+    # Reported 19 Sep 2016 https://github.com/tarantool/tarantool/issues/1777
+    if MacOS.version == "10.11" && MacOS::Xcode.installed? && MacOS::Xcode.version >= "8.0"
+      args << "-DHAVE_CLOCK_GETTIME:INTERNAL=0"
+      inreplace "src/trivia/util.h", "#ifndef HAVE_CLOCK_GETTIME",
+                                     "#ifdef UNDEFINED_GIBBERISH"
+    end
+
     args << "-DCMAKE_INSTALL_MANDIR=#{doc}"
     args << "-DCMAKE_INSTALL_SYSCONFDIR=#{etc}"
     args << "-DCMAKE_INSTALL_LOCALSTATEDIR=#{var}"

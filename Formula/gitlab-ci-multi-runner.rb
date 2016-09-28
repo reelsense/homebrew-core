@@ -4,15 +4,15 @@ class GitlabCiMultiRunner < Formula
   desc "The official GitLab CI runner written in Go"
   homepage "https://gitlab.com/gitlab-org/gitlab-ci-multi-runner"
   url "https://gitlab.com/gitlab-org/gitlab-ci-multi-runner.git",
-      :tag => "v1.5.3",
-      :revision => "fb49c4781e5040539d3faec87a2a63675d2c9f00"
+      :tag => "v1.6.0",
+      :revision => "01b3ea12f848f6ca3d29b32bd3a4fb30a443d7f4"
   head "https://gitlab.com/gitlab-org/gitlab-ci-multi-runner.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "9a66fbd01bd3204ea102871b70b198a72f755551c901d0f0f6e77d972392d7e7" => :el_capitan
-    sha256 "0b1fff11c5883bf599072b8d97d2baf9a83c8806bcf8fbafa360533c0c7ec532" => :yosemite
-    sha256 "03d8d0c78d2db024a286ab7813ca9e1f99cd40faac58744a5c1fbf0f78ec3396" => :mavericks
+    sha256 "2149a1875a476134929138aaa0818036120a4a5fd8fc908c937f4fc0cad209b2" => :sierra
+    sha256 "f2681ae3988b1cf78d3ce693eede4ca981fd3ad141f3f9efbb02f5c35d08fde2" => :el_capitan
+    sha256 "e39efc4072bc74fabd0a00c47f223b0f857d91d032b216c07eefe9e802dad436" => :yosemite
   end
 
   depends_on "go" => :build
@@ -24,10 +24,10 @@ class GitlabCiMultiRunner < Formula
   end
 
   resource "prebuilt-x86_64.tar.xz" do
-    url "https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v1.5.3/docker/prebuilt-x86_64.tar.xz",
+    url "https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v1.6.0/docker/prebuilt-x86_64.tar.xz",
         :using => :nounzip
-    version "1.5.3"
-    sha256 "a2fffed1076e98a7122309923796449719f8b6640e1aa469c1269864dbd70c81"
+    version "1.6.0"
+    sha256 "0dcdfb57bd4a6ed2f3d84848e44ae03f24a7428b21147f16cab7b47c6f14ecf9"
   end
 
   def install
@@ -43,8 +43,10 @@ class GitlabCiMultiRunner < Formula
 
     cd dir do
       resource("prebuilt-x86_64.tar.xz").stage do
-        system *%W[go-bindata -pkg docker -nocompress -nomemcopy -nometadata
-                   -o #{dir}/executors/docker/bindata.go prebuilt-x86_64.tar.xz]
+        system "go-bindata", "-pkg", "docker", "-nocompress", "-nomemcopy",
+                             "-nometadata", "-o",
+                             "#{dir}/executors/docker/bindata.go",
+                             "prebuilt-x86_64.tar.xz"
       end
 
       proj = "gitlab.com/gitlab-org/gitlab-ci-multi-runner"

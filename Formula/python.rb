@@ -68,6 +68,15 @@ class Python < Formula
     sha256 "c075353337f9ff3ccf8091693d278782fcdff62c113245d8de43c5c7acc57daf"
   end
 
+  # Patch for building universal binaries on macOS 10.12 and 10.11 with Xcode 8
+  # https://bugs.python.org/issue27806
+  if build.universal? && DevelopmentTools.clang_build_version >= 800
+    patch do
+      url "https://hg.python.org/cpython/raw-rev/4030300fcb18"
+      sha256 "e0625b20675d892abc3e0e9a58a4627b94e6ded017f352f55b7c91e214fbd248"
+    end
+  end
+
   def lib_cellar
     prefix/"Frameworks/Python.framework/Versions/2.7/lib/python2.7"
   end
@@ -285,7 +294,7 @@ class Python < Formula
     <<-EOF.undent
       # This file is created by Homebrew and is executed on each python startup.
       # Don't print from here, or else python command line scripts may fail!
-      # <https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Homebrew-and-Python.md>
+      # <https://github.com/Homebrew/brew/blob/master/docs/Homebrew-and-Python.md>
       import re
       import os
       import sys
@@ -341,7 +350,7 @@ class Python < Formula
     They will install into the site-package directory
       #{site_packages}
 
-    See: https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Homebrew-and-Python.md
+    See: https://github.com/Homebrew/brew/blob/master/docs/Homebrew-and-Python.md
     EOS
   end
 
