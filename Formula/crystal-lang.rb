@@ -1,15 +1,14 @@
 class CrystalLang < Formula
   desc "Fast and statically typed, compiled language with Ruby-like syntax"
   homepage "https://crystal-lang.org/"
-  url "https://github.com/crystal-lang/crystal/archive/0.19.2.tar.gz"
-  sha256 "18b8b847162529b1ea6e886ad2fbe344a1bcb22fd8b29cebedc5a827939d3819"
+  url "https://github.com/crystal-lang/crystal/archive/0.19.4.tar.gz"
+  sha256 "e239afa449744e0381823531f6af66407ba1f4b78767bd67a9bb09d9fcc6b9e4"
   head "https://github.com/crystal-lang/crystal.git"
 
   bottle do
-    sha256 "bc56c6f55fb822566062a48f2ec4d781078fe42741aacce5f60f95cb3b3fd308" => :sierra
-    sha256 "fd196273eed8c674aed24a65b5f0ddbc89fa7499ef3c53d825e6e563f6b18590" => :el_capitan
-    sha256 "0c1578ce923b8ae9be325570e2bdb7be75dab113b6d7afae9521f6c7f8422e93" => :yosemite
-    sha256 "d8083d7dfc40e2fa1f92f60856d5a737d8788d41d42694e3d623ac9a315ff555" => :mavericks
+    sha256 "b891e7a9c01906be5b6d51adc374c1882e036ae443b95abb1a8f27b072762fde" => :sierra
+    sha256 "928c541573faaeb82030d2fcbee7f4b5865b54cd0cb4f080adab00035394d9f5" => :el_capitan
+    sha256 "0faca697844e5ef7bbcf9d750ed27c448e224363c7150ebebc77c73f01099e07" => :yosemite
   end
 
   option "without-release", "Do not build the compiler in release mode"
@@ -20,12 +19,13 @@ class CrystalLang < Formula
   depends_on "bdw-gc"
   depends_on "llvm"
   depends_on "pcre"
+  depends_on "gmp"
   depends_on "libyaml" if build.with? "shards"
 
   resource "boot" do
-    url "https://github.com/crystal-lang/crystal/releases/download/0.19.1/crystal-0.19.1-1-darwin-x86_64.tar.gz"
-    version "0.19.1"
-    sha256 "5ddd3fcfb576f960708b397c85e3e9c81a79f39cd77c73a4203d22f6303c53f9"
+    url "https://github.com/crystal-lang/crystal/releases/download/0.19.3/crystal-0.19.3-1-darwin-x86_64.tar.gz"
+    version "0.19.3"
+    sha256 "2c9aebfefe2aca46eeda1e5a3fd6a91e3177af8f324ea23ebf8b5cad3c87ad2d"
   end
 
   resource "shards" do
@@ -42,7 +42,7 @@ class CrystalLang < Formula
       ENV["CRYSTAL_CONFIG_VERSION"] = version
     end
 
-    ENV["CRYSTAL_CONFIG_PATH"] = prefix/"src:libs"
+    ENV["CRYSTAL_CONFIG_PATH"] = prefix/"src:libs:lib"
     ENV.append_path "PATH", "boot/bin"
 
     if build.with? "release"

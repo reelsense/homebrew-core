@@ -3,15 +3,15 @@ class Vdirsyncer < Formula
 
   desc "Synchronize calendars and contacts"
   homepage "https://github.com/pimutils/vdirsyncer"
-  url "https://files.pythonhosted.org/packages/63/c0/8f2305a3a4cf0ed0b30b430f90064139fed5ea6081a99798c27e62c0ed93/vdirsyncer-0.12.1.tar.gz"
-  sha256 "3fbba82d5c687238698799799521978bffe72f87b911a267a9c1933b10bd7df8"
+  url "https://files.pythonhosted.org/packages/7f/0a/85dc78a0a83d7fcac59d15cb6ecd07ff81cc3fda0cc2a9e87ba23a35949e/vdirsyncer-0.13.1.tar.gz"
+  sha256 "cbaa5f303a3e585e551e6e2a0e63aa35813f193f3da8208bcda1b7c3d88d93b0"
   head "https://github.com/pimutils/vdirsyncer"
+  revision 1
 
   bottle do
-    sha256 "730e5f59ea02215554cc8fbcc5a87f90512efe8ffc926f2ebca310ac474814b9" => :sierra
-    sha256 "61b9625dc55bc54ea481f6c839c0029624dbaa65ba694c8cfbd627869a5e9131" => :el_capitan
-    sha256 "990a4736379e5966168dfd5bfe44ec74d356f7159c66709dc816e6c68020473b" => :yosemite
-    sha256 "7c6b1b46e9ac0b2e047d0efdd23776d5be9acef2bbb820dac7e187210c732482" => :mavericks
+    sha256 "e7baed3c869bfba170c7d50742add1d07f383ae5434b98608502f768a3dd8df1" => :sierra
+    sha256 "012cd58eae42d6629706e7d31d4566e13542e7e00ead4cffcf7bb3a9b90c4143" => :el_capitan
+    sha256 "28948d7e683f13f78b4a398d7d944e76fb8e452637f7cd5441127474cc2179f1" => :yosemite
   end
 
   option "with-remotestorage", "Build with support for remote-storage"
