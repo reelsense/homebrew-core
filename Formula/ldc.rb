@@ -1,33 +1,32 @@
 class Ldc < Formula
   desc "Portable D programming language compiler"
   homepage "https://wiki.dlang.org/LDC"
-  revision 1
+  revision 2
 
   stable do
     url "https://github.com/ldc-developers/ldc/releases/download/v1.0.0/ldc-1.0.0-src.tar.gz"
     sha256 "3740ee6d5871e953aeb03b11f9d8c951286a55884892b51981bfe579b8fe571d"
 
     resource "ldc-lts" do
-      url "https://github.com/ldc-developers/ldc/releases/download/v0.17.1/ldc-0.17.1-src.tar.gz"
-      sha256 "8f5453e4e0878110ab03190ae9313ebbb323884090e6e7db87b02e5ed6a1c8b0"
+      url "https://github.com/ldc-developers/ldc/releases/download/v0.17.2/ldc-0.17.2-src.tar.gz"
+      sha256 "8498f0de1376d7830f3cf96472b874609363a00d6098d588aac5f6eae6365758"
     end
   end
 
   bottle do
-    sha256 "8a9c99461462abb528f47d171931a669ee10f37854a696d0148cb3ca81bafe7a" => :sierra
-    sha256 "878eb1604258ed920d02d7fc7115db2f5ed6463ac7f4f18802bd76b85d51ff24" => :el_capitan
-    sha256 "a662178ed8421cdaa69fcdd28d6f3b33c2e486e38369be610821f434cf74363a" => :yosemite
-    sha256 "2d80883684831b20063db020f28f58bbf3888d9e681ec25d8db0829345ceb58e" => :mavericks
+    sha256 "fa31a94f88612af29fbb76ba9f7daca79a61d67ca4f9b1ab1eff2fc4481acc20" => :sierra
+    sha256 "a74ba2d0bb5847a9789d009218a132b91732b7b63ca9e1a3711e648aed595f0c" => :el_capitan
+    sha256 "09ed1998e344071843bfb5a9b4abe74ad7cf29068094b410a72aefdebc7f16f2" => :yosemite
   end
 
   devel do
-    url "https://github.com/ldc-developers/ldc/releases/download/v1.1.0-beta2/ldc-1.1.0-beta2-src.tar.gz"
-    sha256 "36d7094c642bbfab331e1db5fbaeeb967d1e8d09f25aeaf8262fa88eb8358ca5"
-    version "1.1.0-beta2"
+    url "https://github.com/ldc-developers/ldc/releases/download/v1.1.0-beta3/ldc-1.1.0-beta3-src.tar.gz"
+    sha256 "cf4aeb393eada610aa3bad18c3ae6a5de94250eaa968fe2d1b0a6afdf8ea54f6"
+    version "1.1.0-beta3"
 
     resource "ldc-lts" do
-      url "https://github.com/ldc-developers/ldc/releases/download/v0.17.1/ldc-0.17.1-src.tar.gz"
-      sha256 "8f5453e4e0878110ab03190ae9313ebbb323884090e6e7db87b02e5ed6a1c8b0"
+      url "https://github.com/ldc-developers/ldc/releases/download/v0.17.2/ldc-0.17.2-src.tar.gz"
+      sha256 "8498f0de1376d7830f3cf96472b874609363a00d6098d588aac5f6eae6365758"
     end
   end
 

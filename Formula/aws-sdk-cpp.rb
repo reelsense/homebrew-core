@@ -1,15 +1,15 @@
 class AwsSdkCpp < Formula
   desc "AWS SDK for C++"
   homepage "https://github.com/aws/aws-sdk-cpp"
-  url "https://github.com/aws/aws-sdk-cpp/archive/1.0.15.tar.gz"
-  sha256 "5a14ab800743062a47bc9c1f6977f6eb7b71308a8b1db2ae74ed43413ad9e501"
+  url "https://github.com/aws/aws-sdk-cpp/archive/1.0.18.tar.gz"
+  sha256 "677e2f926f58d10fd8d048daf5cb950016808a940786bec4d44c299f75f3c858"
   head "https://github.com/aws/aws-sdk-cpp.git"
 
   bottle do
     cellar :any
-    sha256 "b9f4219e75b6a908eb546980ead7cda20d49dd4f61b20a04e51e91286708ea08" => :sierra
-    sha256 "490df233a3baa6c55755da7801018781d8cc501f11c75a41f12e40026aeca8af" => :el_capitan
-    sha256 "3540b061fab0a9f013dc6a831f775f990cac5bd787b70d3816854aa02a7ccdc2" => :yosemite
+    sha256 "250429c9828437deabc839c67364f5b06f348222a94e49a56910d0e533b47bba" => :sierra
+    sha256 "1468ea75bfc1f8e396c83fee661dbcfe4d8ce1f58a553c02f1ec912ee8c01858" => :el_capitan
+    sha256 "8ecc8199c4a89b182c07ea35b6f3c2f4cbad3fdac54d38b110609a38875b7585" => :yosemite
   end
 
   option "with-static", "Build with static linking"
