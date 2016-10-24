@@ -1,11 +1,13 @@
 class Ldc < Formula
   desc "Portable D programming language compiler"
   homepage "https://wiki.dlang.org/LDC"
-  revision 2
 
   stable do
-    url "https://github.com/ldc-developers/ldc/releases/download/v1.0.0/ldc-1.0.0-src.tar.gz"
-    sha256 "3740ee6d5871e953aeb03b11f9d8c951286a55884892b51981bfe579b8fe571d"
+    # for the sake of LLVM 3.9 compatibility
+    url "https://github.com/ldc-developers/ldc.git",
+        :branch => "release-1.0.1",
+        :revision => "3461e00f3531f855f9fc6e92515d7affb8201827"
+    version "1.0.1-alpha1"
 
     resource "ldc-lts" do
       url "https://github.com/ldc-developers/ldc/releases/download/v0.17.2/ldc-0.17.2-src.tar.gz"
@@ -14,9 +16,9 @@ class Ldc < Formula
   end
 
   bottle do
-    sha256 "fa31a94f88612af29fbb76ba9f7daca79a61d67ca4f9b1ab1eff2fc4481acc20" => :sierra
-    sha256 "a74ba2d0bb5847a9789d009218a132b91732b7b63ca9e1a3711e648aed595f0c" => :el_capitan
-    sha256 "09ed1998e344071843bfb5a9b4abe74ad7cf29068094b410a72aefdebc7f16f2" => :yosemite
+    sha256 "5d4e2c20dd74909113448f9d80032b9eea9776061c2aabde9b58d33b36503588" => :sierra
+    sha256 "4837cf9fdb9b9c030fb26674254a844610459203a79847b1ff3cf0d85770fc33" => :el_capitan
+    sha256 "8d827625dea278303befcbb997d3e1713b7d85e257705a30da72ce1519eab147" => :yosemite
   end
 
   devel do
