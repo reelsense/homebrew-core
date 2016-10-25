@@ -8,10 +8,10 @@ class Mitmproxy < Formula
   head "https://github.com/mitmproxy/mitmproxy.git"
 
   bottle do
-    rebuild 1
-    sha256 "d0629732c782b3ed48fec2ac5805d7ee1ad1ad7466648ecad5362263136656a4" => :sierra
-    sha256 "5693107f57cc5e63029d2011a9e0f58715427b00b40ee8cc96dafba746f00207" => :el_capitan
-    sha256 "9cbe6fe3dfbaa0ed44a147fd3ee5247ab9ab59d2adc9162309265fcbc275a2d9" => :yosemite
+    rebuild 2
+    sha256 "ea8c64f3d1ebacf93fe6c88b5cb8e8cae5be8663f2fb2c7ecfc818247b813dc4" => :sierra
+    sha256 "db2f46be576dd2370403014b6a440bd5400c1093026881ac16e2e54006db6fa8" => :el_capitan
+    sha256 "bbe5a28d4a2f28a3798a765fe8bfc08ab4cf3e858687404c12c5c5e5452fd714" => :yosemite
   end
 
   option "with-pyamf", "Enable action message format (AMF) support for python"
@@ -255,13 +255,17 @@ class Mitmproxy < Formula
     end
 
     resource("Pillow").stage do
-      inreplace "setup.py", "'brew', '--prefix'", "'#{HOMEBREW_PREFIX}/bin/brew', '--prefix'"
-      saved_sdkroot = ENV.delete "SDKROOT"
-      begin
-        venv.pip_install Pathname.pwd
-      ensure
-        ENV["SDKROOT"] = saved_sdkroot
+      inreplace "setup.py" do |s|
+        sdkprefix = MacOS::CLT.installed? ? "" : MacOS.sdk_path
+        s.gsub! "ZLIB_ROOT = None", "ZLIB_ROOT = ('#{sdkprefix}/usr/lib', '#{sdkprefix}/usr/include')"
+        s.gsub! "JPEG_ROOT = None", "JPEG_ROOT = ('#{Formula["jpeg"].opt_prefix}/lib', '#{Formula["jpeg"].opt_prefix}/include')"
+        s.gsub! "FREETYPE_ROOT = None", "FREETYPE_ROOT = ('#{Formula["freetype"].opt_prefix}/lib', '#{Formula["freetype"].opt_prefix}/include')"
       end
+
+      # avoid triggering "helpful" distutils code that doesn't recognize Xcode 7 .tbd stubs
+      ENV.delete "SDKROOT"
+      ENV.append "CFLAGS", "-I#{MacOS.sdk_path}/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers" unless MacOS::CLT.installed?
+      venv.pip_install Pathname.pwd
     end
 
     res = resources.map(&:name).to_set - ["Pillow"]

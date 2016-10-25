@@ -1,31 +1,20 @@
 class Nginx < Formula
   desc "HTTP(S) server and reverse proxy, and IMAP/POP3 proxy server"
   homepage "https://nginx.org/"
-
-  stable do
-    url "https://nginx.org/download/nginx-1.10.2.tar.gz"
-    sha256 "1045ac4987a396e2fa5d0011daf8987b612dd2f05181b67507da68cbe7d765c2"
-
-    depends_on "openssl"
-  end
+  url "https://nginx.org/download/nginx-1.10.2.tar.gz"
+  sha256 "1045ac4987a396e2fa5d0011daf8987b612dd2f05181b67507da68cbe7d765c2"
+  revision 1
+  head "http://hg.nginx.org/nginx/", :using => :hg
 
   bottle do
-    sha256 "6ad8f2ef5b5658dd01112ad4cfe0cbca6426ef96b370636a7b6065cc5f678c06" => :sierra
-    sha256 "81bd80fc827af7ba9a8a0388cc01a5733e1404d7fc9baf3c20216c439b6e76d4" => :el_capitan
-    sha256 "06c9b731a69611b6fd9a2084b9c2b05848b35ae3fc5395954fdfe77444c42c21" => :yosemite
+    sha256 "8e8c8176dc0377276ccdbedaf61fdbbf81098e630f4af5b777877da811d21d63" => :sierra
+    sha256 "fa41824e622a07f77636c3d578df46c3d365d2006cdfb1815a051b995ea91c2a" => :el_capitan
+    sha256 "6becf4816b1c9392bc5ce71c5e157e2648e95955509663bd5f07ff68b18e6fcb" => :yosemite
   end
 
   devel do
     url "https://nginx.org/download/nginx-1.11.5.tar.gz"
     sha256 "223f8a2345a75f891098cf26ccdf208b293350388f51ce69083674c9432db6f6"
-
-    depends_on "openssl@1.1"
-  end
-
-  head do
-    url "http://hg.nginx.org/nginx/", :using => :hg
-
-    depends_on "openssl@1.1"
   end
 
   # Before submitting more options to this formula please check they aren't
@@ -40,6 +29,7 @@ class Nginx < Formula
   deprecated_option "with-spdy" => "with-http2"
 
   depends_on "pcre"
+  depends_on "openssl@1.1"
   depends_on "passenger" => :optional
 
   def install
@@ -50,7 +40,7 @@ class Nginx < Formula
     end
 
     pcre = Formula["pcre"]
-    openssl = build.stable? ? Formula["openssl"] : Formula["openssl@1.1"]
+    openssl = Formula["openssl@1.1"]
 
     cc_opt = "-I#{pcre.opt_include} -I#{openssl.opt_include}"
     ld_opt = "-L#{pcre.opt_lib} -L#{openssl.opt_lib}"
