@@ -3,30 +3,37 @@ require "language/go"
 class Terraform < Formula
   desc "Tool to build, change, and version infrastructure"
   homepage "https://www.terraform.io/"
-  url "https://github.com/hashicorp/terraform/archive/0.7.7.tar.gz"
-  sha256 "2e63e0855bc3b7296335b54a2140d4c2425ccd9424157cf69e708f6f5a2d30a2"
+  url "https://github.com/hashicorp/terraform/archive/v0.7.8.tar.gz"
+  sha256 "1569dcb56aab6a8c35ed5a26f90408e6e31e28c07b63b963e1b7c655040f97fd"
   head "https://github.com/hashicorp/terraform.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "30becae3593d68bf5cbde65adfad4305c811cde307d6c8e994b95be6a540452e" => :sierra
-    sha256 "53e8d44fc572ea831909d97b5c6e1591ad9b2934673c5a161f8e523a8c2559a6" => :el_capitan
-    sha256 "2e4da1c7bccfc819a0211b34ea045bfdb342af2e117a8c0bb2daae1bd4ca2e46" => :yosemite
+    sha256 "a5bb19a35dd7944253b69a3eaaa0d7a8c206ba303d0f0f4e21a86bc0389a32ca" => :sierra
+    sha256 "af4d8b608729c8224639d91951e02268010a8c2b6aa222e66d9cee1b2a725e83" => :el_capitan
+    sha256 "261e8db0d3427238636b1f89ce0bb4eb23c63a194b16d3883b131c601bf453f8" => :yosemite
   end
 
   depends_on "go" => :build
 
-  terraform_deps = %w[
-    github.com/mitchellh/gox c9740af9c6574448fd48eb30a71f964014c7a837
-    github.com/mitchellh/iochan 87b45ffd0e9581375c491fef3d32130bb15c5bd7
-    github.com/kisielk/errcheck 9c1292e1c962175f76516859f4a88aabd86dc495
-    github.com/kisielk/gotool 5e136deb9b893bbe6c8f23236ff4378b7a8a0dbb
-  ]
+  go_resource "github.com/mitchellh/gox" do
+    url "https://github.com/mitchellh/gox.git",
+        :revision => "c9740af9c6574448fd48eb30a71f964014c7a837"
+  end
 
-  terraform_deps.each_slice(2) do |x, y|
-    go_resource x do
-      url "https://#{x}.git", :revision => y
-    end
+  go_resource "github.com/mitchellh/iochan" do
+    url "https://github.com/mitchellh/iochan.git",
+        :revision => "87b45ffd0e9581375c491fef3d32130bb15c5bd7"
+  end
+
+  go_resource "github.com/kisielk/errcheck" do
+    url "https://github.com/kisielk/errcheck.git",
+        :revision => "9c1292e1c962175f76516859f4a88aabd86dc495"
+  end
+
+  go_resource "github.com/kisielk/gotool" do
+    url "https://github.com/kisielk/gotool.git",
+        :revision => "5e136deb9b893bbe6c8f23236ff4378b7a8a0dbb"
   end
 
   go_resource "golang.org/x/tools" do
