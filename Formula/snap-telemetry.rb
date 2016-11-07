@@ -8,13 +8,14 @@ class SnapTelemetry < Formula
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "6d3129e1941eb33b398752a50c4cabe9b5877e8d2188b0c7076559863ee72e49" => :sierra
-    sha256 "66603b621f657395f685bb9a76542f197c22971cee0d3daf34f8383d0d87d48f" => :el_capitan
-    sha256 "8c9fcbb7b65556defd646e8fb884a54870bc1232142fb7231fa9099894c0dd82" => :yosemite
+    rebuild 1
+    sha256 "562b40c3b1496819e1485c355e1c006316ed75eaaeeb4b617f9e6d29736e2d5c" => :sierra
+    sha256 "acaa74b60a4c417ccb79e489734c1889bf4311d80af93a198d72b22d3911eb52" => :el_capitan
+    sha256 "9248facbc3a64388b48d18dbf9dc645823508fb50192554057cf56296338d6e8" => :yosemite
   end
 
-  depends_on "go"
-  depends_on "glide"
+  depends_on "go" => :build
+  depends_on "glide" => :build
 
   def install
     ENV["GOPATH"] = buildpath
@@ -28,6 +29,7 @@ class SnapTelemetry < Formula
       system "glide", "install"
       system "go", "build", "-o", "snapd", "-ldflags", "-w -X main.gitversion=#{version}"
       bin.install "snapd"
+      prefix.install_metafiles
     end
 
     snapctl = buildpath/"src/github.com/intelsdi-x/snap/cmd/snapctl"
@@ -43,11 +45,12 @@ class SnapTelemetry < Formula
 
     begin
       snapd_pid = fork do
-        exec "#{bin}/snapd -t 0 -l 1 -o /tmp"
+        exec "#{bin}/snapd -t 0 -l 1 -o #{testpath}"
       end
       sleep 5
-      assert_match(/No plugins/, shell_output("#{bin}/snapctl plugin list"))
-      assert_match(/No task/, shell_output("#{bin}/snapctl task list"))
+      assert_match("No plugins", shell_output("#{bin}/snapctl plugin list"))
+      assert_match("No task", shell_output("#{bin}/snapctl task list"))
+      assert_predicate testpath/"snapd.log", :exist?
     ensure
       Process.kill("TERM", snapd_pid)
     end
