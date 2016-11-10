@@ -5,15 +5,16 @@ class Buku < Formula
   homepage "https://github.com/jarun/Buku"
   url "https://github.com/jarun/Buku/archive/v2.6.tar.gz"
   sha256 "ac83a2d104ca632352262613fa92a6293a84e31b00dab24fa90448e71ec6106e"
+  revision 1
 
   bottle do
-    sha256 "2d809aacbebaa95f81bbd2a58efab7cb92471bfaa81762b25ebf4b83e99594f9" => :sierra
-    sha256 "4e0ad2480ec67f62a34544fc682ff734889009d69b51f0cf45a262a02a15e63b" => :el_capitan
-    sha256 "9162c1d031591b52c73f5d573837193a5dd93f67fe3fc89b9536e1f2b5d181e9" => :yosemite
+    sha256 "4ef900f3e72970f988912de8a21d214c63bcdcc5a1ac80abb03c9506e470584e" => :sierra
+    sha256 "805c1d00f759d1edd43a2ce84502f7a19c6d9cf66da56caa7f4a189208524f57" => :el_capitan
+    sha256 "8aaaa375254a5e92349cd502e43160938e414587210b3d01ea0f1414c67d7bf1" => :yosemite
   end
 
   depends_on :python3
-  depends_on "openssl"
+  depends_on "openssl@1.1"
 
   # beautifulsoup4
 
@@ -30,8 +31,8 @@ class Buku < Formula
   end
 
   resource "cryptography" do
-    url "https://files.pythonhosted.org/packages/03/1a/60984cb85cc38c4ebdfca27b32a6df6f1914959d8790f5a349608c78be61/cryptography-1.5.2.tar.gz"
-    sha256 "eb8875736734e8e870b09be43b17f40472dc189b1c422a952fa8580768204832"
+    url "https://files.pythonhosted.org/packages/6c/c5/7fc1f8384443abd2d71631ead026eb59863a58cad0149b94b89f08c8002f/cryptography-1.5.3.tar.gz"
+    sha256 "cf82ddac919b587f5e44247579b433224cc2e03332d2ea4d89aa70d7e6b64ae5"
   end
 
   resource "idna" do

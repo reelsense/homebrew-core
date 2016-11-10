@@ -6,9 +6,10 @@ class Harfbuzz < Formula
   revision 1
 
   bottle do
-    sha256 "5106489d10f89408693079e7f15ac3e8e4e3f9535dbc6e7c914ad8626f2e63d2" => :sierra
-    sha256 "26b2659499e63a33b49da5c71e5397989851886de680ef30466247a94a9d52b4" => :el_capitan
-    sha256 "1abe91d5b18812e6c1f4b8402716e017ce632fa97b51f2bc7cd1a359fa5badc0" => :yosemite
+    rebuild 1
+    sha256 "1d3e2872366ff4b170cbcb9a825641adb3957e3d38b1b61a9eef54942fa9d070" => :sierra
+    sha256 "f5bdfb13fe973b6d0ab1ebf7fea91927997642ac0a4d8bd572f3b988e0ea62e2" => :el_capitan
+    sha256 "453c721161af7b9f9cd72f444c52d486881d2188795d93cc2b43a025c1eaa4b2" => :yosemite
   end
 
   head do
@@ -24,9 +25,9 @@ class Harfbuzz < Formula
   option "with-cairo", "Build command-line utilities that depend on Cairo"
 
   depends_on "pkg-config" => :build
-  depends_on "glib"
-  depends_on "freetype"
-  depends_on "gobject-introspection"
+  depends_on "freetype" => :recommended
+  depends_on "glib" => :recommended
+  depends_on "gobject-introspection" => :recommended
   depends_on "icu4c" => :recommended
   depends_on "cairo" => :optional
   depends_on "graphite2" => :optional
@@ -42,18 +43,32 @@ class Harfbuzz < Formula
     args = %W[
       --disable-dependency-tracking
       --prefix=#{prefix}
-      --enable-introspection=yes
-      --with-freetype=yes
-      --with-glib=yes
-      --with-gobject=yes
       --with-coretext=yes
       --enable-static
     ]
 
-    if build.with? "icu4c"
-      args << "--with-icu=yes"
+    if build.with? "cairo"
+      args << "--with-cairo=yes"
     else
-      args << "--with-icu=no"
+      args << "--with-cairo=no"
+    end
+
+    if build.with? "freetype"
+      args << "--with-freetype=yes"
+    else
+      args << "--with-freetype=no"
+    end
+
+    if build.with? "glib"
+      args << "--with-glib=yes"
+    else
+      args << "--with-glib=no"
+    end
+
+    if build.with? "gobject-introspection"
+      args << "--with-gobject=yes" << "--enable-introspection=yes"
+    else
+      args << "--with-gobject=no" << "--enable-introspection=no"
     end
 
     if build.with? "graphite2"
@@ -62,10 +77,10 @@ class Harfbuzz < Formula
       args << "--with-graphite2=no"
     end
 
-    if build.with? "cairo"
-      args << "--with-cairo=yes"
+    if build.with? "icu4c"
+      args << "--with-icu=yes"
     else
-      args << "--with-cairo=no"
+      args << "--with-icu=no"
     end
 
     system "./autogen.sh" if build.head?

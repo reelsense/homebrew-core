@@ -3,8 +3,8 @@ class Rust < Formula
   homepage "https://www.rust-lang.org/"
 
   stable do
-    url "https://static.rust-lang.org/dist/rustc-1.12.1-src.tar.gz"
-    sha256 "97913ae4cb255618aaacd1a534b11f343634b040b32656250d09d8d9ec02d3dc"
+    url "https://static.rust-lang.org/dist/rustc-1.13.0-src.tar.gz"
+    sha256 "ecb84775ca977a5efec14d0cad19621a155bfcbbf46e8050d18721bb1e3e5084"
 
     resource "cargo" do
       # git required because of submodules
@@ -19,9 +19,9 @@ class Rust < Formula
   end
 
   bottle do
-    sha256 "2116733d1697a58560f2ff344d91f67a156d87f443113d2404df955b170a1bc3" => :sierra
-    sha256 "ea0424f703f81d6375218f5c3f7b62e03f41e2b7eda1c62143b781056b597afc" => :el_capitan
-    sha256 "3f5beef74c547bb554791852ec09b8417af27a8b1013138d609d4200247328a2" => :yosemite
+    sha256 "111e44bb02839030396f3dc991e6a9c1b3ae9c7f8b6d7511ac652a629ac521e9" => :sierra
+    sha256 "6dca92f516a4b050838fe30fd4001721e20d5714d45e19a52d35f279314e416d" => :el_capitan
+    sha256 "f8ee576f5002b7b15f4e62ef9ffc95e9102ef742cd6240cc85dae783ddc0e362" => :yosemite
   end
 
   head do
