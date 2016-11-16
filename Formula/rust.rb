@@ -8,7 +8,7 @@ class Rust < Formula
 
     resource "cargo" do
       # git required because of submodules
-      url "https://github.com/rust-lang/cargo.git", :tag => "0.13.0", :revision => "109cb7c33d426044d141457049bd0fffaca1327c"
+      url "https://github.com/rust-lang/cargo.git", :tag => "0.14.0", :revision => "eca9e159b6b0d484788ac757cf23052eba75af55"
     end
 
     # name includes date to satisfy cache
@@ -19,9 +19,10 @@ class Rust < Formula
   end
 
   bottle do
-    sha256 "111e44bb02839030396f3dc991e6a9c1b3ae9c7f8b6d7511ac652a629ac521e9" => :sierra
-    sha256 "6dca92f516a4b050838fe30fd4001721e20d5714d45e19a52d35f279314e416d" => :el_capitan
-    sha256 "f8ee576f5002b7b15f4e62ef9ffc95e9102ef742cd6240cc85dae783ddc0e362" => :yosemite
+    rebuild 1
+    sha256 "0756b3e161683415ef0139b72ba2366f727f4e8b2be6040f0bd374fbf206365e" => :sierra
+    sha256 "3932a3f79f35b74b917770ed2078d3ff2243b7730491b0f7e2b94a394884e2a3" => :el_capitan
+    sha256 "c7d4222a23f16279c142f9778a6187bd5e15169caa04469085cb0fe6df865bdd" => :yosemite
   end
 
   head do

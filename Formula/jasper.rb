@@ -1,26 +1,14 @@
 class Jasper < Formula
   desc "Library for manipulating JPEG-2000 images"
   homepage "https://www.ece.uvic.ca/~frodo/jasper/"
-
-  stable do
-    url "https://www.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.21.tar.gz"
-    sha256 "e9c8a241f80d1cc190c308f5efc6669a98776ed27458643553abee823fadd7b3"
-
-    # Remove for > 1.900.21
-    # Fixes test failure "jpg_mkimage failed; error: cannot load image data"
-    # Upstream commit "Fixed a bug in the JPEG codec caused by an integral
-    # promotion problem."
-    patch do
-      url "https://github.com/mdadams/jasper/commit/fa6834f.patch"
-      sha256 "80ca3aaafea9986a90201d36a13b00dc9effdb6c1363c02382c9193b49dd0e7b"
-    end
-  end
+  url "https://www.ece.uvic.ca/~frodo/jasper/software/jasper-1.900.28.tar.gz"
+  sha256 "e94691dc026c8c9ac26db0fc303562e93a141a4b1c9aa9a16a40b9eb345d515b"
 
   bottle do
     cellar :any
-    sha256 "c520675bcea396ecfe50ba9f3c61223074f60679402052d0ff91cdb63ea6fc90" => :sierra
-    sha256 "a80f5f11bc8d51696b061efec07d67e6b51b11230682ed56de2fd6c0c4e5247f" => :el_capitan
-    sha256 "0bc94eb7de6db6cb130a725c84fa14ef25f4a354eb10182e8c48142b4e7111b2" => :yosemite
+    sha256 "a9d75631f770979df6c63d9bca3537c45cc51db2df877371337395d35f24d802" => :sierra
+    sha256 "87bc77e7c58e3651780e455194d80cb8f594a903a5ccb626f4a231eb832a425c" => :el_capitan
+    sha256 "f6023e4467d3df12f916c71da84625ec4e4e2ee10c3d52bce52ad82c88e6eba5" => :yosemite
   end
 
   head do

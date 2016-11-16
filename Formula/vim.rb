@@ -2,15 +2,15 @@ class Vim < Formula
   desc "Vi \"workalike\" with many additional features"
   homepage "http://www.vim.org/"
   # *** Vim should be updated no more than once every 7 days ***
-  url "https://github.com/vim/vim/archive/v8.0.0071.tar.gz"
-  sha256 "5d23d9ab23b20f514d034208a74e2a758b518ffd5ec7bcc51b5d8730daa2c20b"
+  url "https://github.com/vim/vim/archive/v8.0.0086.tar.gz"
+  sha256 "f290263425f0b9cc3769c7d0bbc0b59ae5033ec3213624d93fcf08f1785eb226"
 
   head "https://github.com/vim/vim.git"
 
   bottle do
-    sha256 "d2b9b48732914320cd444ab929e9f9fc72ec0bf42b2d1f33e468bb3ce11f3997" => :sierra
-    sha256 "17743011a05910580e7d55e53061c00cfae77d65878cf8bac64d27323915bb5e" => :el_capitan
-    sha256 "5945516ec9598159740c2cd5551f570b7300cb745eb9cd0b01e09952e17c7b96" => :yosemite
+    sha256 "8d1a7b4985a2520bfc7f37404acbf232c6c8a96a746b1846771da81141d02123" => :sierra
+    sha256 "513d202145a6ff2da18f12b765bce7701dbdbae55671307f358a7b1d082f6d6b" => :el_capitan
+    sha256 "a9753e050be6dfa9508d415821b8abaa740356afc5540c414430c51953e16288" => :yosemite
   end
 
   deprecated_option "disable-nls" => "without-nls"
