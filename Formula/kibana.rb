@@ -4,20 +4,21 @@ class Kibana < Formula
   desc "Analytics and search dashboard for Elasticsearch"
   homepage "https://www.elastic.co/products/kibana"
   url "https://github.com/elastic/kibana.git",
-      :tag => "v5.0.0",
-      :revision => "c5af7a418333df6a934b8d1a5648c675641388bd"
+      :tag => "v5.0.1",
+      :revision => "2ee15d7ceb10d52bef0e5ee58d3f9c5a238cb786"
 
   head "https://github.com/elastic/kibana.git"
 
   bottle do
-    sha256 "906ffb49faf564a1c50824d1cb0e655f2e3de7b850596d18d52f82da3e08c792" => :sierra
-    sha256 "ae6e58d6cf8218be1c9f3363be0544f5459af80187c775f44ac979beabe61406" => :el_capitan
-    sha256 "51a79d1969951e8d53e290e280ae6e94971b34bc80f4c4780e4e18e91d2c3219" => :yosemite
+    rebuild 1
+    sha256 "9bf8ec904e360c79789437b60de46f07ee66d008fc13ca06f1def185118a50d0" => :sierra
+    sha256 "70f6065a8c68da91d1bf8e9c49625ab90cca2b46c29f251e0fec58eb5b386490" => :el_capitan
+    sha256 "17e98ff8c6b21e2b168d253334b93bac97c0f6af0a7f1d64e0b15ef6e180a790" => :yosemite
   end
 
   resource "node" do
-    url "https://nodejs.org/dist/v6.9.0/node-v6.9.0.tar.gz" # N.B. includes vendored dependencies
-    sha256 "2e2657d2ece89782ca9e2cc0300f9119998e73382caa7ad2995ab81cc26ad923"
+    url "https://nodejs.org/dist/v7.1.0/node-v7.1.0.tar.xz" # N.B. includes vendored dependencies
+    sha256 "55ae831a2090e3af71b8f071dc5599922e5c752a2e40d77cbfd4a39d22cf4981"
   end
 
   def install
