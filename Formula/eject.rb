@@ -1,13 +1,13 @@
 class Eject < Formula
   desc "Generate swift code from Interface Builder xibs"
   homepage "https://github.com/Raizlabs/Eject"
-  url "https://github.com/Raizlabs/Eject/archive/0.1.12.tar.gz"
-  sha256 "a4dae3d37f780d274f53ed25d9dc1a27d5245289f9b8cbaaf8be71bc9334de18"
+  url "https://github.com/Raizlabs/Eject/archive/0.1.25.tar.gz"
+  sha256 "9b6796c0517e516bdf606aec1d039416cf515a07f53e37efb833fe1960b925c3"
 
   bottle do
     cellar :any
-    sha256 "7354ff78be9395237c0fb704e6fea0f51720ef7c55f020e1a4dbf60b09d6eb7b" => :sierra
-    sha256 "91d45bc0bee9092525505528cbd77d457e5728c1f4ab3e8c94c3ecf69284adb0" => :el_capitan
+    sha256 "29935f7e50a2b17fbd8f8d36fd7b7f0537bf1fa90ef14d3072440a3fb804c28b" => :sierra
+    sha256 "3ebf7bc96c930a0877cded9d549e57305940a85aff0df1ad497490ef161f79fb" => :el_capitan
   end
 
   depends_on :xcode => ["8.0", :build]
@@ -42,7 +42,6 @@ class Eject < Formula
     swift = <<-EOS.undent
       // Create Views
       let view = UIView()
-      view.frame = CGRect(x: 0, y: 0, width: 375, height: 667)
       view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
       view.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
     EOS

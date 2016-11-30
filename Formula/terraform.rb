@@ -4,14 +4,15 @@ class Terraform < Formula
   desc "Tool to build, change, and version infrastructure"
   homepage "https://www.terraform.io/"
   url "https://github.com/hashicorp/terraform/archive/v0.7.13.tar.gz"
-  sha256 "86d19f7a927bbdca3fe320e5213e25a11a4ddffd0458d449b8b1c488f4fe7295"
+  sha256 "8b5a3b76a81aff962d51120d7c9fd4da03a8c57d6932053cb9887579ac23b959"
   head "https://github.com/hashicorp/terraform.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "13c2929ddbce39e7ef1071a9b222d1d585f739cfed0c19c4d4d60d78f2cbdf13" => :sierra
-    sha256 "67b0e75bb6d3ac8de241755bca83ef729edc692f2d9a8c45443f7858f6bf0225" => :el_capitan
-    sha256 "b957f53d653b5407e9e58271f4a6424a98fa62d7e8008aad569b62c80bffc8a6" => :yosemite
+    rebuild 1
+    sha256 "9a6dcdfcc5901c3a8dd4399ee00087be9bbe95ee84967dc972f454311a78f35d" => :sierra
+    sha256 "2a39cd55da5472e9438abee6c7a8a1a841bd7aa6536dac6abb396104b7b34dbe" => :el_capitan
+    sha256 "e4e2f4b951cc385d83cc9cde9754a1d73f27d4fa67bb2f5be044a7e367f0748e" => :yosemite
   end
 
   devel do
