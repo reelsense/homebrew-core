@@ -6,10 +6,10 @@ class YelpTools < Formula
 
   bottle do
     cellar :any_skip_relocation
-    rebuild 1
-    sha256 "a7c0a89883b82dd88b6a2e298b0c8ddf31b081844c56af33df7cdc632f5e5d4a" => :sierra
-    sha256 "a7c0a89883b82dd88b6a2e298b0c8ddf31b081844c56af33df7cdc632f5e5d4a" => :el_capitan
-    sha256 "a7c0a89883b82dd88b6a2e298b0c8ddf31b081844c56af33df7cdc632f5e5d4a" => :yosemite
+    rebuild 2
+    sha256 "b0ea184a43def810986761f163243688d08e1f891ddfdb104793b5dcb7c9155c" => :sierra
+    sha256 "b0ea184a43def810986761f163243688d08e1f891ddfdb104793b5dcb7c9155c" => :el_capitan
+    sha256 "b0ea184a43def810986761f163243688d08e1f891ddfdb104793b5dcb7c9155c" => :yosemite
   end
 
   depends_on "gettext" => :build
@@ -20,11 +20,9 @@ class YelpTools < Formula
   depends_on "libxslt" => :build
   depends_on "pkg-config" => :build
 
-  yelp_tools_version = version
-
   resource "yelp-xsl" do
-    url "https://download.gnome.org/sources/yelp-xsl/3.18/yelp-xsl-#{yelp_tools_version}.tar.xz"
-    sha256 "893620857b72b3b43ee3b462281240b7ca4d80292f469552827f0597bf60d2b2"
+    url "https://download.gnome.org/sources/yelp-xsl/3.20/yelp-xsl-3.20.1.tar.xz"
+    sha256 "dc61849e5dca473573d32e28c6c4e3cf9c1b6afe241f8c26e29539c415f97ba0"
   end
 
   def install

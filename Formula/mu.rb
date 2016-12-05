@@ -4,15 +4,15 @@
 class Mu < Formula
   desc "Tool for searching e-mail messages stored in the maildir-format"
   homepage "https://www.djcbsoftware.nl/code/mu/"
-  url "https://github.com/djcb/mu-releases/raw/master/mu-0.9.16.tar.gz"
-  sha256 "55dff47f1ec2ea5a409a882009888c4f1b2b6ef2d81ee29753a649654752ee7e"
+  url "https://github.com/djcb/mu/archive/v0.9.16.tar.gz"
+  sha256 "af086880b00a6954bc1135b226b66a33205893600c8dd04139a6871c62c6f05c"
+  revision 2
   head "https://github.com/djcb/mu.git"
-  revision 1
 
   bottle do
-    sha256 "e3635a6d29ca425c9c720a36fce436c535757b7c288d2b7edd9099630d9fbf9b" => :sierra
-    sha256 "aaff2f3b1a501a7f12adb5e61014bc8ef6c7ca70c6b0908f502609110a55e931" => :el_capitan
-    sha256 "971849ef3dee4bf59e2ec4b9fe141e2d786f65c41bfa17b474defbb705dbd011" => :yosemite
+    sha256 "e61729835bf9aacabeedfb3f6b322b35cb800f21bd3305746c1353dd02d71af0" => :sierra
+    sha256 "29d6adfc17a0c4646fa578bf5a1bffe8a93c4988ce69abe6847998e0130905a6" => :el_capitan
+    sha256 "66ea21bc3a9e88409ec38e8b942465e691337d2087a04e8c2e07c95586dc6e34" => :yosemite
   end
 
   depends_on "autoconf" => :build

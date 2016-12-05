@@ -1,14 +1,15 @@
 class Node < Formula
-  desc "Platform built on the V8 JavaScript runtime to build network applications"
+  desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
   url "https://nodejs.org/dist/v7.2.0/node-v7.2.0.tar.xz"
   sha256 "486d4db7ef659521ad2fafefca877638da07bef61e2aee090207ff52149294fb"
   head "https://github.com/nodejs/node.git"
 
   bottle do
-    sha256 "bd0d149adc2e13ddab28bddd733ae5ce1053eb950407220860b04d73616abfa3" => :sierra
-    sha256 "ce798f34fad3f908e8451a7b1cebf41c5e07f422917d1673375671953315d6cf" => :el_capitan
-    sha256 "5580b25e7e09fdcbcc1eed1c7c09cad7748c9d27ed997aeb1d78cfe41c0b5774" => :yosemite
+    rebuild 1
+    sha256 "42483eb4fbfeb76048b942af2d9caf54344e6c652ece14ac0e4994efedf5879a" => :sierra
+    sha256 "5ae8c530c2853a0062082083a7ec1e2e04814fa6fd8cfc38406e49211c0186b1" => :el_capitan
+    sha256 "b75294b63189e5ef0469f79a3270533ca2d0285bdca78d02e09262810097a6b8" => :yosemite
   end
 
   option "with-debug", "Build with debugger hooks"
@@ -24,9 +25,14 @@ class Node < Formula
   depends_on "pkg-config" => :build
   depends_on "openssl" => :optional
 
+  conflicts_with "node@0.10", :because => "Differing versions of the same formulae."
+  conflicts_with "node@0.12", :because => "Differing versions of the same formulae."
+  conflicts_with "node@4", :because => "Differing versions of the same formulae."
+  conflicts_with "node@5", :because => "Differing versions of the same formulae."
+  conflicts_with "node@6", :because => "Differing versions of the same formulae."
+
   # Per upstream - "Need g++ 4.8 or clang++ 3.4".
   fails_with :clang if MacOS.version <= :snow_leopard
-  fails_with :llvm
   fails_with :gcc_4_0
   fails_with :gcc
   ("4.3".."4.7").each do |n|
