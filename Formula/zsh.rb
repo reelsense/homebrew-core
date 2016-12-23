@@ -3,38 +3,20 @@ class Zsh < Formula
   homepage "https://www.zsh.org/"
 
   stable do
-    url "https://downloads.sourceforge.net/project/zsh/zsh/5.2/zsh-5.2.tar.gz"
-    mirror "https://www.zsh.org/pub/zsh-5.2.tar.gz"
-    sha256 "fa924c534c6633c219dcffdcd7da9399dabfb63347f88ce6ddcd5bb441215937"
+    url "https://downloads.sourceforge.net/project/zsh/zsh/5.3.1/zsh-5.3.1.tar.gz"
+    mirror "https://www.zsh.org/pub/zsh-5.3.1.tar.gz"
+    sha256 "3d94a590ff3c562ecf387da78ac356d6bea79b050a9ef81e3ecb9f8ee513040e"
 
     # We cannot build HTML doc on HEAD, because yodl which is required for
     # building zsh.texi is not available.
     option "with-texi2html", "Build HTML documentation"
     depends_on "texi2html" => [:build, :optional]
-
-    # apply patch that fixes nvcsformats which is broken in zsh-5.2 and will propably be fixed in 5.2.1
-    # See https://github.com/zsh-users/zsh/commit/4105f79a3a9b5a85c4ce167865e5ac661be160dc
-    patch do
-      url "https://raw.githubusercontent.com/Homebrew/formula-patches/master/zsh/nvcs-formats-fix.patch"
-      sha256 "f351cd67d38b9d8a9c2013ae47b77a753eca3ddeb6bfd807bd8b492516479d94"
-    end
   end
 
   bottle do
-    rebuild 3
-    sha256 "d40ddb483bf98ba2bb1b829207607f288618a30ecf640a28151c3e922796b0f8" => :sierra
-    sha256 "2a860b90c4b47b034a6b8c2d6a70dccf479f56aebac38683790f2e4cd1da615b" => :el_capitan
-    sha256 "d140366f62354011a7de99949e847ae44d6aa70f2b51e1722028844e4fa0b252" => :yosemite
-  end
-
-  devel do
-    url "http://www.zsh.org/pub/development/zsh-5.2-test-1.tar.gz"
-    version "5.2-test-1"
-    sha256 "50b18b837562e748ca2bc3054f167b71df4482d2da8263ef502acb5d21f23259"
-
-    option "with-texi2html", "Build HTML documentation"
-    option "with-unicode9", "Build with Unicode 9 character width support"
-    depends_on "texi2html" => [:build, :optional]
+    sha256 "054988ed570c911f1758f08b71777707154101b180570577d1d4a4380043a041" => :sierra
+    sha256 "8fb846fbfb27744a50b4e5cff2767f6fca49016f356bd6273dedfc8e2abdd919" => :el_capitan
+    sha256 "4ca1f10d588cedb061826c6a6aa0bbde233627cf86188deed0bd07321f91d739" => :yosemite
   end
 
   head do
@@ -45,6 +27,7 @@ class Zsh < Formula
   end
 
   option "without-etcdir", "Disable the reading of Zsh rc files in /etc"
+  option "with-unicode9", "Build with Unicode 9 character width support"
 
   deprecated_option "disable-etcdir" => "without-etcdir"
 

@@ -1,15 +1,14 @@
 class Node < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v7.2.0/node-v7.2.0.tar.xz"
-  sha256 "486d4db7ef659521ad2fafefca877638da07bef61e2aee090207ff52149294fb"
+  url "https://nodejs.org/dist/v7.3.0/node-v7.3.0.tar.xz"
+  sha256 "dde8f6c800ac8049016d86b91ba5aeb6ddb35cb747cd74756dc05cf9fbe16b81"
   head "https://github.com/nodejs/node.git"
 
   bottle do
-    rebuild 1
-    sha256 "42483eb4fbfeb76048b942af2d9caf54344e6c652ece14ac0e4994efedf5879a" => :sierra
-    sha256 "5ae8c530c2853a0062082083a7ec1e2e04814fa6fd8cfc38406e49211c0186b1" => :el_capitan
-    sha256 "b75294b63189e5ef0469f79a3270533ca2d0285bdca78d02e09262810097a6b8" => :yosemite
+    sha256 "787569d92b933f7abfc0f4dbc92a92b82246581d47f124e282f9b0d2f5337f30" => :sierra
+    sha256 "bfe478dd77c8d4deed0640edb5d70623b22343e50e135e0ff563d62d20e1ae27" => :el_capitan
+    sha256 "a2b4092c735f40872b1c7e5238c5df0f9b5db204632709b0573ff59485af8650" => :yosemite
   end
 
   option "with-debug", "Build with debugger hooks"
@@ -43,8 +42,8 @@ class Node < Formula
   # We will accept *important* npm patch releases when necessary.
   # https://github.com/Homebrew/homebrew/pull/46098#issuecomment-157802319
   resource "npm" do
-    url "https://registry.npmjs.org/npm/-/npm-3.10.9.tgz"
-    sha256 "fb0871b1aebf4b74717a72289fade356aedca83ee54e7386e38cb51874501dd6"
+    url "https://registry.npmjs.org/npm/-/npm-3.10.10.tgz"
+    sha256 "1a7cd203ac30fd1417326d576ca5c66ae2ae6a2bf1ada151bee2fc0d6965f99a"
   end
 
   resource "icu4c" do
