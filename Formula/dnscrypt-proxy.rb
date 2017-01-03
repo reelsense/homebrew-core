@@ -1,14 +1,14 @@
 class DnscryptProxy < Formula
   desc "Secure communications between a client and a DNS resolver"
   homepage "https://dnscrypt.org"
-  url "https://github.com/jedisct1/dnscrypt-proxy/archive/1.8.1.tar.gz"
-  sha256 "2e392b4b02ece2c60d1bcb6bab658cfcea3171030f9a982b5e9ed66543d11103"
+  url "https://github.com/jedisct1/dnscrypt-proxy/archive/1.9.1.tar.gz"
+  sha256 "1797a4f3c4bacbe872ce7b9f9b3a88f09b9e41776429a37555581f0e832496de"
   head "https://github.com/jedisct1/dnscrypt-proxy.git"
 
   bottle do
-    sha256 "e708d4f219b6834afd68621a6d95268e949d5e2e984f1e441416ba312cfe0916" => :sierra
-    sha256 "ac838f54241d4096ecf9f41a90730280d74fe6ef495348db870c626a7f871c9f" => :el_capitan
-    sha256 "49e7ef44e8e2a8c6bf6a8263dd2de2a7a792bc991550e258a59efbe917790c27" => :yosemite
+    sha256 "8ba7499cf515996462c3826bc475e3834f3f2bb032fa385c667a4ef844e2eb81" => :sierra
+    sha256 "14d57e687899746ede2dad8370484d8ed19e338a65a171c5c0008d74df92bb8a" => :el_capitan
+    sha256 "6a88a97fe3b416865c8e0d17042f12247a0dc25f4650760a077efb0735198f78" => :yosemite
   end
 
   option "with-plugins", "Support plugins and install example plugins."
@@ -36,6 +36,7 @@ class DnscryptProxy < Formula
 
     system "./configure", *args
     system "make", "install"
+    pkgshare.install Dir["contrib/*"] - Dir["contrib/Makefile*"]
 
     if build.with? "minisign"
       (bin/"dnscrypt-update-resolvers").write <<-EOS.undent

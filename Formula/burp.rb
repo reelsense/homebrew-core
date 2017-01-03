@@ -11,16 +11,15 @@ class Burp < Formula
   end
 
   bottle do
-    cellar :any
-    sha256 "f069164dc6c908f87c975526fd7821b4b9be2514a3b8c5884b844a400556c615" => :sierra
-    sha256 "2342aea1a1ac623c8154c1d64a7b583eae62a6177136173d73adada6fd58380e" => :el_capitan
-    sha256 "a892287dbaf7a4d5557a471b16d6ce09a5dc0faab004635bc0c90b79d07e92b3" => :yosemite
-    sha256 "d3b8cc95839835dd9ba9574444d5cf7394d398376fe2a06fcd3ba9a00b395476" => :mavericks
+    rebuild 1
+    sha256 "cf431df18e14577c320032f12235aad2452729468ff32e1d8dda42d88771e88b" => :sierra
+    sha256 "f5f812afe36a129770166a63dbf1371b32c552419a7af7ba55899f81926ea2f7" => :el_capitan
+    sha256 "aaa183ea90f09cdb2d5689986d074d7e89f13bb783b3cc690ff531ce814f1607" => :yosemite
   end
 
   devel do
-    url "https://github.com/grke/burp/archive/2.0.52.tar.gz"
-    sha256 "aaa7beffd6c4549796f22afdee2e766f72a67cac181c4b44f51ea8c5b6a1aec1"
+    url "https://github.com/grke/burp/archive/2.1.0.tar.gz"
+    sha256 "5e1ca79a57e50ed2092eb1319e97b9484e0a2e2e4ed9e098ab9dd2476ab0af19"
 
     depends_on "autoconf" => :build
     depends_on "automake" => :build
