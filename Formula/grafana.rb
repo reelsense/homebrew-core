@@ -3,16 +3,15 @@ require "language/node"
 class Grafana < Formula
   desc "Gorgeous metric visualizations and dashboards for timeseries databases."
   homepage "http://grafana.org"
-  url "https://github.com/grafana/grafana/archive/v4.0.1.tar.gz"
-  sha256 "17a07d5912d928bf5f63e81b5d0f366063c4dc3e84705ace2003149a5357a3e5"
+  url "https://github.com/grafana/grafana/archive/v4.1.0.tar.gz"
+  sha256 "bc47fd409b57be4e498d8ec2ca34da8476961bfc9c51a6d1ccebbaf5949c00ac"
 
   head "https://github.com/grafana/grafana.git"
 
   bottle do
-    cellar :any_skip_relocation
-    sha256 "b71c278d416399519d8f7ef895598038170b2a16293ec16ed76412471c0e2b52" => :sierra
-    sha256 "d96364629f8df47cdaa2ae33c14bccde894c51f25161ea063fcc26b378f44b0e" => :el_capitan
-    sha256 "052394c1e0dc73b5d028fa64f8cab5c5a0232252de5a783f15309e1e40fae935" => :yosemite
+    sha256 "0cf6d4b26873b3f039af380a9a20fc283223370b76649d228b3545e02fe45630" => :sierra
+    sha256 "9a594fad817a9cc4bc3d2d2c9f301150d60da46b64b339bec8f24d7d8804a0a2" => :el_capitan
+    sha256 "92f8db7c7bf0f59e309529771a32c5fb59d673fe0db7ad9a013ade9a9fd5b566" => :yosemite
   end
 
   depends_on "go" => :build
