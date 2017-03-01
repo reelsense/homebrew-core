@@ -1,8 +1,8 @@
 class Minizip < Formula
   desc "C library for zip/unzip via zLib"
   homepage "http://www.winimage.com/zLibDll/minizip.html"
-  url "http://zlib.net/zlib-1.2.10.tar.gz"
-  sha256 "8d7e9f698ce48787b6e1c67e6bff79e487303e66077e25cb9784ac8835978017"
+  url "http://zlib.net/zlib-1.2.11.tar.gz"
+  sha256 "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1"
 
   bottle do
     cellar :any
@@ -11,14 +11,11 @@ class Minizip < Formula
     sha256 "60235f0fe3bd432857c27b5c5b912d538925a7a477ff3822ac2af95ea9b00c22" => :yosemite
   end
 
-  option :universal
-
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
 
   def install
-    ENV.universal_binary if build.universal?
     system "./configure", "--prefix=#{prefix}"
     system "make"
 

@@ -1,6 +1,6 @@
 class GdkPixbuf < Formula
   desc "Toolkit for image loading and pixel buffer manipulation"
-  homepage "http://gtk.org"
+  homepage "https://gtk.org"
   url "https://download.gnome.org/sources/gdk-pixbuf/2.36/gdk-pixbuf-2.36.2.tar.xz"
   sha256 "3a082ad67d68b55970aed0b2034a06618167be98a42d5c70de736756b45d325d"
 
@@ -10,7 +10,6 @@ class GdkPixbuf < Formula
     sha256 "1aa5969773dbaff17cc38c6c21cf0e17e5bae650d88e9aa867ee06eb53984155" => :yosemite
   end
 
-  option :universal
   option "with-relocations", "Build with relocation support for bundles"
   option "without-modules", "Disable dynamic module loading"
   option "with-included-loaders=", "Build the specified loaders into gdk-pixbuf"
@@ -39,7 +38,6 @@ class GdkPixbuf < Formula
   end
 
   def install
-    ENV.universal_binary if build.universal?
     ENV.append_to_cflags "-DGDK_PIXBUF_LIBDIR=\\\"#{HOMEBREW_PREFIX}/lib\\\""
     args = %W[
       --disable-dependency-tracking
