@@ -1,14 +1,15 @@
 class Node < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v7.6.0/node-v7.6.0.tar.xz"
-  sha256 "6ff9042696fff0b49647f5864e71cb495e554e4f66e61443494210f5e16ab4a9"
+  url "https://nodejs.org/dist/v7.7.1/node-v7.7.1.tar.xz"
+  sha256 "965fc82aa767223be574e41d7f78ec4bd2ab3da619cef1256e46c30d053b7611"
+  revision 1
   head "https://github.com/nodejs/node.git"
 
   bottle do
-    sha256 "c16938a683988f7398f553f8effbb802a5ce5c67a413c8f32a5d76a3a625d890" => :sierra
-    sha256 "a265f03f69b73a697733869307c3a64a8cdf563347712edff4d0fb9a067f913e" => :el_capitan
-    sha256 "c117ab6a6a62d6c6b8a96d5c8dfea71d22dd19f123d79608ca33161943efdaff" => :yosemite
+    sha256 "fbcea6db606c8b7a67130f4479dda9e79fac9c46e7407b4c8513046365193629" => :sierra
+    sha256 "2909b9a77b31e0089d9aeac8c2a78aa47fb4d3ff4dbd589ac3e2bab3e5b53335" => :el_capitan
+    sha256 "f0f98356d5bd9e21529251acd8bf18a48fccafc6fecc34f3a3b5b0b475c8bca1" => :yosemite
   end
 
   option "with-debug", "Build with debugger hooks"
@@ -23,6 +24,9 @@ class Node < Formula
   depends_on "pkg-config" => :build
   depends_on "icu4c" => :recommended
   depends_on "openssl" => :optional
+
+  conflicts_with "node@0.12", :because => "Differing version of same formula"
+  conflicts_with "node@0.10", :because => "Differing version of same formula"
 
   # Per upstream - "Need g++ 4.8 or clang++ 3.4".
   fails_with :clang if MacOS.version <= :snow_leopard
@@ -131,7 +135,7 @@ class Node < Formula
     assert_equal "hello", output
     output = shell_output("#{bin}/node -e 'console.log(new Intl.NumberFormat(\"en-EN\").format(1234.56))'").strip
     assert_equal "1,234.56", output
-    if build.with? "full-icu"
+    if build.with? "icu4c"
       output = shell_output("#{bin}/node -e 'console.log(new Intl.NumberFormat(\"de-DE\").format(1234.56))'").strip
       assert_equal "1.234,56", output
     end
