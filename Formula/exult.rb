@@ -1,9 +1,15 @@
 class Exult < Formula
   desc "Recreation of Ultima 7"
   homepage "https://exult.sourceforge.io/"
-  url "svn://svn.code.sf.net/p/exult/code/exult/trunk", :revision => 7520
+  # TODO: move to: https://github.com/exult/exult
+  if MacOS.version >= :sierra
+    url "https://svn.code.sf.net/p/exult/code/exult/trunk", :revision => 7520
+  else
+    url "http://svn.code.sf.net/p/exult/code/exult/trunk", :revision => 7520
+  end
+
   version "1.4.9rc1+r7520"
-  head "svn://svn.code.sf.net/p/exult/code/exult/trunk"
+  head "https://github.com/exult/exult.git"
 
   bottle do
     sha256 "903c0ab936349d37871b211146ffee34e7471ba8c0230cc81b583f67003bf7d0" => :sierra
@@ -46,8 +52,8 @@ class Exult < Formula
 
   def caveats; <<-EOS.undent
     Note that this includes only the game engine; you will need to supply your own
-    own legal copy of the Ultima 7 game files. Try here (Amazon.com):
-      http://bit.ly/8JzovU
+    own legal copy of the Ultima 7 game files. Try here (amazon.com):
+      https://bit.ly/8JzovU
 
     Update audio settings accordingly with configuration file:
       ~/Library/Preferences/exult.cfg
