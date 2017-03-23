@@ -1,37 +1,23 @@
-# Please only update to versions that are published on PyPi as there are too
-# many releases for us to update to every single one:
-# https://pypi.python.org/pypi/youtube_dl
 class YoutubeDl < Formula
   desc "Download YouTube videos from the command-line"
   homepage "https://rg3.github.io/youtube-dl/"
-  url "https://github.com/rg3/youtube-dl/releases/download/2017.03.16/youtube-dl-2017.03.16.tar.gz"
-  sha256 "55df3cbda9cf86e49baf54040340ec74c692bb3d6da3d2f5a1bc1238017dd492"
-
-  bottle do
-    cellar :any_skip_relocation
-    sha256 "9a66b1a2f891146990a738a42929f94ae9319f10eba67df02b6c452e4a00b59c" => :sierra
-    sha256 "9a66b1a2f891146990a738a42929f94ae9319f10eba67df02b6c452e4a00b59c" => :el_capitan
-    sha256 "9a66b1a2f891146990a738a42929f94ae9319f10eba67df02b6c452e4a00b59c" => :yosemite
-  end
+  url "https://github.com/rg3/youtube-dl/releases/download/2017.03.22/youtube-dl-2017.03.22.tar.gz"
+  sha256 "c9c0d929f887c2044a0cee88f314f2746a19f34b5842f1b065efc536c43be9ff"
 
   head do
     url "https://github.com/rg3/youtube-dl.git"
     depends_on "pandoc" => :build
   end
 
-  depends_on "rtmpdump" => :optional
+  bottle :unneeded
 
   def install
-    system "make", "PREFIX=#{prefix}"
+    system "make", "PREFIX=#{prefix}" if build.head?
     bin.install "youtube-dl"
     man1.install "youtube-dl.1"
     bash_completion.install "youtube-dl.bash-completion"
     zsh_completion.install "youtube-dl.zsh" => "_youtube-dl"
     fish_completion.install "youtube-dl.fish"
-  end
-
-  def caveats
-    "To use post-processing options, `brew install ffmpeg` or `brew install libav`."
   end
 
   test do

@@ -4,19 +4,19 @@ class Kibana < Formula
   desc "Analytics and search dashboard for Elasticsearch"
   homepage "https://www.elastic.co/products/kibana"
   url "https://github.com/elastic/kibana.git",
-      :tag => "v5.2.1",
-      :revision => "03953ddae5c505842cc39d2df349b7e35f30ee5b"
+      :tag => "v5.2.2",
+      :revision => "6538112a1d244727704f4f11d152113a5133e871"
   head "https://github.com/elastic/kibana.git"
 
   bottle do
-    sha256 "190c3cfd9f2faa102c5760b0792ab9e8add7dd410fb4c5683006a12516e83150" => :sierra
-    sha256 "8e851b92e1878cf5f6de03a133b2b689ec773d449f0300340fe82e9d5eab1e8c" => :el_capitan
-    sha256 "c4260914193f719bcab3037ed008147dd631e2d905d81ce94b714bf0abcdee69" => :yosemite
+    sha256 "b7488a1b24a838e838d9363e2307b88c22174a4a6578d95efdce84195967b311" => :sierra
+    sha256 "5a6d7b70c9d07cd5ce9e1869f62ca09700bfa2cbf02cd33c4060a775a657aaab" => :el_capitan
+    sha256 "67064030f8b92983bb285b2a3c67721d84e40bb6e22494cd2beeefbcf37c87f3" => :yosemite
   end
 
   resource "node" do
-    url "https://nodejs.org/dist/v6.9.0/node-v6.9.0.tar.xz" # N.B. includes vendored dependencies
-    sha256 "656342ed8a84c95a36af902f309aeeca7103b16d61c02925bd37bd47d2194915"
+    url "https://nodejs.org/dist/v6.9.5/node-v6.9.5.tar.xz"
+    sha256 "d7fed1a354b29503f3e176d7fdb90b1a9de248e0ce9b3eb56cc26bb1f3d5b6b3"
   end
 
   def install
@@ -31,11 +31,12 @@ class Kibana < Formula
     if MacOS.prefer_64_bit?
       platform = "darwin-x64"
     else
-      raise "Installing Kibana via Homebrew is only supported on Darwin x86_64, Linux i386, Linux i686, and Linux x86_64"
+      raise "Installing Kibana via Homebrew is only supported on macOS x86_64"
     end
     platforms.delete(platform)
     sub = platforms.to_a.join("|")
     inreplace buildpath/"tasks/config/platforms.js", /('(#{sub})',?(?!;))/, "// \\1"
+    inreplace buildpath/"tasks/build/notice.js", /linux-x64/, "darwin-x64"
 
     # trick the build into thinking we've already downloaded the Node.js binary
     mkdir_p buildpath/".node_binaries/#{resource("node").version}/#{platform}"
@@ -46,7 +47,7 @@ class Kibana < Formula
     system "npm", "install", "--verbose"
     system "npm", "run", "build", "--", "--release", "--skip-os-packages", "--skip-archives"
 
-    prefix.install Dir["build/kibana-#{version}-#{platform.sub("x64", "x86_64")}/{bin,config,node_modules,optimize,package.json,src,webpackShims}"]
+    prefix.install Dir["build/kibana-#{version}-#{platform.sub("x64", "x86_64")}/{bin,config,node_modules,optimize,package.json,src,ui_framework,webpackShims}"]
 
     inreplace "#{bin}/kibana", %r{/node/bin/node}, "/libexec/node/bin/node"
     inreplace "#{bin}/kibana-plugin", %r{/node/bin/node}, "/libexec/node/bin/node"

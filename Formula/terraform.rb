@@ -3,15 +3,16 @@ require "language/go"
 class Terraform < Formula
   desc "Tool to build, change, and version infrastructure"
   homepage "https://www.terraform.io/"
-  url "https://github.com/hashicorp/terraform/archive/v0.9.0.tar.gz"
-  sha256 "5c0d7f0b20fde05b0cf556508740468553d53bd26d5d67898a4b9ad46ebc1028"
+  url "https://github.com/hashicorp/terraform/archive/v0.9.1.tar.gz"
+  sha256 "af8402ce84b85a16cfac3796c1f30f229a0d0e93585c6c618af2f25aae067e65"
+  revision 1
   head "https://github.com/hashicorp/terraform.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "c9ae95116bb2df765268d1fe6bb42e674ed79ce199c438aa02b89725ed5276e0" => :sierra
-    sha256 "178c45a9dec729e52629ae622bfb289b19258c047f2f2e597dfde303ff125329" => :el_capitan
-    sha256 "1609d4e1a733e36d6c4569a7e3015f4f6b619eccf0aec12f8943b41d4ce3a1f2" => :yosemite
+    sha256 "5c6ca950dffbd9456c9cdac4113a2643377cdec3fc3ed720568dcb8dd71bbb2e" => :sierra
+    sha256 "897de40afdd87c3f283f66f410ff2c17dc2cf2ce58b8672de5335e7b40c8e9f3" => :el_capitan
+    sha256 "f22d3b34455c7e34201be5b487d85336bee7d9e7d1e432989a3bc708b4c31f73" => :yosemite
   end
 
   depends_on "go" => :build
@@ -43,36 +44,24 @@ class Terraform < Formula
         :revision => "26c35b4dcf6dfcb924e26828ed9f4d028c5ce05a"
   end
 
-  # consul tests failing on 0.9.0 tag
-  # upstream issue: https://github.com/hashicorp/terraform/issues/12731
+  # vet error (please remove after next version release)
+  # upstream issue: https://github.com/hashicorp/terraform/pull/12839
   patch do
-    url "https://github.com/hashicorp/terraform/commit/7f9a57db1d64a7a5e6e56b4144a363ce47179408.patch"
-    sha256 "15c02bf7b70dd49d2c2f34f42f121df105122a2271f819d78a223c5f0dd382f1"
+    url "https://github.com/hashicorp/terraform/commit/bc4a3d62a59dc14c11a8546cc4e7e32ec7553fab.patch"
+    sha256 "ac312a0cc46833a45ef51d56961bdc7c7d60cb8c709ee305f476e4b68e8685e5"
   end
 
   def install
     ENV["GOPATH"] = buildpath
-    # For the gox buildtool used by terraform, which doesn't need to
-    # get installed permanently
-    ENV.append_path "PATH", buildpath
+    ENV.prepend_create_path "PATH", buildpath/"bin"
 
     dir = buildpath/"src/github.com/hashicorp/terraform"
     dir.install buildpath.children - [buildpath/".brew_home"]
     Language::Go.stage_deps resources, buildpath/"src"
 
-    cd "src/github.com/mitchellh/gox" do
-      system "go", "build"
-      buildpath.install "gox"
-    end
-
-    cd "src/golang.org/x/tools/cmd/stringer" do
-      ENV.deparallelize { system "go", "build" }
-      buildpath.install "stringer"
-    end
-
-    cd "src/github.com/kisielk/errcheck" do
-      system "go", "build"
-      buildpath.install "errcheck"
+    %w[src/github.com/mitchellh/gox src/golang.org/x/tools/cmd/stringer
+       src/github.com/kisielk/errcheck].each do |path|
+      cd(path) { system "go", "install" }
     end
 
     cd dir do
@@ -85,9 +74,9 @@ class Terraform < Formula
       ENV["XC_ARCH"] = arch
       system "make", "test", "vet", "bin"
 
-      # Install release binary
       bin.install "pkg/darwin_#{arch}/terraform"
       zsh_completion.install "contrib/zsh-completion/_terraform"
+      prefix.install_metafiles
     end
   end
 
