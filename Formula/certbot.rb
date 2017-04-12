@@ -5,13 +5,15 @@ class Certbot < Formula
   homepage "https://certbot.eff.org/"
   url "https://github.com/certbot/certbot/archive/v0.13.0.tar.gz"
   sha256 "ef23822043435261750e7a9c1211601b65f9f9a5e634cfbf5011632b0a62edd4"
+  revision 1
+
   head "https://github.com/certbot/certbot.git"
 
   bottle do
     cellar :any
-    sha256 "0e015c8190a1b6f8fb02596dfa9dcbdcadd4cbceab8a04b3d635ef747bc4d86f" => :sierra
-    sha256 "8540593d3e4fecbdb58438ed513586408342cb93180def83346def5827b2bd58" => :el_capitan
-    sha256 "1dde56347efff1888ee67ef1c12026c6d0d262ad6b696d96e9e436069827aacd" => :yosemite
+    sha256 "8a0e2181771eb28de459886c94353769ffbbd238dd4c794cf13cb0918f855d7b" => :sierra
+    sha256 "da3b79f50b3cbb2ca6388e480235ff01814834d4820c1411d0d94e47b28dc136" => :el_capitan
+    sha256 "3eb7b8787c357218b50014eb6392f59eab146593897a7223b9d0360599e432a0" => :yosemite
   end
 
   depends_on "augeas"
@@ -22,6 +24,11 @@ class Certbot < Formula
   resource "appdirs" do
     url "https://files.pythonhosted.org/packages/48/69/d87c60746b393309ca30761f8e2b49473d43450b150cb08f3c6df5c11be5/appdirs-1.4.3.tar.gz"
     sha256 "9e5896d1372858f8dd3344faf4e5014d21849c756c8d5701f78f8a103b372d92"
+  end
+
+  resource "argparse" do
+    url "https://files.pythonhosted.org/packages/18/dd/e617cfc3f6210ae183374cd9f6a26b20514bbb5a792af97949c5aacddf0f/argparse-1.4.0.tar.gz"
+    sha256 "62b089a55be1d8949cd2bc7e0df0bddb9e028faefc8c32038cc84862aefdd6e4"
   end
 
   resource "asn1crypto" do
@@ -145,9 +152,11 @@ class Certbot < Formula
   end
 
   # Required because augeas formula doesn't ship these.
+  # Capped at 0.5.0: Requirement.parse('python-augeas<=0.5.0'))
+  # https://github.com/certbot/certbot/commit/1c51ae25887f2dc31
   resource "python-augeas" do
-    url "https://files.pythonhosted.org/packages/3b/61/bb1317ea4474fdbc4d19e24d0cdb3955cfbdd66e5c8cc17f9796822df361/python-augeas-1.0.1.tar.gz"
-    sha256 "cb59b077939f1b29d779f889c7f123f01b0ac51720ea80991887e5df2235f886"
+    url "https://files.pythonhosted.org/packages/41/e6/4b6740cb3e31b82252099994cea751c648b846aa7874343c31d68c2215be/python-augeas-0.5.0.tar.gz"
+    sha256 "67d59d66cdba8d624e0389b87b2a83a176f21f16a87553b50f5703b23f29bac2"
   end
 
   def install
@@ -166,5 +175,9 @@ class Certbot < Formula
 
   test do
     assert_match version.to_s, pipe_output("#{bin}/certbot --version 2>&1")
+    # This throws a bad exit code but we can check it actually is failing
+    # for the right reasons by asserting. --version never fails even if
+    # resources are missing or outdated/too new/etc.
+    assert_match "running as non-root", shell_output("#{bin}/certbot 2>&1", 1)
   end
 end
