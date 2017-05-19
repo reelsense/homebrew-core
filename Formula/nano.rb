@@ -1,13 +1,13 @@
 class Nano < Formula
   desc "Free (GNU) replacement for the Pico text editor"
   homepage "https://www.nano-editor.org/"
-  url "https://www.nano-editor.org/dist/v2.8/nano-2.8.2.tar.gz"
-  sha256 "0aa9cd6bd5b372ce9a196a9677af58c1826a9235a14daffe604100a9c259854b"
+  url "https://www.nano-editor.org/dist/v2.8/nano-2.8.3.tar.gz"
+  sha256 "2b3b7f383a40899db5367d3c4e663ba0088868c0f9aa4edfd7457c9a0eedbdd1"
 
   bottle do
-    sha256 "2dd39678afc4e9970b413e473d04ae1737f810b55694d04474c50a0634b44e6f" => :sierra
-    sha256 "836b46088ae1b02105f1f44b41deb220a9ac1fa3fcd27e162ff9e4a4734667db" => :el_capitan
-    sha256 "3b4bc9972840d85e3e2c83333289591e3e7ccb8c3d2a62145961cdf33aeb7ac8" => :yosemite
+    sha256 "38372fff75ca521e6f7025fbfc6f487dda312de2cacda331f64a2b231df734c7" => :sierra
+    sha256 "7bb8396e281bf5881fc0841991b3c0073bec5603f14b318a4962f878d09f1f2d" => :el_capitan
+    sha256 "023213aa3a2dc6f5bdb107e968c55acb0d54faa29d6f13a714c26219b47ce37d" => :yosemite
   end
 
   head do
