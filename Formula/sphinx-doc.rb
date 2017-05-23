@@ -1,14 +1,14 @@
 class SphinxDoc < Formula
   desc "Tool to create intelligent and beautiful documentation"
   homepage "http://sphinx-doc.org"
-  url "https://files.pythonhosted.org/packages/95/d2/811beb24fa68afeb673e7a069aa3dbb95f57b426075d734ed913b47ca2ec/Sphinx-1.5.6.tar.gz"
-  sha256 "565a72dd39dd6ea2e8c548d34c127c981e4bcaead69a2c456a6e33ef69151ace"
+  url "https://files.pythonhosted.org/packages/0a/32/594257b9fccc8ce4d120e86d481cabe55ee9de7c1686af2ee58eb4ec741e/Sphinx-1.6.1.tar.gz"
+  sha256 "7581d82c3f206f0ac380edeeba890a2e2d2be011e5abe94684ceb0df4b6acc3f"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "518bdd2e363380cbe78efca53241be6e1da463a74d9ec352cb0f94099bacd5f2" => :sierra
-    sha256 "f93fe218bbe1eb87c58b6c377f2035b97fa8990ab9a30f93d5b448d41c782846" => :el_capitan
-    sha256 "33eb2d919d6817a42ebb961b920d7443f6fb946bd81f556df2916056822ff0d6" => :yosemite
+    sha256 "9145f68c953762c6134f85e72cc2c11b4a70f63e8fa4e61d7afcfe230cca4da1" => :sierra
+    sha256 "3c75808d07de23bff9b030843b378d47291ed0870149d16925aaf029c5b37161" => :el_capitan
+    sha256 "4a523532c523b09753f6b4392915aee24a19596773b570f6806381da7ca7c482" => :yosemite
   end
 
   keg_only <<-EOS.undent
@@ -71,6 +71,16 @@ class SphinxDoc < Formula
   resource "snowballstemmer" do
     url "https://files.pythonhosted.org/packages/20/6b/d2a7cb176d4d664d94a6debf52cd8dbae1f7203c8e42426daa077051d59c/snowballstemmer-1.2.1.tar.gz"
     sha256 "919f26a68b2c17a7634da993d91339e288964f93c274f1343e3bbbe2096e1128"
+  end
+
+  resource "sphinxcontrib-websupport" do
+    url "https://files.pythonhosted.org/packages/c5/6b/f0630436b931ad4f8331a9399ca18a7d447f0fcc0c7178fb56b1aee68d01/sphinxcontrib-websupport-1.0.1.tar.gz"
+    sha256 "7a85961326aa3a400cd4ad3c816d70ed6f7c740acd7ce5d78cd0a67825072eb9"
+  end
+
+  resource "typing" do
+    url "https://files.pythonhosted.org/packages/17/75/3698d7992a828ad6d7be99c0a888b75ed173a9280e53dbae67326029b60e/typing-3.6.1.tar.gz"
+    sha256 "c36dec260238e7464213dcd50d4b5ef63a507972f5780652e835d0228d0edace"
   end
 
   def install
