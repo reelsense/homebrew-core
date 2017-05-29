@@ -5,11 +5,12 @@ class Gnutls < Formula
   mirror "https://gnupg.org/ftp/gcrypt/gnutls/v3.5/gnutls-3.5.12.tar.xz"
   mirror "https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnutls/v3.5/gnutls-3.5.12.tar.xz"
   sha256 "63cb39a5eaa029381df2e49a74cfb7be89fc4a592445191818ffe1e66bde57cb"
+  revision 2
 
   bottle do
-    sha256 "b943c4631233e6d04e1aab8de24b7d0994f63b9c2860025bd7c96e2519584d07" => :sierra
-    sha256 "d14b3871b8313cd7e478674151a230deca87c368c10831ed32b686ed9266cab6" => :el_capitan
-    sha256 "aa5b352a6a82a43aa76573778a0c0b195b7633edddec3f893f0708c231046812" => :yosemite
+    sha256 "82dd5e8c5d83f4fd476ebf457b460d8020e26559f5180b4a2df80a7be0b6b08c" => :sierra
+    sha256 "2bb9712e77cf82a5156a76bcd2c67f16c6e40e5d2664dbd5f688e5b889312365" => :el_capitan
+    sha256 "71834ef8ff2289581950d1093821cb041a8622f11e6ce58bc6364fa0765e5e0f" => :yosemite
   end
 
   depends_on "pkg-config" => :build

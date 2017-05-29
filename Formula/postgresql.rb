@@ -15,6 +15,8 @@ class Postgresql < Formula
   option "without-perl", "Build without Perl support"
   option "without-tcl", "Build without Tcl support"
   option "with-dtrace", "Build with DTrace support"
+  option "with-python", "Enable PL/Python2"
+  option "with-python3", "Enable PL/Python3 (incompatible with --with-python)"
 
   deprecated_option "no-perl" => "without-perl"
   deprecated_option "no-tcl" => "without-tcl"
@@ -23,10 +25,7 @@ class Postgresql < Formula
   depends_on "openssl"
   depends_on "readline"
 
-  option "with-python", "Enable PL/Python2"
   depends_on :python => :optional
-
-  option "with-python3", "Enable PL/Python3 (incompatible with --with-python)"
   depends_on :python3 => :optional
 
   conflicts_with "postgres-xc",
