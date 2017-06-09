@@ -1,16 +1,15 @@
 class Node < Formula
   desc "Platform built on V8 to build network applications"
   homepage "https://nodejs.org/"
-  url "https://nodejs.org/dist/v8.0.0/node-v8.0.0.tar.xz"
-  sha256 "258d3aa3632bbbf2a447c5d524bd7074e23aa26e2b698774ff452954f6174f1c"
+  url "https://nodejs.org/dist/v8.1.0/node-v8.1.0.tar.xz"
+  sha256 "f2ff20b69b782dee85e887ad06e830590b2250856f6df325ed15a368bb6777fc"
   revision 1
-
   head "https://github.com/nodejs/node.git"
 
   bottle do
-    sha256 "4e895f803ff7aaf8131db010c4ab3b4ced76e974e17ea0c482aa6af1ab565038" => :sierra
-    sha256 "482288e81a45ff376664e8a6c2133f929adddd3ea64df1f56faca8c7d38a07d5" => :el_capitan
-    sha256 "24e64bec96923cad0ce9ae9622e5775f83d00826b0e8fcef8b6d6a0c7536ff1a" => :yosemite
+    sha256 "5b2fd76e879a329a482792dc097086bb5c0fb149de233689f869d772fc3c0064" => :sierra
+    sha256 "98dc7d8a1475b35933037601b1a6354fa8d8ed889d2a03fb8c279a8946a3f4ea" => :el_capitan
+    sha256 "d315eb09eb140b05da3406a7234ae1e8133e2a410e19af7a92902127ad033a18" => :yosemite
   end
 
   option "with-debug", "Build with debugger hooks"
@@ -40,8 +39,17 @@ class Node < Formula
   # We track major/minor from upstream Node releases.
   # We will accept *important* npm patch releases when necessary.
   resource "npm" do
-    url "https://registry.npmjs.org/npm/-/npm-5.0.1.tgz"
-    sha256 "cc31b845140791a85ab607636c6f0108346f8eb6cad7971919fd01ff4f4a1d7a"
+    url "https://registry.npmjs.org/npm/-/npm-5.0.3.tgz"
+    sha256 "de62206d779afcba878b3fb949488c01be99afc42e3c955932e754c2ab9aec73"
+  end
+
+  # Remove for > 8.1.0
+  # Fix "All versions of `npm init` hang on Node 8.1.0"
+  # Upstream PR from 8 Jun 2017 "Revert 'readline: clean up event
+  # listener in onNewListener'"
+  patch do
+    url "https://github.com/nodejs/node/pull/13560.patch"
+    sha256 "036e86cee567059415847850a84bed6f80405b02f98b8ce9a5d921a7c480127e"
   end
 
   def install
