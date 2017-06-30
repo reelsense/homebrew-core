@@ -3,14 +3,14 @@ class MagicWormhole < Formula
 
   desc "Securely transfers data between computers"
   homepage "https://github.com/warner/magic-wormhole"
-  url "https://files.pythonhosted.org/packages/b2/7e/f26ad2aa90a84019bf1f3ef6f9ee48785096f9abe1812dfcba71cb59ae53/magic-wormhole-0.10.0.tar.gz"
-  sha256 "8ae80091da4ede42fbb97856740d07bacfb11ed857c0e61b5e0f34f79addc182"
+  url "https://files.pythonhosted.org/packages/78/60/716ca45f1d0a39079e2bf77f185dbe656744f0a4c4546b7a406bd5c9515e/magic-wormhole-0.10.2.tar.gz"
+  sha256 "55a423247faee7a0644d25f37760495978cd494ba0274fefd8cd1fad493954ee"
 
   bottle do
     cellar :any
-    sha256 "f04f79e153c66e21779544007935998e18097aedf32231b0b50a2d081d9df2d2" => :sierra
-    sha256 "d411f89c36b13eb48407179fe1a5d153e02fc41e14bc834cb225aff43dd252e4" => :el_capitan
-    sha256 "34b7b0d160ef5f915fe8eaf1902c01adc1cf6f328cf3d41dd3b31fcfc72b8a19" => :yosemite
+    sha256 "9eae880efcc405758ce27db67a106569833c375ec7d04af1400d860f81e879cc" => :sierra
+    sha256 "50613a32831ffe5155d9f5eeb75a924db33b2b21a1575f436aa4a08e08624a25" => :el_capitan
+    sha256 "d617f73363aafd7a35b2b26a2161ad0ca0484d1c232eb762cd7e860b888a408a" => :yosemite
   end
 
   depends_on :python

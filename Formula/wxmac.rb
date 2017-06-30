@@ -10,14 +10,14 @@ class Wxmac < Formula
     sha256 "346879dc554f3ab8d6da2704f651ecb504a22e9d31c17ef5449b129ed711585d"
 
     # Patch for wxOSXPrintData, custom paper not applied
-    # http://trac.wxwidgets.org/ticket/16959
+    # https://trac.wxwidgets.org/ticket/16959
     patch do
-      url "http://trac.wxwidgets.org/raw-attachment/ticket/16959/wxPaperCustomPatch.patch"
+      url "https://trac.wxwidgets.org/raw-attachment/ticket/16959/wxPaperCustomPatch.patch"
       sha256 "391b5c05caa3843de1579294a62918d9e00b2311313ee2ce1c1943cd5a8494b3"
     end
 
     # Various fixes related to Yosemite. Revisit in next stable release.
-    # Please keep an eye on http://trac.wxwidgets.org/ticket/16329 as well
+    # Please keep an eye on https://trac.wxwidgets.org/ticket/16329 as well
     # Theoretically the above linked patch should still be needed, but it isn't.
     # Try to find out why.
     patch do
@@ -27,7 +27,7 @@ class Wxmac < Formula
 
     # Remove uncenessary <QuickTime/QuickTime.h> includes
     # Fixes building against Xcode 8 with macOS 10.12 SDK
-    # http://trac.wxwidgets.org/changeset/f6a2d1caef5c6d412c84aa900cb0d3990b350938/git-wxWidgets
+    # https://trac.wxwidgets.org/changeset/f6a2d1caef5c6d412c84aa900cb0d3990b350938/git-wxWidgets
     patch do
       url "https://raw.githubusercontent.com/Homebrew/formula-patches/bbf4995/wxmac/patch-quicktime-removal.diff"
       sha256 "ebddf09877b053a6fafbf61ac52e4a7b511489dc8437110f80f00d5d2b5ff885"
@@ -47,20 +47,20 @@ class Wxmac < Formula
 
     # Fix Issue: Creating wxComboCtrl without wxTE_PROCESS_ENTER style results in an assert.
     patch do
-      url "https://github.com/wxWidgets/wxWidgets/commit/cee3188c1abaa5b222c57b87cc94064e56921db8.patch"
-      sha256 "b60177afbbb3a8395fd86883e311dd48b0f4e1ece1b78b5f1a341dbfbeb76ebc"
+      url "https://github.com/wxWidgets/wxWidgets/commit/cee3188c1abaa5b222c57b87cc94064e56921db8.patch?full_index=1"
+      sha256 "c2389fcb565ec4d488aed2586da15ec72d7fdb8c614f266f8f936d6e4ea10210"
     end
 
     # Fix Issue: Building under macOS in C++11 mode for i386 architecture (but not amd64) results in an error about narrowing conversion.
     patch do
-      url "https://github.com/wxWidgets/wxWidgets/commit/ee486dba32d02c744ae4007940f41a5b24b8c574.patch"
-      sha256 "6d066c5848454255ba0734b8d787ecb334cc4b177a74c8bb3b5f3f83950c3268"
+      url "https://github.com/wxWidgets/wxWidgets/commit/ee486dba32d02c744ae4007940f41a5b24b8c574.patch?full_index=1"
+      sha256 "dd73556b7a91cbfa63e2eafa8bab48ce5308b382d8e26e60b79f61d0520871e3"
     end
 
     # Fix Issue: Building under macOS in C++11 results in several -Winconsistent-missing-override warnings.
     patch do
-      url "https://github.com/wxWidgets/wxWidgets/commit/173ecd77c4280e48541c33bdfe499985852935ba.patch"
-      sha256 "f8f9881b788f51b0042da7decd9916ca1e4bf0ef5364edd9431c55f97e678cb7"
+      url "https://github.com/wxWidgets/wxWidgets/commit/173ecd77c4280e48541c33bdfe499985852935ba.patch?full_index=1"
+      sha256 "200c4fc3e103c7c9aa36ff35335af1a05494bf00a7181b6d6a11f0ffb2e4dc5d"
     end
   end
 

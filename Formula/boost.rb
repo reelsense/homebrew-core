@@ -12,8 +12,8 @@ class Boost < Formula
     # "Replace boost::serialization::detail::get_data function."
     # Upstream PR from 26 Jan 2017 https://github.com/boostorg/mpi/pull/39
     patch :p2 do
-      url "https://github.com/boostorg/mpi/commit/f5bdcc1.patch"
-      sha256 "c7af75a83fef90fdb9858bc988d64ca569ae8d940396b9bc60a57d63fca2587b"
+      url "https://github.com/boostorg/mpi/commit/f5bdcc1.patch?full_index=1"
+      sha256 "e3765f6fe04e50089a315f20be392c73834b06274ef6624a4b91464a7409c010"
     end
   end
 
@@ -42,8 +42,8 @@ class Boost < Formula
   # fix error: no member named 'make_array' in namespace 'boost::serialization'
   # https://svn.boost.org/trac/boost/ticket/12978
   patch :p2 do
-    url "https://github.com/boostorg/serialization/commit/1d86261.diff"
-    sha256 "155f603a00975a1702808be072c1420964feac8323de39c111a9d3a363a4ed9a"
+    url "https://github.com/boostorg/serialization/commit/1d86261581230e2dc5d617a9b16287d326f3e229.diff?full_index=1"
+    sha256 "56620635277eccbb20d970d9a1cdd803b9bb18790f108bd225594ff9d2d9e8bd"
   end
 
   def install
