@@ -1,17 +1,21 @@
 class Offlineimap < Formula
   desc "Synchronizes emails between two repositories"
   homepage "http://offlineimap.org/"
-  url "https://github.com/OfflineIMAP/offlineimap/archive/v7.1.1.tar.gz"
-  sha256 "a624f8a77eae664dd458be47c5306c28911d4a1f788ff5641d7bb37e01ecb703"
+  url "https://github.com/OfflineIMAP/offlineimap/archive/v7.1.2.tar.gz"
+  sha256 "7203435e34f73e90d1833b72c49a859decf7b5828384a2648ee4b2d1ef3bdc66"
   revision 1
   head "https://github.com/OfflineIMAP/offlineimap.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "99db47aadb9ba9ae42127cbe7c549d8ed3e2276f50d122375a1c7488b213a8ab" => :sierra
-    sha256 "b743e423432e73d384c743af6391714c686baf5dc90d7c40920546e82538fb00" => :el_capitan
-    sha256 "b743e423432e73d384c743af6391714c686baf5dc90d7c40920546e82538fb00" => :yosemite
+    sha256 "383a8102a3cd84f85424f4fd280ff4ff3fad8c3032802a6013a08846e8800d91" => :sierra
+    sha256 "c89e281547c1cf23754a80e0fddd48f2aecc7e94de8b606daac6d400bedca3b4" => :el_capitan
+    sha256 "c89e281547c1cf23754a80e0fddd48f2aecc7e94de8b606daac6d400bedca3b4" => :yosemite
   end
+
+  depends_on "asciidoc" => :build
+  depends_on "docbook-xsl" => :build
+  depends_on "sphinx-doc" => :build
 
   resource "six" do
     url "https://files.pythonhosted.org/packages/b3/b2/238e2590826bfdd113244a40d9d3eb26918bd798fc187e2360a8367068db/six-1.10.0.tar.gz"
@@ -19,6 +23,11 @@ class Offlineimap < Formula
   end
 
   def install
+    ENV["XML_CATALOG_FILES"] = "#{etc}/xml/catalog"
+    system "make", "docs"
+    man1.install "docs/offlineimap.1"
+    man7.install "docs/offlineimapui.7"
+
     ENV.prepend_create_path "PYTHONPATH", libexec/"vendor/lib/python2.7/site-packages"
     resource("six").stage do
       system "python", *Language::Python.setup_install_args(libexec/"vendor")

@@ -1,13 +1,13 @@
 class Mariadb < Formula
   desc "Drop-in replacement for MySQL"
   homepage "https://mariadb.org/"
-  url "https://ftp.osuosl.org/pub/mariadb/mariadb-10.2.6/source/mariadb-10.2.6.tar.gz"
-  sha256 "c385c76e40d6e5f0577eba021805da5f494a30c9ef51884baefe206d5658a2e5"
+  url "https://ftp.osuosl.org/pub/mariadb/mariadb-10.2.7/source/mariadb-10.2.7.tar.gz"
+  sha256 "225ba1bbc48325ad38a9f433ff99da4641028f42404a29591cc370e4a676c0bc"
 
   bottle do
-    sha256 "8f4a13008e4b1f3dd5ded3ea54ccacc1a77d0735d255027e1d9abe7089a26bdc" => :sierra
-    sha256 "b65d947f17aca66bc740673b2860cfdfefe3b924c3877fb75ccc2b85886bc735" => :el_capitan
-    sha256 "86aa0595f68d44bfe4a9d50b03e54c23b860f3b54ccd5e7fbcd6f18f58e96c3d" => :yosemite
+    sha256 "8d3b602d388dbfea5603d1c3fc5ac82c64d42a5f7bff4cf73fd9a4a3b0a55a9f" => :sierra
+    sha256 "7fb16bfd8031ca43ba86b790ce9c7e9229bbb32fefa34139ecc5e0bcec81f632" => :el_capitan
+    sha256 "78527e9e5ea43e6ca186f5efd6752d2d4aba7474198de2736915169b6cd640c3" => :yosemite
   end
 
   option "with-test", "Keep test when installing"
@@ -22,7 +22,6 @@ class Mariadb < Formula
   deprecated_option "with-tests" => "with-test"
 
   depends_on "cmake" => :build
-  depends_on "pidof" unless MacOS.version >= :mountain_lion
   depends_on "openssl"
 
   conflicts_with "mysql", "mysql-cluster", "percona-server",

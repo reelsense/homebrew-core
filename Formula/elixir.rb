@@ -36,6 +36,12 @@ class Elixir < Formula
     sha256 "291946687a7d64541b69a132daab1d400592a115ed02ae1f0116fbe1799aee67" => :yosemite
   end
 
+  devel do
+    url "https://github.com/elixir-lang/elixir/archive/v1.5.0-rc.1.tar.gz"
+    version "1.5.0-rc.1"
+    sha256 "1ad60996c2141e61d36fc9c87726fa4d71353c7017c6ceb75221fe1edea14f6b"
+  end
+
   depends_on Erlang18Requirement
 
   def install
