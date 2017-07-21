@@ -1,15 +1,14 @@
 class Folly < Formula
   desc "Collection of reusable C++ library artifacts developed at Facebook"
   homepage "https://github.com/facebook/folly"
-  url "https://github.com/facebook/folly/archive/v2017.07.10.00.tar.gz"
-  sha256 "80bf8365d5d76bf60b6fe8023c9c1955c810eb2b96f3b18929eca83c254ebd3f"
-  revision 1
+  url "https://github.com/facebook/folly/archive/v2017.07.17.01.tar.gz"
+  sha256 "1262b1ef94966066bfcb9e5aacfaf7481076686ac69588e42dd389209bca2321"
   head "https://github.com/facebook/folly.git"
 
   bottle do
     cellar :any
-    sha256 "83a9ae46aacc793838abea3db910bc958b372dde6d624a0fa051bc5dce3308c4" => :sierra
-    sha256 "72cc18bcbae5e3b8760595214dfa1c9e7796b06cdbd62df2205b03e6216ad248" => :el_capitan
+    sha256 "d8fdf9cd0de011a53b802b4f74e0cfd535ddbfd8737cebec3ae759ecce989e9e" => :sierra
+    sha256 "576c22ed7ea2534000a753ab88fe4ac3cc3250389e16bc76d7d94bfbd28d083d" => :el_capitan
   end
 
   depends_on "autoconf" => :build

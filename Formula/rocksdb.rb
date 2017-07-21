@@ -1,21 +1,21 @@
 class Rocksdb < Formula
   desc "Embeddable, persistent key-value store for fast storage"
   homepage "http://rocksdb.org"
-  url "https://github.com/facebook/rocksdb/archive/v5.5.2.tar.gz"
-  sha256 "c505d8b4aab235346f5555f00a900a45d4912ba902b49228acbcbc61d50163e7"
-  revision 1
+  url "https://github.com/facebook/rocksdb/archive/v5.5.5.tar.gz"
+  sha256 "ecbb9adf4624c959c7c87df6818e412ffd43dece11bbf2f1ed9950af9db52d9f"
 
   bottle do
     cellar :any
-    sha256 "4ee746fddcf19d633e03a68d462f8e22ff1316f42f8942ef80a3dd9fe2341b00" => :sierra
-    sha256 "5f5a5203f51af185427dd53cdbdb70e83ec46f941341c46ab204d7146cce3600" => :el_capitan
-    sha256 "c5a3c126999b1783afbd97da9cb50a9032d9f901cfdae98f3977b20e7413bedf" => :yosemite
+    sha256 "78546e3f783d2c657610192dd7ca951c17fda2ab2a3bb487f91d00a1d0072138" => :sierra
+    sha256 "2900c972c0f462cdf721ea2c8ef379d5fa050471ffc311f63d696086ae16f303" => :el_capitan
+    sha256 "aa3e15df79b246f214cd3c9e87436f20fd4b976e59fbf8131ce0bdfca370171a" => :yosemite
   end
 
   needs :cxx11
   depends_on "snappy"
   depends_on "lz4"
   depends_on "gflags"
+  depends_on "jemalloc"
 
   def install
     ENV.cxx11
