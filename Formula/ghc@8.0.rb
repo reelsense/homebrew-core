@@ -1,31 +1,20 @@
 require "language/haskell"
 
-class Ghc < Formula
+class GhcAT80 < Formula
   include Language::Haskell::Cabal
 
   desc "Glorious Glasgow Haskell Compilation System"
   homepage "https://haskell.org/ghc/"
-  url "https://downloads.haskell.org/~ghc/8.2.1/ghc-8.2.1-src.tar.xz"
-  sha256 "cfc2d496708dacea3ea7dde4c6a4b921b97a7f550ee2acea44cfa535840593f0"
+  url "https://downloads.haskell.org/~ghc/8.0.2/ghc-8.0.2-src.tar.xz"
+  sha256 "11625453e1d0686b3fa6739988f70ecac836cadc30b9f0c8b49ef9091d6118b1"
 
   bottle do
-    sha256 "c77925f6388600594ba3392d6f8a9d17911de1a24123042c3852729482cd2fb9" => :sierra
-    sha256 "1eb563c53ed1f1317c3318ed7d85507cd3251a6135c1e4da611ca70cabd85686" => :el_capitan
-    sha256 "7990e782ac5c2abaac95c645d66cc859b143e585af6e5194b73e364a96ce741a" => :yosemite
+    sha256 "9184f9147b526c425fd14498dca9fa1550c563857291c3c5ad616c6e5e521e47" => :sierra
+    sha256 "be71492dc8783027300be80d8554bf0a239ba53991002094dc11c5d982f7294f" => :el_capitan
+    sha256 "715e6fd851a5044e1ccaa812b12db136cfa96c9b6e118893f93d92c625040e95" => :yosemite
   end
 
-  head do
-    url "https://git.haskell.org/ghc.git", :branch => "ghc-8.2"
-
-    depends_on "autoconf" => :build
-    depends_on "automake" => :build
-    depends_on "libtool" => :build
-
-    resource "cabal" do
-      url "https://hackage.haskell.org/package/cabal-install-1.24.0.2/cabal-install-1.24.0.2.tar.gz"
-      sha256 "2ac8819238a0e57fff9c3c857e97b8705b1b5fef2e46cd2829e85d96e2a00fe0"
-    end
-  end
+  keg_only :versioned_formula
 
   option "with-test", "Verify the build using the testsuite"
   option "without-docs", "Do not build documentation (including man page)"
@@ -33,7 +22,6 @@ class Ghc < Formula
   deprecated_option "with-tests" => "with-test"
 
   depends_on :macos => :lion
-  depends_on :python3 => :build if build.bottle? || build.with?("test")
   depends_on "sphinx-doc" => :build if build.with? "docs"
 
   resource "gmp" do
@@ -57,19 +45,16 @@ class Ghc < Formula
   # https://www.haskell.org/ghc/download_ghc_8_0_1#macosx_x86_64
   # "This is a distribution for Mac OS X, 10.7 or later."
   resource "binary" do
-    url "https://downloads.haskell.org/~ghc/8.2.1/ghc-8.2.1-x86_64-apple-darwin.tar.xz"
-    sha256 "900c802025fb630060dbd30f9738e5d107a4ca5a50d5c1262cd3e69fe4467188"
+    url "https://downloads.haskell.org/~ghc/8.0.2/ghc-8.0.2-x86_64-apple-darwin.tar.xz"
+    sha256 "ff50a2df9f002f33b9f09717ebf5ec5a47906b9b65cc57b1f9849f8b2e06788d"
   end
 
   resource "testsuite" do
-    url "https://downloads.haskell.org/~ghc/8.2.1/ghc-8.2.1-testsuite.tar.xz"
-    sha256 "49ea3a913c3c556d4af8bbf5afd40a7ce740341eaef3498d2db3bc842c9d431b"
+    url "https://downloads.haskell.org/~ghc/8.0.2/ghc-8.0.2-testsuite.tar.xz"
+    sha256 "52235d299eb56292f2c273dc490792788b8ba11f4dc600035d050c8a4c1f4cf2"
   end
 
   def install
-    ENV["CC"] = ENV.cc
-    ENV["LD"] = "ld"
-
     # Setting -march=native, which is what --build-from-source does, fails
     # on Skylake (and possibly other architectures as well) with the error
     # "Segmentation fault: 11" for at least the following files:
@@ -100,7 +85,11 @@ class Ghc < Formula
     end
 
     args = ["--with-gmp-includes=#{gmp}/include",
-            "--with-gmp-libraries=#{gmp}/lib"]
+            "--with-gmp-libraries=#{gmp}/lib",
+            "--with-ld=ld", # Avoid hardcoding superenv's ld.
+            "--with-gcc=#{ENV.cc}"] # Always.
+
+    args << "--with-clang=#{ENV.cc}" if ENV.compiler == :clang
 
     # As of Xcode 7.3 (and the corresponding CLT) `nm` is a symlink to `llvm-nm`
     # and the old `nm` is renamed `nm-classic`. Building with the new `nm`, a
@@ -126,21 +115,6 @@ class Ghc < Formula
       ENV.prepend_path "PATH", binary/"bin"
     end
 
-    if build.head?
-      resource("cabal").stage do
-        system "sh", "bootstrap.sh", "--sandbox"
-        (buildpath/"bootstrap-tools/bin").install ".cabal-sandbox/bin/cabal"
-      end
-
-      ENV.prepend_path "PATH", buildpath/"bootstrap-tools/bin"
-
-      cabal_sandbox do
-        cabal_install "--only-dependencies", "happy", "alex"
-        cabal_install "--prefix=#{buildpath}/bootstrap-tools", "happy", "alex"
-      end
-
-      system "./boot"
-    end
     system "./configure", "--prefix=#{prefix}", *args
     system "make"
 

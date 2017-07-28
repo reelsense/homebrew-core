@@ -1,14 +1,15 @@
 class Vim < Formula
   desc "Vi 'workalike' with many additional features"
   homepage "https://vim.sourceforge.io/"
-  url "https://github.com/vim/vim/archive/v8.0.0740.tar.gz"
-  sha256 "48446d4a07076a5389490da0b038320710a98cf82adf6087c924624f421faa9e"
+  url "https://github.com/vim/vim/archive/v8.0.0771.tar.gz"
+  sha256 "d4afcf3c84882517f3c887764ca8d68dc37f4987b7f41e1902d72b00702db52a"
+  revision 1
   head "https://github.com/vim/vim.git"
 
   bottle do
-    sha256 "d1b467fac594c8035aa4a4b0c87c8bd540dbcfa95b3023c5abf0890b84ac1bda" => :sierra
-    sha256 "239e0c9261a17d8bec8f86630b4d03147746818eb14f5beaa355aa03fec76eac" => :el_capitan
-    sha256 "062d20574fc93a55220b4526fba9f7a291691d1f65de6eb2249e1f403e914084" => :yosemite
+    sha256 "20b88bf36ad82b2d5391e431b04df155701e8243bc634360948db370f0d5dca3" => :sierra
+    sha256 "43bb5aeab5b5927f20f71658881d534cf9cc6539512c480d31c706a47a118f5c" => :el_capitan
+    sha256 "0f37bb9e25baa4e05bcee2c297716acdd1519bf7a9791d266dbc30fc681e6b87" => :yosemite
   end
 
   deprecated_option "override-system-vi" => "with-override-system-vi"
@@ -106,6 +107,7 @@ class Vim < Formula
                           "--enable-multibyte",
                           "--with-tlib=ncurses",
                           "--enable-cscope",
+                          "--enable-terminal",
                           "--with-compiledby=Homebrew",
                           *opts
     system "make"
