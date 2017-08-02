@@ -3,15 +3,15 @@ class Watson < Formula
 
   desc "Command-line tool to track (your) time"
   homepage "https://tailordev.github.io/Watson/"
-  url "https://files.pythonhosted.org/packages/a2/48/b1b00e7ff3cf7bb2aacd45bd0b446f9bcf6cf8a2f4728f715be50431b20d/td-watson-1.5.0.tar.gz"
-  sha256 "1818a7e8246cb74f009a49b1236fd87e85bf33c66db516b71217beda11ffa19e"
+  url "https://files.pythonhosted.org/packages/37/49/f1ee677017cd8343d5ef3a6c5c449f4763d26f4ba5cb3aa1b38769133ee7/td-watson-1.5.2.tar.gz"
+  sha256 "6e03d44a9278807fe5245e9ed0943f13ffb88e11249a02655c84cb86260b27c8"
   head "https://github.com/TailorDev/Watson.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "3c02d6ef307d174e75b8f8226bec7a1263e29cc3ee587b8c97479cc29297a8d3" => :sierra
-    sha256 "c999f0874b78be18341f9a93e4e4b8d4c898d763310f638fbb188deae5956706" => :el_capitan
-    sha256 "b099cb9ea64d813b1d963f031da81dfad321b50a64d8d919045dfb1a933ad454" => :yosemite
+    sha256 "b73f589ea7a6c88f8e75b44b0c5dfe39d43a6e2bf7e8f04ac865706fb2b605c1" => :sierra
+    sha256 "a88d5581565c2bcc025fff52006286146d2bd1326c6dc382a7cfb160ca30b947" => :el_capitan
+    sha256 "6b2461f85332a77ec5bd22abccd83fe1a8e13d3c9ac0a0ee8e1dd1a0d7e1382c" => :yosemite
   end
 
   depends_on :python
