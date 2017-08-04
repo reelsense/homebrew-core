@@ -7,18 +7,21 @@ class Elvish < Formula
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "8a36df07bafd28ecb996e46d7d5853257d509544c455b7853c2e4cd3a219f844" => :sierra
-    sha256 "ce99b7ebda92359ba19ad392effcb1f51af19d5f422337ee90f06f6d2a1a9ce7" => :el_capitan
-    sha256 "206c2c9c2324ac1167e836f06688684d3418db1023575ad1ec036ecba4aa3f22" => :yosemite
+    rebuild 2
+    sha256 "3cd7c20e64d361927b6050c79aea1ac9f3266073706eda12870f1b5c7d774792" => :sierra
+    sha256 "52d43c85b16a7785b95b0d6f01e54d3263c10f19af4222b59ecb37d7bed06a63" => :el_capitan
+    sha256 "5bb8dda1b2d803843a137d612fac32a6c7ebf11cdd3c793a23225d91bcb71a6a" => :yosemite
   end
 
   depends_on "go" => :build
 
   def install
     ENV["GOPATH"] = buildpath
-    (buildpath/"src/github.com/elves").mkpath
-    ln_sf buildpath, buildpath/"src/github.com/elves/elvish"
-    system "go", "build", "-o", bin/"elvish"
+    (buildpath/"src/github.com/elves/elvish").install buildpath.children
+    cd "src/github.com/elves/elvish" do
+      system "go", "build", "-o", bin/"elvish"
+      prefix.install_metafiles
+    end
   end
 
   test do
