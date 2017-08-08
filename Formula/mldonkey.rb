@@ -3,13 +3,14 @@ class Mldonkey < Formula
   homepage "https://mldonkey.sourceforge.io"
   url "https://github.com/ygrek/mldonkey/releases/download/release-3-1-6/mldonkey-3.1.6.tar.bz2"
   sha256 "1b36b57c05a83c2e363c085bf8e80630884c6c92ecdeffc1ad5e1c39a98e043d"
-  revision 1
+  revision 2
   head "https://github.com/ygrek/mldonkey.git", :branch => "next"
 
   bottle do
-    sha256 "3ce7cea1dcb24867f474488fb7b85fd8c0387fefaf1919c67e9a2ff538a12e39" => :sierra
-    sha256 "a5b13542b152b3421029a6fe2d66d7c9e25b31647ed7b9cb16644866dbeffaa8" => :el_capitan
-    sha256 "89af4b702b61cfe0fed14df0d0550a8005ef8456ab403874a8ea3f5330465f53" => :yosemite
+    rebuild 1
+    sha256 "4b69f4572789c1e8ea5ddb273b0dc816224b192ca6e486353224ce7878c10c1c" => :sierra
+    sha256 "caead710b3c7d058f09ca482d296d50b58b3e1419e5a7330f9227970ae34b58b" => :el_capitan
+    sha256 "174930623fa07bdfa5ac8e1281d48f01e90e8bdc2acb54e1fd768d7356aaec9e" => :yosemite
   end
 
   depends_on "camlp4" => :build

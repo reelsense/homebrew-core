@@ -4,11 +4,13 @@ class Gegl < Formula
   url "https://download.gimp.org/pub/gegl/0.3/gegl-0.3.18.tar.bz2"
   mirror "https://mirrors.kernel.org/debian/pool/main/g/gegl/gegl_0.3.18.orig.tar.bz2"
   sha256 "d7858ef26ede136d14e3de188a9e9c0de7707061a9fb96d7d615fab4958491fb"
+  revision 1
 
   bottle do
-    sha256 "ed94a256f9a8aed06b3d2c904b38f15211027e0588d117c2265030289d92cd73" => :sierra
-    sha256 "2372a5814c5d91fd0f5a72dc3d781af645359e179b855261178b40c410e795fb" => :el_capitan
-    sha256 "23be0d6afe116bdd2397e681a68bdd9a566a42dc69c5a461e0032571f247c3dc" => :yosemite
+    rebuild 1
+    sha256 "2587f67b9dff8185a123a38bfedb88484743542b13d8a172e068cd271468e5f3" => :sierra
+    sha256 "ac5564d4d9e766d29f8ddf6f239514d5810053991687c101b4763fa3059dba79" => :el_capitan
+    sha256 "e67459da4011ebec45e50a93447eff5d505959ca6fd4394347dac27bec6471e7" => :yosemite
   end
 
   head do

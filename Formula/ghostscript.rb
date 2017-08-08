@@ -1,7 +1,7 @@
 class Ghostscript < Formula
   desc "Interpreter for PostScript and PDF"
   homepage "https://www.ghostscript.com/"
-  revision 2
+  revision 4
 
   stable do
     url "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs921/ghostscript-9.21.tar.xz"
@@ -36,9 +36,9 @@ class Ghostscript < Formula
   end
 
   bottle do
-    sha256 "fb4550deedfae1e307105ed563e1a79acd8323a75f8a775f9539c28b67d5d67f" => :sierra
-    sha256 "7299521942379bc4e6340b684eb3b5e087d25f455bb679c488c8db32cd80c296" => :el_capitan
-    sha256 "3a910db33cefd0145b0c81e94c24afb4432b78e5e11154784ff633f7d1c3d916" => :yosemite
+    sha256 "9260610aa9daaee499420b73b31dea4385b84572ce45e643493d341f6a24de40" => :sierra
+    sha256 "e4607b6721fcbf05ef11b7dedebee8870fcea1eee8bdbb2bfb0a6e15cbcaf17c" => :el_capitan
+    sha256 "1ae88c8587a922be03eed483f951c3a88809714cdeadce90c2fc6dbaeceba8ef" => :yosemite
   end
 
   head do
@@ -68,6 +68,8 @@ class Ghostscript < Formula
       --disable-cups
       --disable-compile-inits
       --disable-gtk
+      --disable-fontconfig
+      --without-libidn
     ]
     args << "--without-x" if build.without? "x11"
 

@@ -7,11 +7,13 @@ class ImagemagickAT6 < Formula
   url "https://dl.bintray.com/homebrew/mirror/imagemagick%406-6.9.9-5.tar.xz"
   mirror "https://www.imagemagick.org/download/ImageMagick-6.9.9-5.tar.xz"
   sha256 "aa6444ece8d29b87fb4f25e997cd0b4fb48774206cea9490c6028babdee7d056"
+  revision 1
 
   bottle do
-    sha256 "26a16ed29d78f9a7cdb534e856f38bef3302ee50da14dde004c48312b39c2ef2" => :sierra
-    sha256 "c5894a7269b6fee2bb86d7acb6402904c23fdab948e7e1dcaad970efb140b703" => :el_capitan
-    sha256 "b3905f9ecb4baccd2f7dfd8d8b365aca40f3b284291731860b28c294045bf141" => :yosemite
+    rebuild 1
+    sha256 "fc56723e889cd32eab9317e0c1282a4077db3f25e03c0d0d19eda63d3fb626d4" => :sierra
+    sha256 "30081785d14ba060bc310689922d039be47c66e646373e3568598efb7f5c71d4" => :el_capitan
+    sha256 "4b1171e4c1a6eb79d367e3f577e67765a4b4a11e3a4018475eeb3e73bc2f5b32" => :yosemite
   end
 
   keg_only :versioned_formula

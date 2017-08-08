@@ -1,19 +1,21 @@
 class Libav < Formula
   desc "Audio and video processing tools"
   homepage "https://libav.org/"
-  url "https://libav.org/releases/libav-12.tar.xz"
-  sha256 "72291ec223b08716fe5204b7b79ea8b90d75003730caa1c575dbf4232277a90e"
+  url "https://libav.org/releases/libav-12.1.tar.xz"
+  sha256 "fad96aa265d3d64b9e53c159559621ec888effa022908da8372164fa4cbe5d2d"
 
   head "https://git.libav.org/libav.git"
 
   bottle do
-    sha256 "4e053bcc6117a02e7722a2e3eca490297d9ac5b7a43d29ccfdce7214c45c6a2c" => :sierra
-    sha256 "0d93239c110aded5fec9e3d30aaa6165f61b72ff1c06b1c7e3ba87ccb86bea90" => :el_capitan
-    sha256 "6375d45e010c69b98008c26bea428137595c33286bac8380da4bdbe6c0f0678b" => :yosemite
+    sha256 "83454e0551667ff35b7ed5d70b9fbe414c173e65ee9f4a60837c3cb4f308d7e6" => :sierra
+    sha256 "2ba607e18aeeb9b69e2903b14b04ecdd822bd460aecefeac92e4f02c85862226" => :el_capitan
+    sha256 "41fcc69856efd258965104e42e6197ff67afa3f239604e45cbefe1bc47c62e77" => :yosemite
   end
 
   option "without-faac", "Disable AAC encoder via faac"
   option "without-lame", "Disable MP3 encoder via libmp3lame"
+  option "without-libvorbis", "Disable Vorbis encoding via libvorbis"
+  option "without-libvpx", "Disable VP8 de/encoding via libvpx"
   option "without-x264", "Disable H.264 encoder via x264"
   option "without-xvid", "Disable Xvid MPEG-4 video encoder via xvid"
 
@@ -25,9 +27,7 @@ class Libav < Formula
   option "with-sdl", "Enable avplay"
   option "with-speex", "Enable Speex de/encoding via libspeex"
   option "with-theora", "Enable Theora encoding via libtheora"
-  option "with-libvorbis", "Enable Vorbis encoding via libvorbis"
   option "with-libvo-aacenc", "Enable VisualOn AAC encoder"
-  option "with-libvpx", "Enable VP8 de/encoding via libvpx"
 
   depends_on "pkg-config" => :build
   depends_on "yasm" => :build
@@ -36,21 +36,21 @@ class Libav < Formula
   depends_on "texi2html" => :build if MacOS.version >= :mountain_lion
 
   depends_on "faac" => :recommended
+  depends_on "fdk-aac" => :recommended
+  depends_on "freetype" => :recommended
   depends_on "lame" => :recommended
+  depends_on "libvorbis" => :recommended
+  depends_on "libvpx" => :recommended
+  depends_on "opus" => :recommended
   depends_on "x264" => :recommended
   depends_on "xvid" => :recommended
 
   depends_on "fontconfig" => :optional
-  depends_on "freetype" => :optional
-  depends_on "fdk-aac" => :optional
   depends_on "frei0r" => :optional
   depends_on "gnutls" => :optional
   depends_on "libvo-aacenc" => :optional
-  depends_on "libvorbis" => :optional
-  depends_on "libvpx" => :optional
   depends_on "opencore-amr" => :optional
   depends_on "openssl" => :optional
-  depends_on "opus" => :optional
   depends_on "rtmpdump" => :optional
   depends_on "schroedinger" => :optional
   depends_on "sdl" => :optional

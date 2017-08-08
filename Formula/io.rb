@@ -1,7 +1,7 @@
 class Io < Formula
   desc "Small prototype-based programming language"
   homepage "http://iolanguage.com/"
-  revision 1
+  revision 2
 
   head "https://github.com/stevedekorte/io.git"
 
@@ -17,9 +17,10 @@ class Io < Formula
   end
 
   bottle do
-    sha256 "568f0e2970b3ebb0ee1407eddc76f6c9a7d7ce14284aa068266dfaa4ecb95f92" => :sierra
-    sha256 "e78e1078cadd25d0991d8d8cdd4e2f8af114df23b253f2a0d864efccf6cbe233" => :el_capitan
-    sha256 "39d88952df6b5ad7dd4622364e83c36011fda46faafc83145fb2d535586fd75b" => :yosemite
+    rebuild 1
+    sha256 "3df8da0d059ae39472d998978935cb6b9d5fca2373d3b528f875775d84011246" => :sierra
+    sha256 "7f90228d769aec358a03ac59a7d11e1d263da9d71bb80cd6da8df402cb03717a" => :el_capitan
+    sha256 "ee95e6e5833a2ab0744cdb0285d87cf01d98e6badf165519d57cb255c0097af2" => :yosemite
   end
 
   option "without-addons", "Build without addons"

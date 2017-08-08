@@ -1,14 +1,15 @@
 class Git < Formula
   desc "Distributed revision control system"
   homepage "https://git-scm.com"
-  url "https://www.kernel.org/pub/software/scm/git/git-2.13.4.tar.xz"
-  sha256 "371a592a52d240a6350d4ec6b63cd8301e1fab6dd03388a339a8c7429305afda"
+  url "https://www.kernel.org/pub/software/scm/git/git-2.14.0.tar.xz"
+  sha256 "f93e6e6a307d2e953cccafd9f4003c62992628fa508d07586476c953c1655975"
   head "https://github.com/git/git.git", :shallow => false
 
   bottle do
-    sha256 "91dc5d59da239242993b953119c2c427981f2ae7fbf047cc1cba801f30f00d91" => :sierra
-    sha256 "0f5b96b70ba5fc278ad2802e56628d0daeefd40402148d956a1cfa9e27b87df5" => :el_capitan
-    sha256 "e59e02e1fb3acd53dda20f89cd1138a9d2f501e8ab2d339ec697cdb7e3ba3f66" => :yosemite
+    rebuild 1
+    sha256 "92e59604a3c1d72fe436e90b0b69eaa2e7201f4978a816c42e0de3621de1a3bf" => :sierra
+    sha256 "e93ae780ccd4d214cddf6fb7761b2f8268d4b53a729f35489f3ec8d3da332d79" => :el_capitan
+    sha256 "a99ec32dfcff5c16ecdceb166b475c310a39ae3a2336eb8ebfa8562e8994910c" => :yosemite
   end
 
   option "with-blk-sha1", "Compile with the block-optimized SHA1 implementation"
@@ -21,8 +22,9 @@ class Git < Formula
   deprecated_option "with-brewed-openssl" => "with-openssl"
   deprecated_option "with-brewed-curl" => "with-curl"
   deprecated_option "with-brewed-svn" => "with-subversion"
+  deprecated_option "with-pcre" => "with-pcre2"
 
-  depends_on "pcre" => :optional
+  depends_on "pcre2" => :optional
   depends_on "gettext" => :optional
   depends_on "openssl" => :optional
   depends_on "curl" => :optional
@@ -37,13 +39,13 @@ class Git < Formula
   end
 
   resource "html" do
-    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.13.4.tar.xz"
-    sha256 "1dbb459cf47f0023456fde9d0155aa858540479e258fbf2c808c5c4fd9f44f93"
+    url "https://www.kernel.org/pub/software/scm/git/git-htmldocs-2.14.0.tar.xz"
+    sha256 "51d6d51041bbfa4a5aab5762f1f87d630179ed30dc32773b38573258e1700de0"
   end
 
   resource "man" do
-    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.13.4.tar.xz"
-    sha256 "674fa9a299cbcb91e49affd7dfd69952be1ee88cb7a3d5ee5b294e7da29b5d52"
+    url "https://www.kernel.org/pub/software/scm/git/git-manpages-2.14.0.tar.xz"
+    sha256 "7d653c68a27eb7878ad92c0ab4d4fbcf112b69b67d4c8a180779651a96b1824d"
   end
 
   def install
@@ -80,13 +82,12 @@ class Git < Formula
     end
 
     ENV["BLK_SHA1"] = "1" if build.with? "blk-sha1"
-
-    if build.with? "pcre"
-      ENV["USE_LIBPCRE"] = "1"
-      ENV["LIBPCREDIR"] = Formula["pcre"].opt_prefix
-    end
-
     ENV["NO_GETTEXT"] = "1" if build.without? "gettext"
+
+    if build.with? "pcre2"
+      ENV["USE_LIBPCRE2"] = "1"
+      ENV["LIBPCREDIR"] = Formula["pcre2"].opt_prefix
+    end
 
     args = %W[
       prefix=#{prefix}

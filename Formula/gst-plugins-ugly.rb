@@ -3,11 +3,13 @@ class GstPluginsUgly < Formula
   homepage "https://gstreamer.freedesktop.org/"
   url "https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.12.2.tar.xz"
   sha256 "1cc3942bbf3ea87da3e35437d4e014e991b103db22a6174f62a98c89c3f5f466"
+  revision 1
 
   bottle do
-    sha256 "fbacf3e4730592a4857491d69d0dd0338ff0477ab2105cd11a1565c0a67bfee7" => :sierra
-    sha256 "af884b4bb7b1d9bdea0ae5826d196b1e3730c31a86ac972a99b23ccc097bb518" => :el_capitan
-    sha256 "10f3cd27951f51d3475ac923bdb2687321dcdf8f8f122a4c275846c2caa5f4ce" => :yosemite
+    rebuild 1
+    sha256 "89a00f2fa1bb460ee3041ec3f196e57f5c5e3e80585034a50bdcb7e8bed38152" => :sierra
+    sha256 "0601d52ef36d2fbe3ad8769f42494d920c7afde898d57c8d540773522f847a9d" => :el_capitan
+    sha256 "adf4aae651764fad774a2804d1b1a9d56deea19fad20ae710ecc393729b3e511" => :yosemite
   end
 
   head do

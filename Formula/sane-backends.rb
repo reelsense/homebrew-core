@@ -5,13 +5,14 @@ class SaneBackends < Formula
   mirror "https://mirrors.kernel.org/debian/pool/main/s/sane-backends/sane-backends_1.0.27.orig.tar.gz"
   mirror "https://fossies.org/linux/misc/sane-backends-1.0.27.tar.gz"
   sha256 "293747bf37275c424ebb2c833f8588601a60b2f9653945d5a3194875355e36c9"
-  revision 1
+  revision 2
   head "https://anonscm.debian.org/cgit/sane/sane-backends.git"
 
   bottle do
-    sha256 "b158d08da265fa785dbfe891783a1e0575ccf8ff646e40a2b9c972977cb24d6e" => :sierra
-    sha256 "8b89353a9b469274fdaae8db3a9db0e0d0f849dba3ad330b38f4d2231b249f16" => :el_capitan
-    sha256 "01faa0abace63ef385f29ba58975a7b2ca215aff206949175b493805dd2d983b" => :yosemite
+    rebuild 1
+    sha256 "40f3d76b4f2d1dff26c54e370363e10559a46d79ba2c931716cde97cadd26209" => :sierra
+    sha256 "3aada5f45cf23b055afcd260e7bd7abcd04258166d6a682cb796778af66e3970" => :el_capitan
+    sha256 "23d0dbe7ddf5dcf3a2e37f95c19014a44b31431e6b080bcd771f07ef6b50f97f" => :yosemite
   end
 
   depends_on "jpeg"

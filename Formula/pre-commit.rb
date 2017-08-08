@@ -3,14 +3,14 @@ class PreCommit < Formula
 
   desc "Framework for managing multi-language pre-commit hooks"
   homepage "http://pre-commit.com/"
-  url "https://github.com/pre-commit/pre-commit/archive/v0.16.0.tar.gz"
-  sha256 "15c5d82dd40a97c0b68c83012cd422b6bbf756e2040ee5b24391c43e5fa6370d"
+  url "https://github.com/pre-commit/pre-commit/archive/v0.16.2.tar.gz"
+  sha256 "69a92c66507720658d75346ac3ff25de1bba84b13cf171c6229f65ef18bad5f0"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "1a54562cb0f0f239e305d3f791926f5a987b406df715ee949f088aca02d5b923" => :sierra
-    sha256 "afc1c27090ed375ec1ac4b453372313f0edd48590c6b8d22362c67019b752d13" => :el_capitan
-    sha256 "bfe8c5775e9abe29c7ea66614766cf9beab42e8b56e84bad75b67475bd67a1de" => :yosemite
+    sha256 "391e3a533dbf22c0ad04665d1b8385fb8f3d046f2b23c674a9a2330663938ee6" => :sierra
+    sha256 "316f7eb419b2bee96dfe817d03a9ba0d803b3dbfcbd5fe1650f18985c17803a2" => :el_capitan
+    sha256 "2daece2dce0be5abfcbbfd56e555cc71aa7f3e91d11deae24828c9892c09ceba" => :yosemite
   end
 
   depends_on :python if MacOS.version <= :snow_leopard
