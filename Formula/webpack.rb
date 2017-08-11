@@ -3,14 +3,14 @@ require "language/node"
 class Webpack < Formula
   desc "Bundler for JavaScript and friends"
   homepage "https://webpack.js.org/"
-  url "https://registry.npmjs.org/webpack/-/webpack-3.4.1.tgz"
-  sha256 "4193a3e7dd8cb524004ef4ce8092d5a9ee76eb02be614f6938d8869515935e4e"
+  url "https://registry.npmjs.org/webpack/-/webpack-3.5.3.tgz"
+  sha256 "e590a811cb562e16a978038ce7d8f203e31f356cb65e44e47ea4122b88a068e2"
   head "https://github.com/webpack/webpack.git"
 
   bottle do
-    sha256 "38b6cfbf8498678fa404193d5f770fa8b9079f163e613f22db6b19f2a2159c8e" => :sierra
-    sha256 "2247ec35de86aa6a2940f18c8b825412a2274bfa89c389ae13d39020b4ca1162" => :el_capitan
-    sha256 "250b426e6a088ff6ed596f7d8a825344d0fe7cba94064514164859bbaa48d9db" => :yosemite
+    sha256 "67056718425b864200e47df2042eb85d86917938758e1b772a566735883eacb9" => :sierra
+    sha256 "93d9649de5e8a5fde32e48a0df5fcb90aa9080994a41687f1c23dcc0b092c188" => :el_capitan
+    sha256 "34a692cd0a5b7aa5b52dc0e44af878f7bd4c5b930cb2c4d7abad28a53a934253" => :yosemite
   end
 
   depends_on "node"

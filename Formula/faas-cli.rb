@@ -1,14 +1,15 @@
 class FaasCli < Formula
   desc "CLI for templating and/or deploying FaaS functions"
   homepage "http://docs.get-faas.com/"
-  url "https://github.com/alexellis/faas-cli/archive/0.4.tar.gz"
-  sha256 "f7ecebde2545243e9f37f7feb9fc2a171585d3f9e7998f981611f038bbc93987"
+  url "https://github.com/alexellis/faas-cli.git",
+      :tag => "0.4.6",
+      :revision => "39183ee1b344a7bb8825bd2ebedce5c0bf4262c4"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "18e22111574976f859575192424af39fcd679fcdc9c39e90a8a38c81e0fca85a" => :sierra
-    sha256 "6a863fae58f75a9487e762b5f98430cc329f0df9af1d32d4a463a9048cc81ae8" => :el_capitan
-    sha256 "01c0c83ff0ab842ea8402723c8a0b6ff436afb56fffa55e048df9cc3e4c4494e" => :yosemite
+    sha256 "332ca19339ba0ff8d2f9b01058ddea0246c6584c9570e458bcfd61c7fe502f0e" => :sierra
+    sha256 "200e8e1f3908799452c987823a43ba79b5732e36b1c2a749899ab59fcd3960a7" => :el_capitan
+    sha256 "d4586bec5a938eda11ed039abeaf2b12696596d65d8afd39fbcb5ee18d00fce5" => :yosemite
   end
 
   depends_on "go" => :build
@@ -19,7 +20,9 @@ class FaasCli < Formula
     ENV["GOPATH"] = buildpath
     (buildpath/"src/github.com/alexellis/faas-cli").install buildpath.children
     cd "src/github.com/alexellis/faas-cli" do
-      system "go", "build", "-o", bin/"faas-cli"
+      commit = Utils.popen_read("git rev-list -1 HEAD").chomp
+      system "go", "build", "-ldflags", "-X main.GitCommit=#{commit}", "-a",
+             "-installsuffix", "cgo", "-o", bin/"faas-cli"
       prefix.install_metafiles
     end
   end
@@ -58,6 +61,7 @@ class FaasCli < Formula
     expected = <<-EOS.undent
       Deploying: dummy_function.
       Removing old service.
+      Deployed.
       200 OK
       URL: http://localhost:#{port}/function/dummy_function
     EOS
