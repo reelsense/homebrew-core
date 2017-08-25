@@ -3,12 +3,13 @@ class Libbitcoin < Formula
   homepage "https://libbitcoin.org/"
   url "https://github.com/libbitcoin/libbitcoin/archive/v3.3.0.tar.gz"
   sha256 "391913a73615afcb42c6a7c4736f23888cfc999a899fc38395ddcbd560251d94"
+  revision 2
 
   bottle do
     cellar :any
-    sha256 "7ce5a70a7fe2e5b2db4b66fbda711d38d3f3cf55c4c835ff9710168aa609e641" => :sierra
-    sha256 "4405d82c91471dd138879c08d06fc486b5bf9c3e27aff1d094349e795e4270f7" => :el_capitan
-    sha256 "f7bf5121903b955d5d79da1626d491504d79a1c2302d9e1b42ef5f40fc9c07e5" => :yosemite
+    sha256 "264a49123f73f5195f5f6c165b74171f3fba8bb7c1538c028edfdd435a483bf6" => :sierra
+    sha256 "c6ea73cae6050d5d2224ef800fd6b9761a78934e3ae7b1230142c3c9a22b9952" => :el_capitan
+    sha256 "8287ef9f4ea6a8e49626e59bd8588a3cfc929c5ecda63188c66054b6383bacf6" => :yosemite
   end
 
   depends_on "autoconf" => :build
@@ -28,7 +29,8 @@ class Libbitcoin < Formula
       system "./configure", "--disable-dependency-tracking",
                             "--disable-silent-rules",
                             "--prefix=#{libexec}",
-                            "--enable-module-recovery"
+                            "--enable-module-recovery",
+                            "--with-bignum=no"
       system "make", "install"
     end
 
