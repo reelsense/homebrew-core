@@ -1,55 +1,49 @@
-class Erlang < Formula
+class ErlangAT17 < Formula
   desc "Programming language for highly scalable real-time systems"
   homepage "https://www.erlang.org/"
-  # Download tarball from GitHub; it is served faster than the official tarball.
-  url "https://github.com/erlang/otp/archive/OTP-20.0.4.tar.gz"
-  sha256 "4fb811b1811561f78a128c67e40b1b774354b358a4b61a9b641f0ecb06002f66"
-  head "https://github.com/erlang/otp.git"
+  url "https://github.com/erlang/otp/archive/OTP-17.5.6.9.tar.gz"
+  sha256 "387c612d1bc5ffbc68db7d05c3655804b310facc8bad921a3e0f3391970bc522"
+  head "https://github.com/erlang/otp.git", :branch => "maint-17"
 
   bottle do
     cellar :any
-    sha256 "748b5587be6cdbf99a265e94ea17ba78a9c4db374d3864215b6e5c8223f06704" => :sierra
-    sha256 "63a042bed6484443abd07f207f310ff80a3f65766f98b90b354d364bb936210b" => :el_capitan
-    sha256 "7bd021553ac3f1a47dc4500715d54b74fc5f773669ba925df5f9fc1a5b6b53d1" => :yosemite
+    sha256 "819a566e39049cb521e3a26f39746258d333acd4ce9bc91eff2dc8969905f2fc" => :sierra
+    sha256 "e4faf6f98903c5dd7fa4894f7a61f722101119572f6d32ab9000fa47332f148d" => :el_capitan
+    sha256 "ab5c9f75b67c92c103a7712104edf8dd4f6edb52eda6d0312b50bde0e1f83780" => :yosemite
   end
+
+  keg_only :versioned_formula
 
   option "without-hipe", "Disable building hipe; fails on various macOS systems"
   option "with-native-libs", "Enable native library compilation"
   option "with-dirty-schedulers", "Enable experimental dirty schedulers"
-  option "with-java", "Build jinterface application"
   option "without-docs", "Do not install documentation"
-
-  deprecated_option "disable-hipe" => "without-hipe"
-  deprecated_option "no-docs" => "without-docs"
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
   depends_on "openssl"
+  depends_on "unixodbc" if MacOS.version >= :mavericks
   depends_on "fop" => :optional # enables building PDF docs
-  depends_on :java => :optional
   depends_on "wxmac" => :recommended # for GUI apps like observer
 
-  resource "man" do
-    url "https://www.erlang.org/download/otp_doc_man_20.0.tar.gz"
-    mirror "https://fossies.org/linux/misc/otp_doc_man_20.0.tar.gz"
-    sha256 "b7f1542a94a170f8791f5d80a85706f9e8838924ea65d4301032d0c0cfb845cc"
-  end
-
-  resource "html" do
-    url "https://www.erlang.org/download/otp_doc_html_20.0.tar.gz"
-    mirror "https://fossies.org/linux/misc/otp_doc_html_20.0.tar.gz"
-    sha256 "1ab25110b148ce263d6e68cd5a3b912299b6066cfcd9d2fce416a4e9b7d2543a"
-  end
-
-  # Check if this patch can be removed when OTP 20.1 is released.
   # Erlang will crash on macOS 10.13 any time the crypto lib is used.
   # The Erlang team has an open PR for the patch but it needs to be applied to
   # older releases. See https://github.com/erlang/otp/pull/1501 and
   # https://bugs.erlang.org/browse/ERL-439 for additional information.
   patch do
-    url "https://github.com/erlang/otp/pull/1501.patch?full_index=1"
-    sha256 "e449d698a82e07eddfd86b5b06a0b4ab8fb4674cb72fc6ab037aa79b096f0a12"
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/8cf3045/erlang%4017/boring-ssl-high-sierra.patch"
+    sha256 "ec4bbdabdfece3a273210727bc150e0e588479885a141382b4d54221bbec5fc3"
+  end
+
+  resource "man" do
+    url "https://www.erlang.org/download/otp_doc_man_17.5.tar.gz"
+    sha256 "85b1b2a1011fc01af550f1fe9e5a599a4c5f2a35d264d2804af1d05590a857c3"
+  end
+
+  resource "html" do
+    url "https://www.erlang.org/download/otp_doc_html_17.5.tar.gz"
+    sha256 "baba1d373c1faacf4a1a6ec1220d57d0cb2b977edb74f32cd58dc786361c6cf5"
   end
 
   def install
@@ -90,14 +84,9 @@ class Erlang < Formula
       args << "--enable-hipe"
     end
 
-    if build.with? "java"
-      args << "--with-javac"
-    else
-      args << "--without-javac"
-    end
-
     system "./configure", *args
     system "make"
+    ENV.deparallelize # Install is not thread-safe; can try to create folder twice and fail
     system "make", "install"
 
     if build.with? "docs"
