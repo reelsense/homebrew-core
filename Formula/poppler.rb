@@ -1,14 +1,14 @@
 class Poppler < Formula
   desc "PDF rendering library (based on the xpdf-3.0 code base)"
   homepage "https://poppler.freedesktop.org/"
-  url "https://poppler.freedesktop.org/poppler-0.57.0.tar.xz"
-  sha256 "0ea37de71b7db78212ebc79df59f99b66409a29c2eac4d882dae9f2397fe44d8"
+  url "https://poppler.freedesktop.org/poppler-0.59.0.tar.xz"
+  sha256 "a3d626b24cd14efa9864e12584b22c9c32f51c46417d7c10ca17651f297c9641"
   revision 1
 
   bottle do
-    sha256 "321e13d234350ad2991d55ac8fb6a0de028e978d680f8567556a340b4480c35c" => :sierra
-    sha256 "0229a1b4ac8198685b9b83b647e142a8145dd8e739d5e2701d8d94653bdb7cbc" => :el_capitan
-    sha256 "e5ef8767ed20fe69710dc980d6e89eb943a9b3e507217b6bc8058a6d8d40ccb3" => :yosemite
+    sha256 "45c498c850b6e0dd469ad01a9934e8a04c382a0765c43ffd558f36ba914e53d3" => :sierra
+    sha256 "6414db0c4132faa741c0103f404c7e5620caf11484bbf4455c29f87e5184a21f" => :el_capitan
+    sha256 "dc7456a1f84d9125b08484bfdfa28950331656b8183368e245c66b30967f2cff" => :yosemite
   end
 
   option "with-qt", "Build Qt5 backend"
@@ -36,11 +36,18 @@ class Poppler < Formula
     :because => "poppler, pdftohtml, pdf2image, and xpdf install conflicting executables"
 
   resource "font-data" do
-    url "https://poppler.freedesktop.org/poppler-data-0.4.7.tar.gz"
-    sha256 "e752b0d88a7aba54574152143e7bf76436a7ef51977c55d6bd9a48dccde3a7de"
+    url "https://poppler.freedesktop.org/poppler-data-0.4.8.tar.gz"
+    sha256 "1096a18161f263cccdc6d8a2eb5548c41ff8fcf9a3609243f1b6296abdf72872"
   end
 
   needs :cxx11 if build.with?("qt") || MacOS.version < :mavericks
+
+  # Fix clang build failure due to missing user-provided default constructor
+  # Reported 4 Sep 2017 https://bugs.freedesktop.org/show_bug.cgi?id=102538
+  patch do
+    url "https://raw.githubusercontent.com/Homebrew/formula-patches/656cc7f/poppler/clang.diff"
+    sha256 "b95c454b78c83fc2a7cec276d4014c78aa4de48d247652eb3de3876f78875605"
+  end
 
   def install
     ENV.cxx11 if build.with?("qt") || MacOS.version < :mavericks

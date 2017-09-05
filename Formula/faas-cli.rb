@@ -2,14 +2,14 @@ class FaasCli < Formula
   desc "CLI for templating and/or deploying FaaS functions"
   homepage "http://docs.get-faas.com/"
   url "https://github.com/alexellis/faas-cli.git",
-      :tag => "0.4.9",
-      :revision => "b877c56f07d5b0ab6c417cb9eeeb06126e58031a"
+      :tag => "0.4.12",
+      :revision => "118e3e904aa930cafdb64f0efd4538c76fb27088"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "20233f2d004b05fb7a25ecf7f5b0b9ebe6918ba9d4508a9ea05c1b544d86e90c" => :sierra
-    sha256 "c80c6d26e117314751efea6e6d8bb01b54e6ef5a28ef147fb9bd8ea9ebce3eb3" => :el_capitan
-    sha256 "8b47b9a439beab9950e16a5ae43145753a70270347e0d53d808bb1f1c633543c" => :yosemite
+    sha256 "3ce155330a55c0f430f6ce4a205ffe53d68021d33fc0066e95c4b2a17d7ca0a7" => :sierra
+    sha256 "0f030ea51b76c3f7fa9603b9a685c2a811e4b54ecb5c2a2211e8b300464a2915" => :el_capitan
+    sha256 "4db2b9a7947602d3fd902b576f454276b0d3b824bccf0937729c0c55af9b6812" => :yosemite
   end
 
   depends_on "go" => :build
@@ -21,7 +21,7 @@ class FaasCli < Formula
     (buildpath/"src/github.com/alexellis/faas-cli").install buildpath.children
     cd "src/github.com/alexellis/faas-cli" do
       commit = Utils.popen_read("git rev-list -1 HEAD").chomp
-      system "go", "build", "-ldflags", "-X main.GitCommit=#{commit}", "-a",
+      system "go", "build", "-ldflags", "-s -w -X github.com/alexellis/faas-cli/commands.GitCommit=#{commit}", "-a",
              "-installsuffix", "cgo", "-o", bin/"faas-cli"
       prefix.install_metafiles
     end
@@ -67,8 +67,12 @@ class FaasCli < Formula
     EOS
 
     begin
-      output = shell_output("#{bin}/faas-cli -action deploy -yaml test.yml")
+      output = shell_output("#{bin}/faas-cli deploy -yaml test.yml")
       assert_equal expected, output.chomp
+
+      commit = Utils.popen_read("git rev-list -1 HEAD").chomp
+      output = shell_output("#{bin}/faas-cli version")
+      assert_match commit, output.chomp
     ensure
       Process.kill("TERM", pid)
       Process.wait(pid)

@@ -1,14 +1,14 @@
 class Glibmm < Formula
   desc "C++ interface to glib"
   homepage "https://www.gtkmm.org/"
-  url "https://download.gnome.org/sources/glibmm/2.52/glibmm-2.52.0.tar.xz"
-  sha256 "81b8abf21c645868c06779abc5f34efc1a51d5e61589dab2a2ed67faa8d4811e"
+  url "https://download.gnome.org/sources/glibmm/2.52/glibmm-2.52.1.tar.xz"
+  sha256 "dc19d20fb6b24d6b6da7cbe1b2190b38ae6ad64e6b93fecdcce71b995f43c975"
 
   bottle do
     cellar :any
-    sha256 "164c9ffdb884bedd6f9a5bab6da8a9cad34eaac38e1fa03947290fc458d24837" => :sierra
-    sha256 "a83afbac89c62793d5e1fa23fc4cca036bcffe70e0c60dc4691e27e5574ee1ab" => :el_capitan
-    sha256 "763bf6f5b5ef1817b3a0458114ce871d3a582806ea225ef329b9673407bd817b" => :yosemite
+    sha256 "dea843cb8f9ee9b9345bd71571eb96fb8a84ed91e296a3792753bbbe7b5affdf" => :sierra
+    sha256 "f4ae5ec159874f0b8cb1293b63d62703c24fcaa443ecdddfdf65b277d4c075d5" => :el_capitan
+    sha256 "5ba4d3b82f35ab7bffe3d8bb392151073fad6d8561ba3fe893f626174726777b" => :yosemite
   end
 
   depends_on "pkg-config" => :build
@@ -19,13 +19,6 @@ class Glibmm < Formula
 
   def install
     ENV.cxx11
-
-    # see https://bugzilla.gnome.org/show_bug.cgi?id=781947
-    inreplace "gio/giomm/Makefile.in" do |s|
-      s.gsub! "OS_COCOA_TRUE", "OS_COCOA_TEMP"
-      s.gsub! "OS_COCOA_FALSE", "OS_COCOA_TRUE"
-      s.gsub! "OS_COCOA_TEMP", "OS_COCOA_FALSE"
-    end
 
     system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
     system "make", "install"
