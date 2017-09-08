@@ -3,20 +3,20 @@ class PreCommit < Formula
 
   desc "Framework for managing multi-language pre-commit hooks"
   homepage "http://pre-commit.com/"
-  url "https://github.com/pre-commit/pre-commit/archive/v0.18.2.tar.gz"
-  sha256 "196b1090a7e3ee80314953298ac636c566e87a014398c48e911d9a4c6599e776"
+  url "https://github.com/pre-commit/pre-commit/archive/v1.0.1.tar.gz"
+  sha256 "073795ad41640b6b2e8feab1bf54d75cd289a260b511040636d468a9fa80bfd8"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "db3b9e6d9389e08f2f9c6eede0a4ae2c7c888b7550311b820784cb7a31d710e3" => :sierra
-    sha256 "8be0c8d61cc4fdf69e610b04b07af4fd165f2c11f8e088a749ed8885ffa617e7" => :el_capitan
-    sha256 "4ccd390ef0b87a23e3a28cb079c83161bbe980874756574e721d53cd42656c18" => :yosemite
+    sha256 "61b3055fad490e5137f45aef82ab2778a65ecc1ba3e4e07c63b5492cf923e91f" => :sierra
+    sha256 "46462492f96073cab3bd102aa24cbca81f6a80bf15e4c1b236244fe8a430bc97" => :el_capitan
+    sha256 "b6936bdfae9a8259726c3b4b43da0a1abcbf208eb7f24fab430b9c496255904d" => :yosemite
   end
 
-  depends_on :python if MacOS.version <= :snow_leopard
+  depends_on :python3
 
   def install
-    venv = virtualenv_create(libexec)
+    venv = virtualenv_create(libexec, "python3")
     system libexec/"bin/pip", "install", "-v", "--no-binary", ":all:",
                               "--ignore-installed", buildpath
     system libexec/"bin/pip", "uninstall", "-y", "pre-commit"
