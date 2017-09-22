@@ -17,6 +17,7 @@ class Mongodb < Formula
   end
 
   bottle do
+    sha256 "fa1c636ad710cb8d9a28c3a26c3fe8134b22cf0cf5f2bf630cc68965d26f2784" => :high_sierra
     sha256 "abba5a957f15d3a1d46762e9834caddfeca58e6ba47cb71d4351e8f50e3a8053" => :sierra
     sha256 "aaef1e983776ffbc34c051401172d847f43961fc2f1359c2f281d9f3efc8300e" => :el_capitan
   end
@@ -42,6 +43,12 @@ class Mongodb < Formula
         :tag => "r3.5.11",
         :revision => "8bda55730d30c414a71dfbe6f45f5c54ef97811d"
     end
+
+    # Upstream commit from 24 Jul 2017 "Changes to allow build to work with SCons 3.0"
+    patch do
+      url "https://github.com/mongodb/mongo/commit/e9570ae0bc9.patch?full_index=1"
+      sha256 "62514846120eab72aa71d1da758a62bfb8479f182de7d059fa29a3b62c779290"
+    end
   end
 
   option "with-boost", "Compile using installed boost, not the version shipped with mongodb"
@@ -57,6 +64,12 @@ class Mongodb < Formula
 
   def install
     ENV.cxx11 if MacOS.version < :mavericks
+
+    if build.stable?
+      system "2to3", "--write", "--fix=print", "SConstruct",
+             "src/mongo/installer/msi/SConscript",
+             "src/third_party/wiredtiger/SConscript"
+    end
 
     if build.devel?
       ENV.libcxx

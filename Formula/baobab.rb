@@ -5,8 +5,9 @@ class Baobab < Formula
   sha256 "ca07c18c8582f6c2fcb54b414f0b9057ebe53e54296c3ce9ccee44b78e86b2db"
 
   bottle do
-    sha256 "24d64fd6acefcf26f71bf121bddae4a3749515e47de2ea233642d99444804f06" => :sierra
-    sha256 "749b46d3a4e2d3ca1fb1969ccd85a5f0ec844e1a5dbb824173627af172b862e6" => :el_capitan
+    rebuild 1
+    sha256 "b66a35615da0b1b04463df2e63ffe2a9256cff1bf63a00c8f1e71ab8ac7c5428" => :sierra
+    sha256 "675f9a11696972a6cc4e6f918830995fc884d50cfd4a1f032787e19e1bf508bb" => :el_capitan
   end
 
   depends_on "pkg-config" => :build
@@ -17,7 +18,7 @@ class Baobab < Formula
   depends_on "vala" => :build
   depends_on "gtk+3"
   depends_on "hicolor-icon-theme"
-  depends_on "gnome-icon-theme"
+  depends_on "adwaita-icon-theme"
 
   def install
     system "./configure", "--disable-dependency-tracking",

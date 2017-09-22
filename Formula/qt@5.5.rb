@@ -9,6 +9,7 @@ class QtAT55 < Formula
   revision 1
 
   bottle do
+    sha256 "30c5a19c4c18737d40ab072d27a1b5220e746eb7a549812ceb1799eb07cfd58f" => :high_sierra
     sha256 "f44403a72ab524a6f010bcf86f1414c42729f4763f4e7c2cfb0f6cba2b6135d2" => :sierra
     sha256 "e1e66c950b66c9bd59b43566a4a5919f4f14a0331c7d9aa062d8c6a152e157c4" => :el_capitan
     sha256 "debdc797d8314548a7cfc05ac97699d98ceeaf46265180a979bbb96190024d1c" => :yosemite
@@ -130,7 +131,7 @@ class QtAT55 < Formula
     # error "Project ERROR: Xcode not set up properly. You may need to confirm
     # the license agreement by running /usr/bin/xcodebuild."
     # See https://github.com/Homebrew/homebrew-core/issues/8777.
-    # Fixed upstream 7 Jul 2016 in http://code.qt.io/cgit/qt/qtbase.git/patch/configure?id=77a71c32c9d19b87f79b208929e71282e8d8b5d9.
+    # Fixed upstream 7 Jul 2016 in https://code.qt.io/cgit/qt/qtbase.git/patch/configure?id=77a71c32c9d19b87f79b208929e71282e8d8b5d9.
     if MacOS::Xcode.version >= "8.0"
       inreplace prefix/"mkspecs/features/mac/default_pre.prf",
                 /xcrun -find xcrun/, "xcrun -find xcodebuild"
