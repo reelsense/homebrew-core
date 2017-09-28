@@ -1,17 +1,17 @@
 class Bartycrouch < Formula
   desc "Incrementally update your Strings files."
   homepage "https://github.com/Flinesoft/BartyCrouch"
-  url "https://github.com/Flinesoft/BartyCrouch/archive/3.8.1.tar.gz"
-  sha256 "4cc815085c214fb5a28abb840d78258b4682f0e977f1ee07b8420449d79e44cb"
+  url "https://github.com/Flinesoft/BartyCrouch/archive/3.9.0.tar.gz"
+  sha256 "8dd474d6b559bcb6e3d207a4acb278f59f23bdc62968aef1310bc7d767c789bc"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "9aa54402947d494f8d111a462fc5412790d22ad878f7cf75b0c1ee2724515b84" => :high_sierra
-    sha256 "69ce157192d8a7464094978f151bffe5df81e27c9f813c74a0cebed9b5dd924c" => :sierra
-    sha256 "d18ce7fd273cbf95e231983c613b1c4c4bc12b41353b5ad866b8e803e5653bf6" => :el_capitan
+    rebuild 1
+    sha256 "ce64430d86c94e00f952b9e16eab5b47062641402d5c9eac8cae6aba94228a35" => :high_sierra
+    sha256 "8902cfb8b3ef9fd43662c44f4fbc1d761afeaf502878c9a7677987dae291042c" => :sierra
   end
 
-  depends_on :xcode => ["8.0", :build]
+  depends_on :xcode => ["9.0", :build]
 
   def install
     xcodebuild "-project", "BartyCrouch.xcodeproj",

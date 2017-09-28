@@ -5,13 +5,15 @@ class Ipython < Formula
   homepage "https://ipython.org/"
   url "https://files.pythonhosted.org/packages/9e/3f/28518ed1f5701ba42299c7243caacfa188dac495278de54592069ac43c10/ipython-6.2.0.tar.gz"
   sha256 "81b0d6936f87002e6972eccc7e4085f5c2d0673decff22724b53cf34809ffacf"
+  revision 1
   head "https://github.com/ipython/ipython.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "34bf30f3e8ab4cfcf5c551b885b2f2eddd02feaf3240930655f0a3506a205df3" => :high_sierra
-    sha256 "24b9ec7c8dbc14aad48ba5b72f222f8e3f518014c2fc2f5d5e1a7a64fa5fcecb" => :sierra
-    sha256 "c648cb3cf445db02a0d1508a099abfd31531a41ee558f6b85d2c9ac812d78110" => :el_capitan
+    rebuild 1
+    sha256 "8dd31d4d39d2353fec4a2e9fade25845c38010f5c5731580d65b2e3881eb1369" => :high_sierra
+    sha256 "d0429c7e3b755a0abcf9efcb92233f59c2ce4f6fd82e4d6b3370a099fe990988" => :sierra
+    sha256 "e0ce6f6a7ba7b6dd2075d58de9d2e4069a6f28dc09d75e7962644a34fe58dc0c" => :el_capitan
   end
 
   depends_on :python3
@@ -138,8 +140,10 @@ class Ipython < Formula
     end
 
     # install kernel
-    system libexec/"bin/ipython", "kernel", "install", "--prefix", share
-    inreplace share/"share/jupyter/kernels/python3/kernel.json", "]", <<-EOS.undent
+    kernel_dir = Dir.mktmpdir
+    system libexec/"bin/ipython", "kernel", "install", "--prefix", kernel_dir
+    (share/"jupyter/kernels/python3").install Dir["#{kernel_dir}/share/jupyter/kernels/python3/*"]
+    inreplace share/"jupyter/kernels/python3/kernel.json", "]", <<-EOS.undent
       ],
       "env": {
         "PYTHONPATH": "#{ENV["PYTHONPATH"]}"
@@ -148,7 +152,8 @@ class Ipython < Formula
   end
 
   def post_install
-    (etc/"jupyter/kernels/python3").install Dir[share/"share/jupyter/kernels/python3/*"]
+    rm_rf etc/"jupyter/kernels/python3"
+    (etc/"jupyter/kernels/python3").install Dir[share/"jupyter/kernels/python3/*"]
   end
 
   test do

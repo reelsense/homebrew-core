@@ -3,14 +3,15 @@ class Sip < Formula
   homepage "https://www.riverbankcomputing.com/software/sip/intro"
   url "https://downloads.sourceforge.net/project/pyqt/sip/sip-4.19.3/sip-4.19.3.tar.gz"
   sha256 "740df844f80cc45dcc9b23294a92492923bc403ce88e68c35783f27c177c4b74"
-  revision 2
+  revision 3
   head "https://www.riverbankcomputing.com/hg/sip", :using => :hg
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "f36b9a71e0a239a1d6d27c97853ba5ad1188045a306333919cd0bc548758d75f" => :high_sierra
-    sha256 "7331bc1f5225f31cc90714ead2b29d1bd552698dca27aee07be257672386bcdc" => :sierra
-    sha256 "03505111f42b3bb09bbac57adf83120b975a73d1d11b3f58e12e394d95066aec" => :el_capitan
+    rebuild 1
+    sha256 "c4d6314ca12004c84f71bfc40a819f3165bed21ad40093dd731b2726adb93715" => :high_sierra
+    sha256 "cba83d5c6cc562ddf8d5785ef46706e15b4a3d45b3cb98f97904259e96ade675" => :sierra
+    sha256 "7a95afc0a4ceb321e8d16f45ebf48bb7ad2f7e66c5d19b1b66efff36007ee28d" => :el_capitan
   end
 
   depends_on :python => :recommended
@@ -30,7 +31,7 @@ class Sip < Formula
     end
 
     Language::Python.each_python(build) do |python, version|
-      # Note the binary `sip` is the same for python 2.x and 3.x
+      ENV.delete("SDKROOT") # Avoid picking up /Application/Xcode.app paths
       system python, "configure.py",
                      "--deployment-target=#{MacOS.version}",
                      "--destdir=#{lib}/python#{version}/site-packages",

@@ -3,13 +3,15 @@ class IpythonAT5 < Formula
   homepage "https://ipython.org/"
   url "https://files.pythonhosted.org/packages/14/7c/bbc1e749e1739208324af3f05ac7256985e21fc5f24d3c8da20aae844ad0/ipython-5.5.0.tar.gz"
   sha256 "66469e894d1f09d14a1f23b971a410af131daa9ad2a19922082e02e0ddfd150f"
+  revision 1
   head "https://github.com/ipython/ipython.git", :branch => "5.x"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "ae425193d80458be12d4cf13fc44d5ead3b6bda0c47c3512555609703fd31cdf" => :high_sierra
-    sha256 "f86cf0340662c30f3ff45fea3c9f74eac096b8c4bd76548e655a6eaabe0c4398" => :sierra
-    sha256 "4a71d74fabc23a50d13701830269406c105ab8c517cd3f8ffa288d2e349af6d1" => :el_capitan
+    rebuild 1
+    sha256 "d654e6ad4dd4a60d2a04dcfdf70748f9d0c671c7de2f204620ea3a4fde90c064" => :high_sierra
+    sha256 "4ed9d94f909688f92e3d510c554b86d91a55ed68c371aa831979bb9ca86f0521" => :sierra
+    sha256 "2dfb4c4fa2fd2fc9b070deaf76f66a749511d645ba5113c9d35378b1c4268fde" => :el_capitan
   end
 
   keg_only :versioned_formula
@@ -168,8 +170,10 @@ class IpythonAT5 < Formula
     end
 
     # install kernel
-    system libexec/"bin/ipython", "kernel", "install", "--prefix", share
-    inreplace share/"share/jupyter/kernels/python2/kernel.json", "]", <<-EOS.undent
+    kernel_dir = Dir.mktmpdir
+    system libexec/"bin/ipython", "kernel", "install", "--prefix", kernel_dir
+    (share/"jupyter/kernels/python2").install Dir["#{kernel_dir}/share/jupyter/kernels/python2/*"]
+    inreplace share/"jupyter/kernels/python2/kernel.json", "]", <<-EOS.undent
       ],
       "env": {
         "PYTHONPATH": "#{ENV["PYTHONPATH"]}"
@@ -178,7 +182,8 @@ class IpythonAT5 < Formula
   end
 
   def post_install
-    (etc/"jupyter/kernels/python2").install Dir[share/"share/jupyter/kernels/python2/*"]
+    rm_rf etc/"jupyter/kernels/python2"
+    (etc/"jupyter/kernels/python2").install Dir[share/"jupyter/kernels/python2/*"]
   end
 
   test do
