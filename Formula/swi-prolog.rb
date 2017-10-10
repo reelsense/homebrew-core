@@ -12,8 +12,8 @@ class SwiProlog < Formula
   end
 
   devel do
-    url "http://www.swi-prolog.org/download/devel/src/swipl-7.7.0.tar.gz"
-    sha256 "a1f603302fee12bfc390272ca76381401f5483c3a5521d391265404af58fdfcb"
+    url "http://www.swi-prolog.org/download/devel/src/swipl-7.7.1.tar.gz"
+    sha256 "fda2c8b6b606ff199ea8a6f019008aa8272b7c349cb9312ccd5944153509503a"
   end
 
   head do
@@ -40,11 +40,8 @@ class SwiProlog < Formula
   end
 
   def install
-    # The archive package hard-codes a check for MacPort libarchive
-    # Replace this with a check for Homebrew's libarchive, or nowhere
     if build.with? "libarchive"
-      inreplace "packages/archive/configure.in", "/opt/local",
-                                                 Formula["libarchive"].opt_prefix
+      ENV["ARPREFIX"] = Formula["libarchive"].opt_prefix
     else
       ENV.append "DISABLE_PKGS", "archive"
     end
