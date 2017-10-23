@@ -1,28 +1,28 @@
 class Presto < Formula
   desc "Distributed SQL query engine for big data"
   homepage "https://prestodb.io"
-  url "https://search.maven.org/remotecontent?filepath=com/facebook/presto/presto-server/0.186/presto-server-0.186.tar.gz"
-  sha256 "7cfb485e2b4e9189f5f0b4751ff23e1e00309ad658f6bb7f4e6454c4d5370d8a"
+  url "https://search.maven.org/remotecontent?filepath=com/facebook/presto/presto-server/0.187/presto-server-0.187.tar.gz"
+  sha256 "d2b40e6da2df2f6b603565ee1444a94bdb7106e426282a91e869545f08312a1f"
 
   bottle :unneeded
 
   depends_on :java => "1.8+"
 
   resource "presto-cli" do
-    url "https://search.maven.org/remotecontent?filepath=com/facebook/presto/presto-cli/0.186/presto-cli-0.186-executable.jar"
-    sha256 "da63a63d81e23d44ed7e07c57945f9b109c489478e7034201c53920a1789f4a3"
+    url "https://search.maven.org/remotecontent?filepath=com/facebook/presto/presto-cli/0.187/presto-cli-0.187-executable.jar"
+    sha256 "ccb82ae16f617c29c4f0a7e46ca73445e00a18f9e141d52f1bd0d9b963452f8e"
   end
 
   def install
     libexec.install Dir["*"]
 
-    (libexec/"etc/node.properties").write <<-EOS.undent
+    (libexec/"etc/node.properties").write <<~EOS
       node.environment=production
       node.id=ffffffff-ffff-ffff-ffff-ffffffffffff
       node.data-dir=#{var}/presto/data
     EOS
 
-    (libexec/"etc/jvm.config").write <<-EOS.undent
+    (libexec/"etc/jvm.config").write <<~EOS
       -server
       -Xmx16G
       -XX:+UseG1GC
@@ -33,7 +33,7 @@ class Presto < Formula
       -XX:+ExitOnOutOfMemoryError
     EOS
 
-    (libexec/"etc/config.properties").write <<-EOS.undent
+    (libexec/"etc/config.properties").write <<~EOS
       coordinator=true
       node-scheduler.include-coordinator=true
       http-server.http.port=8080
@@ -47,7 +47,7 @@ class Presto < Formula
 
     (libexec/"etc/catalog/jmx.properties").write "connector.name=jmx"
 
-    (bin/"presto-server").write <<-EOS.undent
+    (bin/"presto-server").write <<~EOS
       #!/bin/bash
       exec "#{libexec}/bin/launcher" "$@"
     EOS
@@ -61,7 +61,7 @@ class Presto < Formula
     (var/"presto/data").mkpath
   end
 
-  def caveats; <<-EOS.undent
+  def caveats; <<~EOS
     Add connectors to #{libexec}/etc/catalog/. See:
     https://prestodb.io/docs/current/connector.html
     EOS
@@ -69,7 +69,7 @@ class Presto < Formula
 
   plist_options :manual => "presto-server run"
 
-  def plist; <<-EOS.undent
+  def plist; <<~EOS
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
     "http://www.apple.com/DTDs/PropertyList-1.0.dtd">

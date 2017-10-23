@@ -20,7 +20,7 @@ class Ponyc < Formula
   # https://github.com/ponylang/ponyc/issues/1274
   # https://github.com/Homebrew/homebrew-core/issues/5346
   pour_bottle? do
-    reason <<-EOS.undent
+    reason <<~EOS
       The bottle requires Xcode/CLT 8.0 or later to work properly.
     EOS
     satisfy { DevelopmentTools.clang_build_version >= 800 }
@@ -35,10 +35,10 @@ class Ponyc < Formula
   test do
     system "#{bin}/ponyc", "-rexpr", "#{prefix}/packages/stdlib"
 
-    (testpath/"test/main.pony").write <<-EOS.undent
-    actor Main
-      new create(env: Env) =>
-        env.out.print("Hello World!")
+    (testpath/"test/main.pony").write <<~EOS
+      actor Main
+        new create(env: Env) =>
+          env.out.print("Hello World!")
     EOS
     system "#{bin}/ponyc", "test"
     assert_equal "Hello World!", shell_output("./test1").strip
