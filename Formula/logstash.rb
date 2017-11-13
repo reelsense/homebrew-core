@@ -1,13 +1,13 @@
 class Logstash < Formula
   desc "Tool for managing events and logs"
   homepage "https://www.elastic.co/products/logstash"
-  url "https://artifacts.elastic.co/downloads/logstash/logstash-5.6.2.tar.gz"
-  sha256 "7d302fe858fe5a4ff6e122f1dec7381aba0f1085da7ee05718eeeaa4a10eb8ad"
+  url "https://artifacts.elastic.co/downloads/logstash/logstash-5.6.4.tar.gz"
+  sha256 "62067531ae5ea4878f84b68625cefcbe427c88d4975702d61cb3eecd80687b09"
   head "https://github.com/elastic/logstash.git"
 
   bottle :unneeded
 
-  depends_on :java => "1.8+"
+  depends_on :java => "1.8"
 
   def install
     if build.head?
@@ -19,12 +19,12 @@ class Logstash < Formula
       cd "tar"
     end
 
-    inreplace %w[bin/logstash], %r{^\. "\$\(cd `dirname \$SOURCEPATH`\/\.\.; pwd\)\/bin\/logstash\.lib\.sh\"}, ". #{libexec}/bin/logstash.lib.sh"
+    inreplace %w[bin/logstash], %r{^\. "\$\(cd `dirname \${SOURCEPATH}`\/\.\.; pwd\)\/bin\/logstash\.lib\.sh\"}, ". #{libexec}/bin/logstash.lib.sh"
     inreplace %w[bin/logstash-plugin], %r{^\. "\$\(cd `dirname \$0`\/\.\.; pwd\)\/bin\/logstash\.lib\.sh\"}, ". #{libexec}/bin/logstash.lib.sh"
     inreplace %w[bin/logstash.lib.sh], /^LOGSTASH_HOME=.*$/, "LOGSTASH_HOME=#{libexec}"
     libexec.install Dir["*"]
-    bin.install_symlink libexec/"bin/logstash"
-    bin.install_symlink libexec/"bin/logstash-plugin"
+    bin.install libexec/"bin/logstash", libexec/"bin/logstash-plugin"
+    bin.env_script_all_files(libexec/"bin", Language::Java.java_home_env("1.8"))
   end
 
   def caveats; <<~EOS
