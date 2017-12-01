@@ -1,14 +1,13 @@
 class Exim < Formula
   desc "Complete replacement for sendmail"
   homepage "https://exim.org"
-  url "https://ftp.exim.org/pub/exim/exim4/exim-4.89.tar.bz2"
-  sha256 "912f2ee03c8dba06a3a4c0ee40522d367e1b65dc59e38dfcc1f5d9eecff51ab0"
-  revision 3
+  url "https://ftp.exim.org/pub/exim/exim4/exim-4.89.1.tar.bz2"
+  sha256 "1c853bc960dff0a0e51e3e28bc4a4a8165b58b41bb64ea3abb90f254d9947a8c"
 
   bottle do
-    sha256 "86e970eff2b21a8933e27119b8fee1c3178657954794385158008724ddf52acc" => :high_sierra
-    sha256 "6a1bb5f8975b03ea51a9b9989e77e5781e4f0caee6bc8e6278f6f5fa7f90a130" => :sierra
-    sha256 "d76d3be78c6f7bebc4c727bd4ac13392f0c5f0a105b8cda60b27519a095cbf01" => :el_capitan
+    sha256 "d4ef2c5e84cf0ced7a963c228431468b4b834969a131253ca562fad320f1776e" => :high_sierra
+    sha256 "5a8a6672132bc880a7e2dbd7382fe11170fccf939360910db088fcc9b8b7f76f" => :sierra
+    sha256 "42ea570d66db75520c86cb9f889a4f7774d72e4b1b5ae3621a8cea1853b29199" => :el_capitan
   end
 
   deprecated_option "support-maildir" => "with-maildir"
@@ -17,32 +16,6 @@ class Exim < Formula
   depends_on "pcre"
   depends_on "berkeley-db@4"
   depends_on "openssl"
-
-  # Patch applied upstream but doesn't apply cleanly from git.
-  # https://github.com/Exim/exim/commit/65e061b76867a9ea7aeeb535341b790b90ae6c21
-  patch do
-    url "https://mirrors.ocf.berkeley.edu/debian/pool/main/e/exim4/exim4_4.89-11.debian.tar.xz"
-    mirror "https://mirrorservice.org/sites/ftp.debian.org/debian/pool/main/e/exim4/exim4_4.89-11.debian.tar.xz"
-    sha256 "13572f80d8eb93b7d3186bb2cc12c80d9931885dfb6c40ef8a9d477ecdc040e0"
-    apply "patches/75_fixes_01-Start-exim-4_89-fixes-to-cherry-pick-some-commits-fr.patch"
-    apply "patches/75_fixes_02-Cleanup-prevent-repeated-use-of-p-oMr-to-avoid-mem-l.patch"
-    apply "patches/75_fixes_03-Fix-log-line-corruption-for-DKIM-status.patch"
-    apply "patches/75_fixes_04-Openssl-disable-session-tickets-by-default-and-sessi.patch"
-    apply "patches/75_fixes_05-Transport-fix-smtp-under-combo-of-mua_wrapper-and-li.patch"
-    apply "patches/75_fixes_07-Openssl-disable-session-tickets-by-default-and-sessi.patch"
-    apply "patches/75_fixes_08-Transport-fix-smtp-under-combo-of-mua_wrapper-and-li.patch"
-    apply "patches/75_fixes_09-Use-the-BDB-environment-so-that-a-database-config-fi.patch"
-    apply "patches/75_fixes_10-Fix-cache-cold-random-callout-verify.-Bug-2147.patch"
-    apply "patches/75_fixes_11-On-callout-avoid-SIZE-every-time-but-noncacheable-rc.patch"
-    apply "patches/75_fixes_12-Fix-build-for-earlier-version-Berkeley-DB.patch"
-    apply "patches/75_fixes_13-Document-CVE-assignment-for-Berkeley-DB-issue.patch"
-    apply "patches/75_fixes_14-DKIM-fix-signing-bug-induced-by-total-size-of-parame.patch"
-    apply "patches/75_fixes_15-SOCKS-fix-unitialized-pointer.patch"
-    apply "patches/75_fixes_16-Fix-crash-in-transport-on-second-smtp-connect-fail-f.patch"
-    apply "patches/75_fixes_17-Fix-queue_run_in_order-to-ignore-the-PID-portion-of-.patch"
-    apply "patches/75_fixes_18-Use-safer-routine-for-possibly-overlapping-copy.patch"
-    apply "patches/78_Disable-chunking-BDAT-by-default.patch"
-  end
 
   def install
     cp "src/EDITME", "Local/Makefile"
