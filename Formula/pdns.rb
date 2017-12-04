@@ -1,13 +1,14 @@
 class Pdns < Formula
   desc "Authoritative nameserver"
   homepage "https://www.powerdns.com"
-  url "https://downloads.powerdns.com/releases/pdns-4.0.5.tar.bz2"
-  sha256 "5bc8fad537dace02a5bf0c71a29b1b5303afdb41d0231a17a06f18263489ec24"
+  url "https://downloads.powerdns.com/releases/pdns-4.1.0.tar.bz2"
+  sha256 "db9193b0f0255c24dfbfc31ecff8bd39e21fec05ff7526e5aea963abc517f0f3"
+  revision 1
 
   bottle do
-    sha256 "f17b22cd82404e3443fd9107272ad8e437ccbae26d128c5590bf7f3bf2973fc3" => :high_sierra
-    sha256 "fdf3394839f09ca60cfc91be85a485c4de881549d10c28b56b8c3a8009169b07" => :sierra
-    sha256 "fd78d1fce9ab5ccc94d8f18f09b7956c5c2b063fe674bcca130aba0a3d916dc1" => :el_capitan
+    sha256 "1d48743405a12dd6bb96212cedc37f51d9fbd5c4e78fb9ae6fb6b16c07d1a50d" => :high_sierra
+    sha256 "7784b8e201277e41e1783e06d35e6011590aedfe5ddc8ab20e2bb33bc5784401" => :sierra
+    sha256 "d5a9a66e92623890c3348be9b006b1f11e5bae289f2ab80af2831fdff7b34686" => :el_capitan
   end
 
   head do
@@ -38,6 +39,7 @@ class Pdns < Formula
 
     args = %W[
       --prefix=#{prefix}
+      --sysconfdir=#{etc}/powerdns
       --with-lua
       --with-openssl=#{Formula["openssl"].opt_prefix}
       --with-sqlite3
