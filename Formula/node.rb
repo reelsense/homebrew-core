@@ -3,8 +3,8 @@ class Node < Formula
   homepage "https://nodejs.org/"
 
   stable do
-    url "https://nodejs.org/dist/v8.9.1/node-v8.9.1.tar.xz"
-    sha256 "ef160c21f60f8aca64145985e01b4044435e381dc16e8f0640ed0223e84f17e0"
+    url "https://nodejs.org/dist/v8.9.2/node-v8.9.2.tar.xz"
+    sha256 "53a51eda2347681c88b83236c6a005db9d696c3ae5d78496f0921804d5937b59"
 
     # We track major/minor from upstream Node releases.
     # We will accept *important* npm patch releases when necessary.
@@ -15,9 +15,9 @@ class Node < Formula
   end
 
   bottle do
-    sha256 "0600f98fdc2f2e3679bb3f4f7aae5f8fc7a7b905114c09b5cef2f1f9cc3775b3" => :high_sierra
-    sha256 "c112e694699cfc7f2a621e690667e11135ef71c00dcfa4755e98f73f96992d48" => :sierra
-    sha256 "732cd9c6bc10cdfb9e4f18afb0d193e96a26339646b602e65849b0637c62df6d" => :el_capitan
+    sha256 "b59ba890672766ff969a2658b5fdf68e46e7fba483591ae20f263283636a3e14" => :high_sierra
+    sha256 "c9d82f2be1c5f49bad8b457070b26f0fffce3b029b81ba0ffcaad36c3757d074" => :sierra
+    sha256 "3e76d2a530f987651cc8f3406b93de80abef34430ddc3152ff45e9ce8d92aac3" => :el_capitan
   end
 
   devel do

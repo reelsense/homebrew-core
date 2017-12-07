@@ -5,13 +5,14 @@ class Sile < Formula
   url "https://github.com/simoncozens/sile.git",
       :revision => "befcd813e1dd46f7af6d11ffd0b0ee525e8db1fc"
   version "0.9.5-alpha"
+  revision 2
   head "https://github.com/simoncozens/sile.git"
 
   bottle do
     cellar :any
-    sha256 "7ab9d474ecf65c905b3b147df724fb4b547e60ef1a3d495d0e33b59fd87c443a" => :high_sierra
-    sha256 "71287c01a3adeff3a39c1931e9d729a5e2cf5ae2da02b1cf6ca4409fcaea21aa" => :sierra
-    sha256 "bc4d5168d1bc8582d6f02867360fa75426a3481b753aae96f5a67b75bfc13e73" => :el_capitan
+    sha256 "4c6bba421ff793adc2b04d4e7b0d9aa3688e91808f04dec09925dae37b924641" => :high_sierra
+    sha256 "7b9172ea75ec49258008d95283f845c1189314a3ad453fe788c93b6bab3137a6" => :sierra
+    sha256 "fa20352cf71e8c0a359f33982a4c062e18ae99c22e4dcb1c389a5645060ce5ad" => :el_capitan
   end
 
   # These three should return to being head-only when >0.9.4 is released.
@@ -48,8 +49,8 @@ class Sile < Formula
 
   def install
     luapath = libexec/"vendor"
-    ENV["LUA_PATH"] = "#{luapath}/share/lua/5.2/?.lua;;#{luapath}/share/lua/5.2/lxp/?.lua"
-    ENV["LUA_CPATH"] = "#{luapath}/lib/lua/5.2/?.so"
+    ENV["LUA_PATH"] = "#{luapath}/share/lua/5.3/?.lua;;#{luapath}/share/lua/5.3/lxp/?.lua"
+    ENV["LUA_CPATH"] = "#{luapath}/lib/lua/5.3/?.so"
 
     resources.each do |r|
       r.stage do
