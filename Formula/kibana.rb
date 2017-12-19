@@ -4,14 +4,14 @@ class Kibana < Formula
   desc "Analytics and search dashboard for Elasticsearch"
   homepage "https://www.elastic.co/products/kibana"
   url "https://github.com/elastic/kibana.git",
-      :tag => "v6.0.0",
-      :revision => "f8bc449f5a6b28d0597730b1cf03fefe7e33422e"
+      :tag => "v6.1.0",
+      :revision => "9f4da1dd18e4c1564b6214d5e0fb43058e94aa6c"
   head "https://github.com/elastic/kibana.git"
 
   bottle do
-    sha256 "d36792a23c71a68e2361ad9ed22ad04c08d15c298d207d470880b6da633a5304" => :high_sierra
-    sha256 "5296f320ffabc02cf521b243f09a811e80184cf4fbe76ae9181b89268b9825c0" => :sierra
-    sha256 "d0ab882df05d1ec930affb76c2b995f91f10a7badfaad260d65df4670aa95524" => :el_capitan
+    sha256 "b2189e71bb2a7b2cbb7848bafe7a1b2e118c401d1e2fb57c11845e3595e6c6f1" => :high_sierra
+    sha256 "debceb66d1b9516ca3410d578ebcdb776110411f254bf44485d63d0cec01df9a" => :sierra
+    sha256 "318ae2b8bf8ec806e4405e6247744349b6ab23296a106aa7833910b14a21a5f9" => :el_capitan
   end
 
   resource "node" do
@@ -23,7 +23,6 @@ class Kibana < Formula
   def install
     resource("node").stage do
       system "./configure", "--prefix=#{libexec}/node"
-      system "make", "test"
       system "make", "install"
     end
 

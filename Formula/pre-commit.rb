@@ -5,13 +5,13 @@ class PreCommit < Formula
   homepage "http://pre-commit.com/"
   url "https://github.com/pre-commit/pre-commit/archive/v1.4.1.tar.gz"
   sha256 "cc908bc0ca5f77cdb6d05d090f9b09a18514de8c82dfea3b8edffda06871f0e6"
-  revision 1
+  revision 2
 
   bottle do
-    cellar :any_skip_relocation
-    sha256 "4a69f93b11e059940078da025601d1a9e0636f20142d9a503b51f19ba2441826" => :high_sierra
-    sha256 "628fb9d80a7c5bbb236675cb779f29f69106507c409f45d9f85df1e41e78c323" => :sierra
-    sha256 "27861ce49ed1948c6818823cee25b939c870d82e0f7ad0f1a41777a371c2cdde" => :el_capitan
+    cellar :any
+    sha256 "6ce01b3582cdac192722fc52a9135d47d2aa3d9ad7a5f19dc0db3f4962d7d54a" => :high_sierra
+    sha256 "3dd6b7f41975da40839c6e8f5523033c40a57970d12f4a7c662ccb832e7b6c29" => :sierra
+    sha256 "98b2d42774e8f63150e04f073ea3bcc53c1d3d00d5a43f858fb076c254c8715a" => :el_capitan
   end
 
   depends_on :python3
@@ -47,7 +47,16 @@ class PreCommit < Formula
             -   id: trailing-whitespace
       EOS
       system bin/"pre-commit", "install"
-      system bin/"pre-commit", "run", "--all-files"
+      (testpath/"f").write "hi\n"
+      system "git", "add", "f"
+
+      ENV["GIT_AUTHOR_NAME"] = "test user"
+      ENV["GIT_AUTHOR_EMAIL"] = "test@example.com"
+      ENV["GIT_COMMITTER_NAME"] = "test user"
+      ENV["GIT_COMMITTER_EMAIL"] = "test@example.com"
+      git_exe = which("git")
+      ENV["PATH"] = "/usr/bin:/bin"
+      system git_exe, "commit", "-m", "test"
     end
   end
 end

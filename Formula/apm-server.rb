@@ -1,15 +1,15 @@
 class ApmServer < Formula
   desc "Server for shipping APM metrics to Elasticsearch"
   homepage "https://www.elastic.co/"
-  url "https://github.com/elastic/apm-server/archive/v6.0.0.tar.gz"
-  sha256 "7b6b668c41190b4aa252a4570d1fbb2e31e0895a554b1ededd98898786982046"
+  url "https://github.com/elastic/apm-server/archive/v6.1.0.tar.gz"
+  sha256 "347c8871353d03d719f9106a040a07a17def931607847e6bd792ebd679504266"
   head "https://github.com/elastic/apm-server.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "f5a3dcef95ab5780575b5896a543d02f9f82eb122fce7c785cfcc2207464dfc9" => :high_sierra
-    sha256 "c7e76918ce38c2f59c899e75a38a9d44eb8c32e3a26d7e466881f34d45f09bf5" => :sierra
-    sha256 "46756dae590a87219f43ae1c02af9d89816d1fc2a9f70030d3f7d4234befa993" => :el_capitan
+    sha256 "ca79a3f700128d9b5afd0a6de0b60b4190c83ed7ddb2c6af4b5dd74883fc176d" => :high_sierra
+    sha256 "7ec37196565464241b5fdaa3ee7ad7b39d89269ae24ffd1d83a3d90bdd2f7b5d" => :sierra
+    sha256 "3ea8a38c009092df1772fde14f9beb1385009369fa0dbb8ff41f6baeed457cc0" => :el_capitan
   end
 
   depends_on "go" => :build

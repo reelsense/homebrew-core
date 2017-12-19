@@ -3,11 +3,12 @@ class Latexila < Formula
   homepage "https://wiki.gnome.org/Apps/LaTeXila"
   url "https://download.gnome.org/sources/latexila/3.26/latexila-3.26.1.tar.xz"
   sha256 "658eba0db71864eb6d4873516d97e05be3e63085ff55513c8f10145ffb657151"
+  revision 2
 
   bottle do
-    sha256 "90fd16f07dd0439d341b06f375a24dd2316e7a32f506da837482041f730993c9" => :high_sierra
-    sha256 "8c070e12604f91136ba69b34f7e6632e880fed892e5794a978385284a10eaa7b" => :sierra
-    sha256 "77b3a1cb8bb3c5dce471bd5f8b05edabe8fe6888efe706ecec493e9cef3671dc" => :el_capitan
+    sha256 "8f985d4141c633e753a03bb948a3abf6700bddf78cbf700a2b777d365aee979a" => :high_sierra
+    sha256 "d75249308a8f78927ae3d8debc11cba7852e98193a57f2cf0c5c1e9456257131" => :sierra
+    sha256 "b922a72b22b58f2d343c609ac28efda42971c1bc6715b21e00b3c6f471c336fb" => :el_capitan
   end
 
   depends_on "pkg-config" => :build

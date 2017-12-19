@@ -1,19 +1,19 @@
 class Python3 < Formula
   desc "Interpreted, interactive, object-oriented programming language"
   homepage "https://www.python.org/"
-  url "https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tar.xz"
-  sha256 "cda7d967c9a4bfa52337cdf551bcc5cff026b6ac50a8834e568ce4a794ca81da"
+  url "https://www.python.org/ftp/python/3.6.4/Python-3.6.4.tar.xz"
+  sha256 "159b932bf56aeaa76fd66e7420522d8c8853d486b8567c459b84fe2ed13bcaba"
   head "https://github.com/python/cpython", :using => :git
 
   bottle do
-    sha256 "4790e06c30036c19b62f7a3a188363f776ad58bdb8f58185b8b14f4f3e936718" => :high_sierra
-    sha256 "057f4c743c787a77e10c81b446a9251c5cdfefd799a110a75c2b68ea0c87cf4b" => :sierra
-    sha256 "c3bc7112f01d803c6e5db81d22f7e580594f7efc9e7bd5c5b703a8142ec8a6fb" => :el_capitan
+    sha256 "bc859a9dca925d33b3b15168f5ac5ec79db05d5ab13eb61b347eacae4a8a8afb" => :high_sierra
+    sha256 "584ca8b5f4535137da2987630d4bbfc31c7a3fd3126bb321546ce1b64b62c957" => :sierra
+    sha256 "a0942c806fbeb956f93659912e94cc83c86dc2a4152bd22cba7da0e7e3e0367f" => :el_capitan
   end
 
   devel do
-    url "https://www.python.org/ftp/python/3.7.0/Python-3.7.0a2.tar.xz"
-    sha256 "3e5adaa8a264b0c8eeab7b8a0185acec053b0d1547d2712ebc915153c4a52f28"
+    url "https://www.python.org/ftp/python/3.7.0/Python-3.7.0a3.tar.xz"
+    sha256 "3432d3ddf97483339badda961f7d0564595460fee166dd8f106dc4201e68446e"
   end
 
   option "with-tcl-tk", "Use Homebrew's Tk instead of macOS Tk (has optional Cocoa and threads support)"

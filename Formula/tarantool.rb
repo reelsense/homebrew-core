@@ -1,15 +1,15 @@
 class Tarantool < Formula
   desc "In-memory database and Lua application server"
   homepage "https://tarantool.org/"
-  url "https://download.tarantool.org/tarantool/1.7/src/tarantool-1.7.5.184.tar.gz"
-  sha256 "3c95948b90ef17ec772b09532aaaef7a71c75d2b13cbe192e6dd1796069afd01"
+  url "https://download.tarantool.org/tarantool/1.7/src/tarantool-1.7.6.12.tar.gz"
+  sha256 "c421ab57a9ed23528e8b3722255b801ef1baa2d631e0725c0ba014314e1b11de"
   revision 1
   head "https://github.com/tarantool/tarantool.git", :branch => "1.8", :shallow => false
 
   bottle do
-    sha256 "be3af1bd79ce0d5a234d95e3eac51b0d242b0dfef56a38af8e3aae9c9fc8e456" => :high_sierra
-    sha256 "087a32f17dc8fb3c79eab01304a1abe6fee2ac6c21a3c280c88a793dc29976c1" => :sierra
-    sha256 "e3f829fb5481786c810b335d80cac032df75b49945e34a4127f9b53d627057cc" => :el_capitan
+    sha256 "799cf6445545a127478031d305d724d09da8371787f223004533e04630abb76f" => :high_sierra
+    sha256 "df5b801e54ec587b4f26b5642a301c3b61e1170c27d7ef71ab534175612284d3" => :sierra
+    sha256 "ab9e2aa1d325a6d50bad4e29ba8dede0315b71bf98e6c32349de7385c1223e14" => :el_capitan
   end
 
   depends_on "cmake" => :build
@@ -22,6 +22,7 @@ class Tarantool < Formula
 
     args = std_cmake_args
 
+    args << "-DCMAKE_CXX_FLAGS=-Wno-c++11-narrowing"
     args << "-DCMAKE_INSTALL_MANDIR=#{doc}"
     args << "-DCMAKE_INSTALL_SYSCONFDIR=#{etc}"
     args << "-DCMAKE_INSTALL_LOCALSTATEDIR=#{var}"

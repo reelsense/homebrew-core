@@ -3,12 +3,12 @@ class Gedit < Formula
   homepage "https://wiki.gnome.org/Apps/Gedit"
   url "https://download.gnome.org/sources/gedit/3.22/gedit-3.22.1.tar.xz"
   sha256 "aa7bc3618fffa92fdb7daf2f57152e1eb7962e68561a9c92813d7bbb7fc9492b"
+  revision 2
 
   bottle do
-    rebuild 1
-    sha256 "20a1c65040063c87ce7543c91bc5bf567c775b81f1895949f4a42d003a6f2c12" => :high_sierra
-    sha256 "5909c7a8820499ab0d76d2946fa2d91f4e81b7a385acfdbb7b987c3f974e4c7e" => :sierra
-    sha256 "1a333dc7184f3d57b609d561895a07f7c3fb4f442dc6b3bdcaaec472310f9f61" => :el_capitan
+    sha256 "7034ca573e7ec077be39b582ffad8993225268383acf766fec69cd1326bf5fad" => :high_sierra
+    sha256 "4e3524ae109cf26bb619b5d908cefd7209c089c8ff490dad4f6ff520c2b18a0b" => :sierra
+    sha256 "2668fb181f4d16c4976d4d670988cef16c7acbe392c2fb502de2ab3170bc954f" => :el_capitan
   end
 
   depends_on "pkg-config" => :build

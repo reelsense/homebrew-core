@@ -1,20 +1,19 @@
 class Ruby < Formula
   desc "Powerful, clean, object-oriented scripting language"
   homepage "https://www.ruby-lang.org/"
-  url "https://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.4.2.tar.xz"
-  sha256 "748a8980d30141bd1a4124e11745bb105b436fb1890826e0d2b9ea31af27f735"
+  url "https://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.4.3.tar.xz"
+  sha256 "23677d40bf3b7621ba64593c978df40b1e026d8653c74a0599f0ead78ed92b51"
   revision 1
 
   bottle do
-    sha256 "5a1d5adf5f9b0f151a484edcc292764a0b0dbef61eb667c59aa850d0ad3d7626" => :high_sierra
-    sha256 "4f9eda03468b35441712c442bd4f2493b706e2f3cd311e0e330571b6edbc6ce5" => :sierra
-    sha256 "251c9fe64952fdf202df879a111fe450e4de65dd3349435bcd354ecd937aaac4" => :el_capitan
+    sha256 "f65d0a31c1149e479ec84c9953ac203d65c0f931b9ab346efae58faed468afda" => :high_sierra
+    sha256 "97d54b2626c04642997487f06819332c10a6eb62c700a1861d0c3535ce8a3411" => :sierra
+    sha256 "20280496ac72c4d0755272f176148d7826fa4a8205cace414beb3c7231563b5b" => :el_capitan
   end
 
   devel do
-    url "https://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.0-preview1.tar.xz"
-    version "2.5.0-preview1"
-    sha256 "c2f518eb04b38bdd562ba5611abd2521248a1608fc466368563dd794ddeddd09"
+    url "https://cache.ruby-lang.org/pub/ruby/2.5/ruby-2.5.0-rc1.tar.xz"
+    sha256 "a479a1bce69b2cf656821f10104dcb8b426922b56d3d6cbdf48318842fae752c"
   end
 
   head do
@@ -119,9 +118,7 @@ class Ruby < Formula
       rm_f bin/"gem#{program_suffix}"
 
       # Drop in the new version.
-      (rg_in/"rubygems").install Dir[buildpath/"vendor_gem/lib/rubygems/*"]
-      rg_in.install buildpath/"vendor_gem/lib/rubygems.rb"
-      rg_in.install buildpath/"vendor_gem/lib/ubygems.rb"
+      rg_in.install Dir[buildpath/"vendor_gem/lib/*"]
       bin.install buildpath/"vendor_gem/bin/gem" => "gem#{program_suffix}"
     end
   end

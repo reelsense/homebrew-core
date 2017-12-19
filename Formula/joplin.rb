@@ -3,16 +3,17 @@ require "language/node"
 class Joplin < Formula
   desc "Note taking and to-do application with synchronisation capabilities"
   homepage "http://joplin.cozic.net/"
-  url "https://registry.npmjs.org/joplin/-/joplin-0.10.65.tgz"
-  sha256 "52dcd067e670ede25a74d06a10223a9d7e134e56606219621a21dc3915127f8c"
+  url "https://registry.npmjs.org/joplin/-/joplin-0.10.83.tgz"
+  sha256 "7c64c7f13f4df2b2a20cd6a918dd8816a952d15b5b58af09f857b42617200530"
 
   bottle do
-    sha256 "ea7d077c77faa75cf298b8e082cbe467a31ee832f1c48cb9e23abe1f9d06e5e8" => :high_sierra
-    sha256 "0109e3968c283afb1bf13f8ea906573af6294025e5b92d142f0575d251d02b96" => :sierra
-    sha256 "0fbbb24a14e8f1932f1a46c68ef402158c93641753dd9c1dfbba1e92d09bbf5b" => :el_capitan
+    sha256 "e67545231d56b5ddbfc1e69e27ff46066eab516f40ffc593bb96a597ef63fd86" => :high_sierra
+    sha256 "6fca34b48741980f16e7189345a782c884e9b15fefff667bba4c2eca0d40a499" => :sierra
+    sha256 "250a940dbbf84543126b01559a47f3c76177efa13d45e81e395ac247beb16a34" => :el_capitan
   end
 
   depends_on "node"
+  depends_on :python => :build if MacOS.version <= :snow_leopard
 
   def install
     system "npm", "install", *Language::Node.std_npm_install_args(libexec)

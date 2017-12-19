@@ -1,15 +1,15 @@
 class Graphicsmagick < Formula
   desc "Image processing tools collection"
   homepage "http://www.graphicsmagick.org/"
-  url "https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/1.3.26/GraphicsMagick-1.3.26.tar.xz"
-  sha256 "fba015f3d5e5d5f17e57db663f1aa9d338e7b62f1d415b85d13ee366927e5f88"
-  revision 2
+  url "https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/1.3.27/GraphicsMagick-1.3.27.tar.xz"
+  sha256 "d03278d2790efc1dc72309f85a539810d2a81deb47932f7e6720d09ac72d0367"
   head "http://hg.code.sf.net/p/graphicsmagick/code", :using => :hg
 
   bottle do
-    sha256 "12319549932a72415462038f0f441004ebb29bd882db39695a6ed66eab54d478" => :high_sierra
-    sha256 "a3e6506d9acd32f5dac9971b3e4f3fd25b4a5cf2e9003e2a3dc73f73bf02110c" => :sierra
-    sha256 "a33ac35c22e667ac3e74573f9b667aeabb688370656bc50ad460d24d4eff87b0" => :el_capitan
+    rebuild 1
+    sha256 "cd8fda2a82b10d739b945fe36f714fb3477c8e962182012fb233357e3e4da636" => :high_sierra
+    sha256 "a5e128edf71e38d6aa068134ef7979a7e67b074b66121e755b3b275b01836afa" => :sierra
+    sha256 "7a50cb8bb67a70029fc3491a01a9c084168b7b5b76497b385b04a407bae4e731" => :el_capitan
   end
 
   option "without-magick-plus-plus", "disable build/install of Magick++"
@@ -31,10 +31,6 @@ class Graphicsmagick < Formula
 
   skip_clean :la
 
-  def ghostscript_fonts?
-    File.directory? "#{HOMEBREW_PREFIX}/share/ghostscript/fonts"
-  end
-
   def install
     args = %W[
       --prefix=#{prefix}
@@ -45,6 +41,7 @@ class Graphicsmagick < Formula
       --without-lzma
       --disable-openmp
       --with-quantum-depth=16
+      --disable-installed
     ]
 
     args << "--without-gslib" if build.without? "ghostscript"

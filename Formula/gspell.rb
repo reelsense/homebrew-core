@@ -3,11 +3,12 @@ class Gspell < Formula
   homepage "https://wiki.gnome.org/Projects/gspell"
   url "https://download.gnome.org/sources/gspell/1.6/gspell-1.6.1.tar.xz"
   sha256 "f4d329348775374eec18158f8dcbbacf76f85be5ce002a92d93054ece70ec4de"
+  revision 2
 
   bottle do
-    sha256 "4bd62678f3608537ed8ee048b5f9fa85fdd538261dcdaefa9063929bc1c3675f" => :high_sierra
-    sha256 "00991cf339c0912b2b90a5fe9aface5bf0431204c4de259b662d7f314810b0db" => :sierra
-    sha256 "010ac6b54ebf832dc015e4d7562a2bef21f477c83b9147b5539ddbf7aedd2cad" => :el_capitan
+    sha256 "092dfca6b5aeb44bb488b12975a8c7cc37f6cb3f107318388b4a8ff96bd8d3f1" => :high_sierra
+    sha256 "8581e1b6bc666edb54314308a54de6a1fd04c085db91da1ebb8a856028f1ce52" => :sierra
+    sha256 "2ea9149b5d488cb33a57d377db2b70dcdab4e520ff7cef57cda4bf9e51fcc579" => :el_capitan
   end
 
   depends_on "autoconf" => :build
@@ -58,7 +59,7 @@ class Gspell < Formula
     flags = %W[
       -I#{atk.opt_include}/atk-1.0
       -I#{cairo.opt_include}/cairo
-      -I#{enchant.opt_include}/enchant
+      -I#{enchant.opt_include}/enchant-2
       -I#{fontconfig.opt_include}
       -I#{freetype.opt_include}/freetype2
       -I#{gdk_pixbuf.opt_include}/gdk-pixbuf-2.0

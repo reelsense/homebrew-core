@@ -2,11 +2,12 @@ class Kontena < Formula
   desc "Command-line client for Kontena container orchestration platform"
   homepage "https://kontena.io/"
   head "https://github.com/kontena/kontena.git"
+  revision 1
 
   stable do
     url "https://github.com/kontena/kontena.git",
-        :tag => "v1.4.1",
-        :revision => "f16f038781782d4c76720fb72a6df67b02441d9f"
+        :tag => "v1.4.2",
+        :revision => "ead10ec4191a101769095b5fc7c3eeabaa05c621"
 
     resource "addressable" do
       url "https://rubygems.org/gems/addressable-2.5.2.gem"
@@ -161,9 +162,9 @@ class Kontena < Formula
 
   bottle do
     cellar :any
-    sha256 "d634d7f8bf8a0a8486299d09bb33608b9bcaf833fd09cffe00d90746ed5f67dd" => :high_sierra
-    sha256 "407c8cb7e9cc5d77c41d00f8525bd797dae33c4cecb1d38b7ef7dba6085595c7" => :sierra
-    sha256 "0ef45bcb583bfde658d8fc43114c809c8587b570e8381cb58dd613387671ddf8" => :el_capitan
+    sha256 "a2aa389c7b1615d7c3cbeab2aceb7420c4117084c9cabab4f619ffbf7e926376" => :high_sierra
+    sha256 "9e618bf792135d62d21894eb781cf506545fc57f5ba9a863d60af67f91b84140" => :sierra
+    sha256 "5ab1353f88480f709dc936d5123168aa6a5b8ff09073ff9a036727d062f41f6c" => :el_capitan
   end
 
   depends_on :ruby => "2.1"

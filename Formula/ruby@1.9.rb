@@ -3,12 +3,12 @@ class RubyAT19 < Formula
   homepage "https://www.ruby-lang.org/"
   url "https://cache.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p551.tar.bz2"
   sha256 "b0c5e37e3431d58613a160504b39542ec687d473de1d4da983dabcf3c5de771e"
-  revision 5
+  revision 7
 
   bottle do
-    sha256 "4b31231e21353c3a20d4219436a4139b38ad8bcb94d1c068f4d9ead77d1871c8" => :high_sierra
-    sha256 "396d8f741478eeb0979adacb41ca3cb215367818d9d9b179964d432ae2392a37" => :sierra
-    sha256 "ad981e7989661f0e564d86e0b1b61d76c5968969cc5d2666180e3efa2a82dff0" => :el_capitan
+    sha256 "0aa012a4c8ae0dd20ff32f5b572e5a5af37a20de5667a82fa937ec0f3adac0f9" => :high_sierra
+    sha256 "01b20a7d33643c889f5803bab304f689fdcd618a6c9651bba2ddd019cd6ec534" => :sierra
+    sha256 "e6cab8bd92071e87379e1e217789199a18ff9b5a86b4c3c7bdb9dd32f968508d" => :el_capitan
   end
 
   keg_only :versioned_formula
@@ -100,9 +100,7 @@ class RubyAT19 < Formula
       rm_f bin/"gem#{program_suffix}"
 
       # Drop in the new version.
-      (rg_in/"rubygems").install Dir[buildpath/"vendor_gem/lib/rubygems/*"]
-      rg_in.install buildpath/"vendor_gem/lib/rubygems.rb"
-      rg_in.install buildpath/"vendor_gem/lib/ubygems.rb"
+      rg_in.install Dir[buildpath/"vendor_gem/lib/*"]
       bin.install buildpath/"vendor_gem/bin/gem" => "gem#{program_suffix}"
     end
   end

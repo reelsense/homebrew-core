@@ -3,16 +3,18 @@ class Gmime < Formula
   homepage "https://spruce.sourceforge.io/gmime/"
   url "https://download.gnome.org/sources/gmime/3.0/gmime-3.0.5.tar.xz"
   sha256 "2f5353ac1062aa58c4855cc7691a0778c84339c654301a6bc0e95ba8427b85e0"
+  revision 1
 
   bottle do
-    sha256 "d046da22ebd37b9071a9d3485b85035b77c2484628bcd626dc0a722417992d5b" => :high_sierra
-    sha256 "f0dda96e5c79eaec0b115b8de98888c59bbe16705bfa798f1b89b8e887f7cbee" => :sierra
-    sha256 "fc9b749c6f50cf3973af08c7ad07d036b6411905ea2356a7f110246b0fe832c0" => :el_capitan
+    sha256 "bec06338aab6e19d38a2586ee9551b382d5ff8d2c7923b9595ffa9cc3666fd16" => :high_sierra
+    sha256 "ac12b9473ad575fa21595401b220232cdc9ea608be9201950ce45eb2d7a12c8a" => :sierra
+    sha256 "d8005dabb23d580b39bb3bc15c88f410f6660ed57bc4654f5443946d1f78ce63" => :el_capitan
   end
 
   depends_on "pkg-config" => :build
   depends_on "gobject-introspection" => :recommended
   depends_on "glib"
+  depends_on "gpgme"
 
   def install
     args = %W[
@@ -21,6 +23,7 @@ class Gmime < Formula
       --enable-largefile
       --disable-vala
       --disable-glibtest
+      --enable-crypto
     ]
 
     if build.with? "gobject-introspection"

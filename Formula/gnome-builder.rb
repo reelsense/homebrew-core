@@ -3,13 +3,12 @@ class GnomeBuilder < Formula
   homepage "https://wiki.gnome.org/Apps/Builder"
   url "https://download.gnome.org/sources/gnome-builder/3.24/gnome-builder-3.24.2.tar.xz"
   sha256 "84843a9f4af2e1ee1ebfac44441a2affa2d409df9066e7d11bf1d232ae0c535a"
-  revision 3
+  revision 5
 
   bottle do
-    rebuild 1
-    sha256 "f9c3e3649d49844ae48d8d5da563ddd9cc2f3fa156defad956aadb7f7a367679" => :high_sierra
-    sha256 "809503f452ccf7b23b2dbd6426608beee8f6d03053b1ca68b0bea443cab84d95" => :sierra
-    sha256 "13a808b79271fa682f6d07aa59034afca0636fce78611c0396687cb67c5583c3" => :el_capitan
+    sha256 "11cd6ef17936e5cb9f7acc11d2ba8d1b441722b2cb871389001a51e87d0ee084" => :high_sierra
+    sha256 "2aa5d57a1f79f0f834545a848b36dd3294a673b7e68a47a42983e68e1ded7663" => :sierra
+    sha256 "f711d35258d5dd969bd3dbc4213a91f86a4a21eed1b6ecb5dc19128ab0d51e44" => :el_capitan
   end
 
   depends_on "pkg-config" => :build

@@ -3,11 +3,12 @@ class Corebird < Formula
   homepage "https://corebird.baedert.org"
   url "https://github.com/baedert/corebird/releases/download/1.7.3/corebird-1.7.3.tar.xz"
   sha256 "cbf42fdf186f5dea47c5d171f6a6dd47a05d0e721a4bfd6e61b53069ea278e27"
+  revision 2
 
   bottle do
-    sha256 "a291652e056fbea798efa8692f9c103417a63108a67e6413e8b0670b77ae4a57" => :high_sierra
-    sha256 "31a125c90a27b72c1cec482ad77ae12d39bc68a7b13ae29e3439b315056bf12d" => :sierra
-    sha256 "36a8e50b372c3b11d2ff8654b834bd7d62a04a74c54527c10a8e07b78c329286" => :el_capitan
+    sha256 "0bd41e0af11458df0dff89a833d98e9850d868f5070196a6a87bdb121b55c554" => :high_sierra
+    sha256 "b563160b12c8d7537e6850de74a389cc315880e261b7d7b41506e5ae9a7d75ac" => :sierra
+    sha256 "f1b4b7645e96e335b92bb3f4c310b40e6295682e62b8fdc3bc7f19c068ab1656" => :el_capitan
   end
 
   depends_on "pkg-config" => :build

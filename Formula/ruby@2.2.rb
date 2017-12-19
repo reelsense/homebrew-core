@@ -1,14 +1,14 @@
 class RubyAT22 < Formula
   desc "Powerful, clean, object-oriented scripting language"
   homepage "https://www.ruby-lang.org/"
-  url "https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.8.tar.xz"
-  sha256 "37eafc15037396c26870f6a6c5bcd0658d14b46cd5e191a3b56d89dd22d561b0"
+  url "https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.9.tar.xz"
+  sha256 "313b44b1105589d00bb30b9cccf7da44d263fe20a2d8d269ada536d4a7ef285c"
   revision 1
 
   bottle do
-    sha256 "263499f1921a2b3d9e49982052295f3680bcf63211755c2fe02f5f5e599ca9b2" => :high_sierra
-    sha256 "c52f9e40c566ee0c6f700cdaf8697ada29f09003b9719a26da94d785a60474ae" => :sierra
-    sha256 "54f91fb7f7607e67a51b5f9c02d475e55cb0ea8301e418e8b0ee9afd186dfa0f" => :el_capitan
+    sha256 "bcde97f083584bd4d404c5304081fc542e39d7951df032060e3c9239db01fe80" => :high_sierra
+    sha256 "1c32a70a0b373d91e4e15bb79f7a7e57d2ee3ec720d03cf6a4916dc8b2e8fdd5" => :sierra
+    sha256 "3e7d0f389ce9adbcb4533f2c351a6a7c3c2f8563878a1fba3bfbe6549083275c" => :el_capitan
   end
 
   keg_only :versioned_formula
@@ -108,9 +108,7 @@ class RubyAT22 < Formula
       rm_f bin/"gem#{program_suffix}"
 
       # Drop in the new version.
-      (rg_in/"rubygems").install Dir[buildpath/"vendor_gem/lib/rubygems/*"]
-      rg_in.install buildpath/"vendor_gem/lib/rubygems.rb"
-      rg_in.install buildpath/"vendor_gem/lib/ubygems.rb"
+      rg_in.install Dir[buildpath/"vendor_gem/lib/*"]
       bin.install buildpath/"vendor_gem/bin/gem" => "gem#{program_suffix}"
     end
   end
