@@ -3,18 +3,18 @@ class PreCommit < Formula
 
   desc "Framework for managing multi-language pre-commit hooks"
   homepage "http://pre-commit.com/"
-  url "https://github.com/pre-commit/pre-commit/archive/v1.4.1.tar.gz"
-  sha256 "cc908bc0ca5f77cdb6d05d090f9b09a18514de8c82dfea3b8edffda06871f0e6"
-  revision 2
+  url "https://github.com/pre-commit/pre-commit/archive/v1.4.3.tar.gz"
+  sha256 "6e69e4b44a968a9378e0f349697245ab80f9afd18c421dfa55b3a6762f7ff97b"
+  revision 1
 
   bottle do
-    cellar :any
-    sha256 "6ce01b3582cdac192722fc52a9135d47d2aa3d9ad7a5f19dc0db3f4962d7d54a" => :high_sierra
-    sha256 "3dd6b7f41975da40839c6e8f5523033c40a57970d12f4a7c662ccb832e7b6c29" => :sierra
-    sha256 "98b2d42774e8f63150e04f073ea3bcc53c1d3d00d5a43f858fb076c254c8715a" => :el_capitan
+    cellar :any_skip_relocation
+    sha256 "9912b4b58c928d2887c5a5fde37df195577bf2716ce3b0a9543a2d70c9618df3" => :high_sierra
+    sha256 "528441ae8c035a9360def129955d940b731364c0a47c5e4b1636583be8289d3f" => :sierra
+    sha256 "a896e4baa62fc58bd307aba54ee8405bd369341450b73ec754274efa9f6f7004" => :el_capitan
   end
 
-  depends_on :python3
+  depends_on "python3"
 
   def install
     venv = virtualenv_create(libexec, "python3")
