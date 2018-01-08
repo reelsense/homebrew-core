@@ -5,13 +5,13 @@ class Macvim < Formula
   url "https://github.com/macvim-dev/macvim/archive/snapshot-144.tar.gz"
   version "8.0-144"
   sha256 "23e1eaa00e9268eaa9a9061ea6018ad20f288bd6c03c1d8553a745d72527d33f"
-  revision 1
+  revision 3
   head "https://github.com/macvim-dev/macvim.git"
 
   bottle do
-    sha256 "d04e88f5e59dfce848b30522bf08dab5194535ebc46d442a88005bf7ea6c9624" => :high_sierra
-    sha256 "7acd5230323f2b85991d682e066972ae9fab0e3fbca826d2216f237b1a148a33" => :sierra
-    sha256 "b4b11b6e2126ad498107239fd7486a3bb5c5fc06b0e0473a75c9e8083b2b9d6d" => :el_capitan
+    sha256 "51ede471f2c9a9f0e40cdf5f06f8ea6267ec7322abe2434fb8222870c229bdf7" => :high_sierra
+    sha256 "004932faa6338ef23de2da8efaeb70c60d804005a54260d10d742683a345fcdd" => :sierra
+    sha256 "0d992aaa23051d8fc39bae585d7cf81f238016734bb13a01b7ce62a0f65b0d19" => :el_capitan
   end
 
   option "with-override-system-vim", "Override system vim"
@@ -20,14 +20,9 @@ class Macvim < Formula
 
   depends_on :xcode => :build
   depends_on "cscope" => :recommended
+  depends_on "python" => :recommended
   depends_on "lua" => :optional
   depends_on "luajit" => :optional
-
-  if MacOS.version >= :mavericks
-    option "with-custom-python", "Build with a custom Python 2 instead of the Homebrew version."
-  end
-
-  depends_on "python" => :recommended
   depends_on "python3" => :optional
 
   def install
