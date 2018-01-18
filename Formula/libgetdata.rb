@@ -6,40 +6,40 @@ class Libgetdata < Formula
   revision 1
 
   bottle do
-    sha256 "1b95b35bec7262c88e39c32339f471148b7eebcf58b75a2defce49e6428304eb" => :high_sierra
-    sha256 "12a4d19d85cc83d98bf1ddf643d67298613a380c83392638e03e5be1d28e8087" => :sierra
-    sha256 "8325146db660599ac119ab62e994c41cce2924db4b80d1a215e0ea7a45b9bd34" => :el_capitan
+    rebuild 2
+    sha256 "13e9d36f7ee8156ad9b5ffaa646588084e9212238aafbab50849f60c6cad0ab9" => :high_sierra
+    sha256 "9a96ebcf2d456594b5205c2ff0918dc7bcfff29be358fd6e369131f941e02f75" => :sierra
+    sha256 "88055dcabc5ed8b6cc068e244f8174eb798fd778e67a27867b3a0b33b3453121" => :el_capitan
   end
 
-  option "with-fortran", "Build Fortran bindings"
-  option "with-xz", "Build with LZMA compression support"
+  option "with-gcc", "Build Fortran bindings"
   option "with-libzzip", "Build with zzip compression support"
+  option "with-perl", "Build against Homebrew's Perl rather than system default"
+  option "with-xz", "Build with LZMA compression support"
 
   deprecated_option "lzma" => "with-xz"
   deprecated_option "zzip" => "with-libzzip"
+  deprecated_option "with-fortran" => "with-gcc"
 
   depends_on "libtool" => :run
-  depends_on "gcc" if build.with?("fortran")
+  depends_on "gcc" => :optional
   depends_on "libzzip" => :optional
+  depends_on "perl" => :optional
   depends_on "xz" => :optional
 
   def install
-    ENV.fortran if build.with?("fortran")
-
     args = %W[
       --disable-dependency-tracking
       --disable-silent-rules
       --prefix=#{prefix}
       --disable-php
       --disable-python
-      --with-perl-dir=#{lib}/perl5/site_perl
     ]
 
+    args << "--with-perl-dir=#{lib}/perl5/site_perl" if build.with? "perl"
     args << "--without-liblzma" if build.without? "xz"
     args << "--without-libzzip" if build.without? "libzzip"
-    if build.without? "fortran"
-      args << "--disable-fortran" << "--disable-fortran95"
-    end
+    args << "--disable-fortran" << "--disable-fortran95" if build.without? "gcc"
 
     system "./configure", *args
     system "make"

@@ -1,15 +1,14 @@
 class Postgis < Formula
   desc "Adds support for geographic objects to PostgreSQL"
   homepage "https://postgis.net/"
-  url "http://download.osgeo.org/postgis/source/postgis-2.4.2.tar.gz"
-  sha256 "23625bc99ed440d53a20225721095a3f5c653b62421c4d597c8038f0d7a321d9"
-  revision 1
+  url "http://download.osgeo.org/postgis/source/postgis-2.4.3.tar.gz"
+  sha256 "ea5374c5db6b645ba5628ddcb08f71d3b3d90a464d366b4e1d20d5a268bde4b9"
 
   bottle do
     cellar :any
-    sha256 "a50a389b003c6cf040786f83ddfd9bd48d406bf593fa6faee6db596ae68526df" => :high_sierra
-    sha256 "697b94a98dcbc8c8cc6b0d9d8c04e93813f6308bae41a0d76eb41537eab39c55" => :sierra
-    sha256 "8d2cd66ab51858995b4660f963a2d46fa4272c93508ffb5c1cf9c6720e59dd46" => :el_capitan
+    sha256 "1b3bc57b9ab2b9d9fc1aedb757bfec8e649f23da5cc8572bae8b5183d0239021" => :high_sierra
+    sha256 "af980db4cca9a02dbf1c2bcc92274a48e98bd2119779811a37a3d9f1e07b0eef" => :sierra
+    sha256 "cf9cfba0227e88332e0c2640caa87b5958efb63acedaacfa3fa153508187d087" => :el_capitan
   end
 
   head do
@@ -24,6 +23,7 @@ class Postgis < Formula
   option "without-gdal", "Disable postgis raster support"
   option "with-html-docs", "Generate multi-file HTML documentation"
   option "with-api-docs", "Generate developer API documentation (long process)"
+  option "with-protobuf-c", "Build with protobuf-c to enable Geobuf and Mapbox Vector Tile support"
 
   depends_on "pkg-config" => :build
   depends_on "gpp" => :build
@@ -51,6 +51,8 @@ class Postgis < Formula
     depends_on "doxygen"
   end
 
+  depends_on "protobuf-c" => :optional
+
   def install
     ENV.deparallelize
 
@@ -68,6 +70,7 @@ class Postgis < Formula
     args << "--with-gui" if build.with? "gui"
     args << "--without-raster" if build.without? "gdal"
     args << "--with-xsldir=#{Formula["docbook-xsl"].opt_prefix}/docbook-xsl" if build.with? "html-docs"
+    args << "--with-protobufdir=#{Formula["protobuf-c"].opt_bin}" if build.with? "protobuf-c"
 
     system "./autogen.sh" if build.head?
     system "./configure", *args
