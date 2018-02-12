@@ -1,15 +1,15 @@
 class Auditbeat < Formula
   desc "Lightweight Shipper for Audit Data"
   homepage "https://www.elastic.co/products/beats/auditbeat"
-  url "https://github.com/elastic/beats/archive/v6.1.3.tar.gz"
-  sha256 "5a21ce1eca7eab2b8214b54a7f4690cd557cd05073119f861025330e1b4006a3"
+  url "https://github.com/elastic/beats/archive/v6.2.1.tar.gz"
+  sha256 "7fc935b65469acc728653c89ef7b8541db4c5dafdbb1459822f0c215d58d30e6"
   head "https://github.com/elastic/beats.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "2b5a0677d653d335d188f996d52be75274ef771efdafcd6236cf4068245951c5" => :high_sierra
-    sha256 "782dd6a00ff606a6c83d7a7a9c7d5bd4b4246476bd08ad8694234117410bf0f8" => :sierra
-    sha256 "6546f8ed359ef4488b101c8bd07c420d452d660bf3e98cd5485b3c5400e249d7" => :el_capitan
+    sha256 "89a512f7e6483e634d9e26a7cbd999ed2be83e80256589a7cfdce0600d6bc906" => :high_sierra
+    sha256 "59588c80d3da694711390d71622d60fe61d235b49b6781f69ce2b75605e1d4d5" => :sierra
+    sha256 "55a88b565153a924e528a7ae87384880291bf865f66bc85746fdee6b404ca23d" => :el_capitan
   end
 
   depends_on "go" => :build
@@ -35,11 +35,10 @@ class Auditbeat < Formula
       # prevent downloading binary wheels
       inreplace "../libbeat/scripts/Makefile", "pip install", "pip install --no-binary :all"
       system "make"
-      system "make", "update"
+      system "make", "DEV_OS=darwin", "update"
       (libexec/"bin").install "auditbeat"
       libexec.install "_meta/kibana"
 
-      inreplace "auditbeat.yml", /^- module: audit\n^  metricsets: \[kernel\]\n^  kernel.audit_rules: \|/, "#- module: audit\n#  metricsets: [kernel]\n#  kernel.audit_rules: |"
       (etc/"auditbeat").install Dir["auditbeat*.yml"]
       prefix.install_metafiles
     end
@@ -83,15 +82,12 @@ class Auditbeat < Formula
     (testpath/"files").mkpath
     (testpath/"config/auditbeat.yml").write <<~EOS
       auditbeat.modules:
-      - module: audit
-        metricsets: [file]
-        file.paths:
+      - module: file_integrity
+        paths:
           - #{testpath}/files
       output.file:
         path: "#{testpath}/auditbeat"
         filename: auditbeat
-        codec.format:
-          string: '%{[audit]}'
     EOS
     pid = fork do
       exec "#{bin}/auditbeat", "-path.config", testpath/"config", "-path.data", testpath/"data"
@@ -102,7 +98,7 @@ class Auditbeat < Formula
       touch testpath/"files/touch"
       sleep 30
       s = IO.readlines(testpath/"auditbeat/auditbeat").last(1)[0]
-      assert_match "\"action\":\"created\"", s
+      assert_match "\"action\":\[\"created\"\]", s
       realdirpath = File.realdirpath(testpath)
       assert_match "\"path\":\"#{realdirpath}/files/touch\"", s
     ensure

@@ -1,15 +1,15 @@
 class Heartbeat < Formula
   desc "Lightweight Shipper for Uptime Monitoring"
   homepage "https://www.elastic.co/products/beats/heartbeat"
-  url "https://github.com/elastic/beats/archive/v6.1.3.tar.gz"
-  sha256 "5a21ce1eca7eab2b8214b54a7f4690cd557cd05073119f861025330e1b4006a3"
+  url "https://github.com/elastic/beats/archive/v6.2.1.tar.gz"
+  sha256 "7fc935b65469acc728653c89ef7b8541db4c5dafdbb1459822f0c215d58d30e6"
   head "https://github.com/elastic/beats.git"
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "077ed3d0c3b9646660dc5a525a12d3d21dbcf17dcd968608dafdca1ba28ffb4e" => :high_sierra
-    sha256 "050f3b644f70afb6481ded41d1db9160b1dea8cc8262a4c143cee2e159bfc58c" => :sierra
-    sha256 "050551dd49c069625f685363b07780cc336bdaa06517e6affb75b4252396102c" => :el_capitan
+    sha256 "eda4240f82137ce1aa889a3ea2e32d430d491004b6bfa42b140b175daefd00ad" => :high_sierra
+    sha256 "94a4c3581380ec1b6b9fcebcebc68ad2e9665504f574da005285d3557034542f" => :sierra
+    sha256 "14a87aa9fcbde608cc93a362c572a61ed28a930da826434cbe27d5503dc6673a" => :el_capitan
   end
 
   depends_on "go" => :build

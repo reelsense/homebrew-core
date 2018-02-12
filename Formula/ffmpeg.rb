@@ -3,12 +3,14 @@ class Ffmpeg < Formula
   homepage "https://ffmpeg.org/"
   url "https://ffmpeg.org/releases/ffmpeg-3.4.1.tar.bz2"
   sha256 "f3443e20154a590ab8a9eef7bc951e8731425efc75b44ff4bee31d8a7a574a2c"
+  revision 2
+
   head "https://github.com/FFmpeg/FFmpeg.git"
 
   bottle do
-    sha256 "f43c9bfbe55f3e97dea63db39cbfb18e53d34796ead8be52f0d9796121427214" => :high_sierra
-    sha256 "5069b7263c6cd80702c7d388ad846c8bbea575ee7e7469f1320def2e5da6bc47" => :sierra
-    sha256 "02239274124b1c5b883cfa4da0a1e4e175d14587dd72b181cc91c1f815cadaf5" => :el_capitan
+    sha256 "fca708497aaf748788d6018f66d3d7d42e6c3f5ebcd18fc55f438463e71537c5" => :high_sierra
+    sha256 "02f29ed77a811aefa6125821a341f1a70a27733e80f404421048a003debb807a" => :sierra
+    sha256 "f279394486cc8e1305065d72043c4d1158d9cf0cf4fa423d347dcae72350ef7e" => :el_capitan
   end
 
   option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
@@ -103,6 +105,7 @@ class Ffmpeg < Formula
       --host-ldflags=#{ENV.ldflags}
     ]
 
+    args << "--disable-jack" if build.stable?
     args << "--enable-gpl" if build.with? "gpl"
     args << "--disable-indev=qtkit" if build.without? "qtkit"
     args << "--disable-securetransport" if build.without? "securetransport"

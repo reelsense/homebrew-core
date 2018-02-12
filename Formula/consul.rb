@@ -4,17 +4,17 @@ class Consul < Formula
   desc "Tool for service discovery, monitoring and configuration"
   homepage "https://www.consul.io"
   url "https://github.com/hashicorp/consul.git",
-      :tag => "v1.0.3",
-      :revision => "48f3dd5642374d079f5a64359023fb8318eb81cc"
+      :tag => "v1.0.6",
+      :revision => "9a494b5fb9c86180a5702e29c485df1507a47198"
 
   head "https://github.com/hashicorp/consul.git",
        :shallow => false
 
   bottle do
     cellar :any_skip_relocation
-    sha256 "03dbaf930ce4253b3b4e4a83a92635f170b54ef1a69c981ff195a12c2a2118b0" => :high_sierra
-    sha256 "ec82a15dd396db7b7e88aee7c4ed7aeaf68d66a4d5c12c897abb11b4d876090b" => :sierra
-    sha256 "f6503849d3241f10d467064236269f715ebf054fc16e7042831fdadde1d12b37" => :el_capitan
+    sha256 "af238993eee220ad707c6b1ceb0a907961394ff6a16d479f2db5a4f9bb2f4f6e" => :high_sierra
+    sha256 "5cb23f5729072d31d727e6659b5bd622fb1dd978c729c74fe902312866d33638" => :sierra
+    sha256 "30aa2a7dd3a0d57d174e6d2e45b73d0bd7d1528b1a9b41868f18bc75567e02b1" => :el_capitan
   end
 
   depends_on "go" => :build
@@ -30,9 +30,9 @@ class Consul < Formula
         :revision => "30f82fa23fd844bd5bb1e5f216db87fd77b5eb43"
   end
 
-  go_resource "github.com/jteeuwen/go-bindata" do
-    url "https://github.com/jteeuwen/go-bindata.git",
-        :revision => "a0ff2567cfb70903282db057e799fd826784d41d"
+  go_resource "github.com/hashicorp/go-bindata" do
+    url "https://github.com/hashicorp/go-bindata.git",
+        :revision => "bf7910af899725e4938903fb32048c7c0b15f12e"
   end
 
   go_resource "github.com/magiconair/vendorfmt" do
@@ -54,6 +54,8 @@ class Consul < Formula
     # Avoid running `go get`
     inreplace "GNUmakefile", "go get -u -v $(GOTOOLS)", ""
 
+    ENV["XC_OS"] = "darwin"
+    ENV["XC_ARCH"] = MacOS.prefer_64_bit? ? "amd64" : "386"
     ENV["GOPATH"] = buildpath
     contents = Dir["{*,.git,.gitignore}"]
     (buildpath/"src/github.com/hashicorp/consul").install contents
@@ -64,7 +66,7 @@ class Consul < Formula
     build_tools = [
       "github.com/axw/gocov/gocov",
       "github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs",
-      "github.com/jteeuwen/go-bindata/go-bindata",
+      "github.com/hashicorp/go-bindata/go-bindata",
       "github.com/magiconair/vendorfmt/cmd/vendorfmt",
       "github.com/matm/gocov-html",
       "golang.org/x/tools/cmd/cover",
